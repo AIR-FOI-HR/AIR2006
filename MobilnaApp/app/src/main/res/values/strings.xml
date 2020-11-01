@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">DrinkUp</string>
+    <!-- Strings related to registration -->
+    <string name="prompt_email">Email</string>
+    <string name="password">Lozinka</string>
+    <string name="registration_button_caption">Registriraj se!</string>
+    <string name="registration_successful">"Zahtjev za registracijom je uspješno poslan!"</string>
+    <string name="invalid_email_format">Email adresa nije u valjanom formatu!</string>
+    <string name="invalid_password">Lozinka treba sadržavati minimalno 8 znakova, među kojima trebaju biti slova i brojevi!</string>
+    <string name="registration_failed">"Dogodio se neuspjeh kod registracije"</string>
+    <string name="oib">OIB</string>
+    <string name="firstName">Ime</string>
+    <string name="lastName">Prezime</string>
+    <string name="passwordRepeat">Ponovi lozinku</string>
+    <string name="male">Muško</string>
+    <string name="genderOptionsLabelCaption">Spol</string>
+    <string name="female">Žensko</string>
+    <string name="roleLabelCaption">Vi ste:</string>
+    <string name="password_mismatch">Lozinke se ne podudaraju!</string>
+    <string name="invalid_oib_format">OIB nije ispravno unesen!</string>
+    <string name="undefined_first_name">Niste unijeli ime</string>
+    <string name="undefined_last_name">Niste unijeli prezime!</string>
+    <string name="some_errors_exist">U neka polja nisu navedene ispravne vrijednosti!</string>
+    <string name="undefined_fields_exist">Neka polja nisu popunjena</string>
+    <string-array name="roleList">
+        <item>Gost</item>
+        <item>Vlasnik lokala</item>
+        <item>Konobar</item>
+    </string-array>
+</resources>
