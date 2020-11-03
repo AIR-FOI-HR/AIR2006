@@ -1,0 +1,12 @@
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\bin\Debug\netcoreapp3.1\DrinkUp.Models.Common.deps.json
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\bin\Debug\netcoreapp3.1\DrinkUp.Models.Common.dll
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\bin\Debug\netcoreapp3.1\DrinkUp.Models.Common.pdb
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\bin\Debug\netcoreapp3.1\DrinkUp.DAL.dll
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\bin\Debug\netcoreapp3.1\DrinkUp.DAL.pdb
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\obj\Debug\netcoreapp3.1\DrinkUp.Models.Common.csprojAssemblyReference.cache
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\obj\Debug\netcoreapp3.1\DrinkUp.Models.Common.AssemblyInfoInputs.cache
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\obj\Debug\netcoreapp3.1\DrinkUp.Models.Common.AssemblyInfo.cs
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\obj\Debug\netcoreapp3.1\DrinkUp.Models.Common.csproj.CoreCompileInputs.cache
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\obj\Debug\netcoreapp3.1\DrinkUp.Models.Common.csproj.CopyComplete
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\obj\Debug\netcoreapp3.1\DrinkUp.Models.Common.dll
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Models.Common\obj\Debug\netcoreapp3.1\DrinkUp.Models.Common.pdb

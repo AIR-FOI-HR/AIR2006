@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold "Server=tcp:air2006.database.windows.net,1433;Database=air2006sql;User ID=kacko;Password=tri*SEDAM=21;Trusted_Connection=False;" Microsoft.EntityFrameworkCore.SqlServer -o Entities --context-dir Context -c DrinkUpContext -f

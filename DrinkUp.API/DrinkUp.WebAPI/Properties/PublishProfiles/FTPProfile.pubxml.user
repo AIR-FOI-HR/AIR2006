@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAfEQX5iZaTka4eTVS6aEFfQAAAAACAAAAAAAQZgAAAAEAACAAAABJbKKOYXCYAeVgATAJwU4+FPup0u2QUChr66KAyLZPZgAAAAAOgAAAAAIAACAAAACApvBxIO0qEM0hBxUY4xVK2XJgABG8GaOn8KMA6MnOSIAAAAACPTUYNEeEcvpD4Rt0+u4VUr+eqpTrPSxxi91CX9sXpommA6goulp2EJB2Le+0HzlEtelE1DHH3lBfKW7Sa09JEUcmSE5c63rxzEZhTdBeFAyC6/rHmoYYp2PwAq3DCQBx7BiGES67w6hdqK1JNW2cwJuOQz2X15pCFxdDY++sVkAAAACQESh658nGyYNcmNVzFbaHfYQGJBm1wn8eka3bFChXri5zJB5t6SK2LY+exVbc5bN2Fl6CO0ECsV31eekGrZPD</EncryptedPassword>
+    <_PublishTargetUrl>ftps://waws-prod-fra-005.ftp.azurewebsites.windows.net/site/wwwroot</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>11/02/2020 21:04:18</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>11/02/2020 21:04:18</publishTime>
+    </File>
+    <File Include="BouncyCastle.Crypto.dll">
+      <publishTime>11/08/2018 10:03:48</publishTime>
+    </File>
+    <File Include="DrinkUp.Common.dll">
+      <publishTime>02/11/2020 21:05:00</publishTime>
+    </File>
+    <File Include="DrinkUp.Common.dll.config">
+      <publishTime>02/11/2020 20:24:43</publishTime>
+    </File>
+    <File Include="DrinkUp.Common.pdb">
+      <publishTime>02/11/2020 21:05:00</publishTime>
+    </File>
+    <File Include="DrinkUp.DAL.dll">
+      <publishTime>02/11/2020 23:06:58</publishTime>
+    </File>
+    <File Include="DrinkUp.DAL.dll.config">
+      <publishTime>02/11/2020 20:49:53</publishTime>
+    </File>
+    <File Include="DrinkUp.DAL.pdb">
+      <publishTime>02/11/2020 23:06:58</publishTime>
+    </File>
+    <File Include="DrinkUp.WebAPI.deps.json">
+      <publishTime>11/02/2020 23:07:51</publishTime>
+    </File>
+    <File Include="DrinkUp.WebAPI.dll">
+      <publishTime>11/02/2020 23:07:51</publishTime>
+    </File>
+    <File Include="DrinkUp.WebAPI.exe">
+      <publishTime>11/02/2020 23:07:51</publishTime>
+    </File>
+    <File Include="DrinkUp.WebAPI.pdb">
+      <publishTime>11/02/2020 23:07:51</publishTime>
+    </File>
+    <File Include="DrinkUp.WebAPI.runtimeconfig.json">
+      <publishTime>02/11/2020 23:06:59</publishTime>
+    </File>
+    <File Include="Google.Protobuf.dll">
+      <publishTime>02/16/2020 13:04:38</publishTime>
+    </File>
+    <File Include="Google.Protobuf.pdb">
+      <publishTime>02/16/2020 08:02:46</publishTime>
+    </File>
+    <File Include="Google.Protobuf.xml">
+      <publishTime>02/16/2020 08:02:46</publishTime>
+    </File>
+    <File Include="K4os.Compression.LZ4.dll">
+      <publishTime>03/07/2019 22:59:30</publishTime>
+    </File>
+    <File Include="K4os.Compression.LZ4.Streams.dll">
+      <publishTime>03/07/2019 22:59:32</publishTime>
+    </File>
+    <File Include="K4os.Compression.LZ4.Streams.xml">
+      <publishTime>03/07/2019 22:59:32</publishTime>
+    </File>
+    <File Include="K4os.Compression.LZ4.xml">
+      <publishTime>03/07/2019 22:59:30</publishTime>
+    </File>
+    <File Include="K4os.Hash.xxHash.dll">
+      <publishTime>03/07/2019 20:39:02</publishTime>
+    </File>
+    <File Include="K4os.Hash.xxHash.xml">
+      <publishTime>03/07/2019 20:39:02</publishTime>
+    </File>
+    <File Include="Microsoft.Bcl.AsyncInterfaces.dll">
+      <publishTime>04/14/2020 22:39:20</publishTime>
+    </File>
+    <File Include="Microsoft.Bcl.AsyncInterfaces.xml">
+      <publishTime>04/14/2020 22:39:20</publishTime>
+    </File>
+    <File Include="Microsoft.Bcl.HashCode.dll">
+      <publishTime>11/15/2019 08:38:12</publishTime>
+    </File>
+    <File Include="Microsoft.Bcl.HashCode.xml">
+      <publishTime>11/15/2019 08:38:12</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.Abstractions.dll">
+      <publishTime>09/23/2020 17:19:02</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.Abstractions.xml">
+      <publishTime>09/23/2020 17:19:02</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.dll">
+      <publishTime>09/23/2020 17:19:34</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.Relational.dll">
+      <publishTime>12/14/2019 20:11:48</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.Relational.xml">
+      <publishTime>12/14/2019 20:11:48</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.xml">
+      <publishTime>09/23/2020 17:19:34</publishTime>
+    </File>
+    <File Include="MySql.Data.dll">
+      <publishTime>09/18/2020 18:21:54</publishTime>
+    </File>
+    <File Include="MySql.Data.EntityFrameworkCore.dll">
+      <publishTime>09/18/2020 18:21:54</publishTime>
+    </File>
+    <File Include="MySql.Data.EntityFrameworkCore.xml">
+      <publishTime>09/18/2020 18:21:42</publishTime>
+    </File>
+    <File Include="MySql.Data.xml">
+      <publishTime>09/18/2020 18:21:24</publishTime>
+    </File>
+    <File Include="Renci.SshNet.dll">
+      <publishTime>10/16/2017 20:53:06</publishTime>
+    </File>
+    <File Include="Renci.SshNet.xml">
+      <publishTime>10/16/2017 20:53:06</publishTime>
+    </File>
+    <File Include="Ubiety.Dns.Core.dll">
+      <publishTime>09/18/2020 18:20:50</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>11/02/2020 23:07:52</publishTime>
+    </File>
+    <File Include="Zstandard.Net.dll">
+      <publishTime>09/18/2020 18:20:50</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

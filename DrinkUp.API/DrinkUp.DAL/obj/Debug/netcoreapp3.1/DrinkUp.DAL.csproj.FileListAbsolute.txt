@@ -1,0 +1,12 @@
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\obj\Debug\netcoreapp3.1\DrinkUp.DAL.csprojAssemblyReference.cache
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\obj\Debug\netcoreapp3.1\DrinkUp.DAL.AssemblyInfoInputs.cache
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\obj\Debug\netcoreapp3.1\DrinkUp.DAL.AssemblyInfo.cs
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\bin\Debug\netcoreapp3.1\DrinkUp.DAL.deps.json
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\bin\Debug\netcoreapp3.1\DrinkUp.DAL.dll
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\bin\Debug\netcoreapp3.1\DrinkUp.DAL.pdb
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\obj\Debug\netcoreapp3.1\DrinkUp.DAL.dll
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\obj\Debug\netcoreapp3.1\DrinkUp.DAL.pdb
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\bin\Debug\netcoreapp3.1\DrinkUp.DAL.runtimeconfig.json
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\bin\Debug\netcoreapp3.1\DrinkUp.DAL.runtimeconfig.dev.json
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\obj\Debug\netcoreapp3.1\DrinkUp.DAL.genruntimeconfig.cache
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.DAL\obj\Debug\netcoreapp3.1\DrinkUp.DAL.csproj.CoreCompileInputs.cache

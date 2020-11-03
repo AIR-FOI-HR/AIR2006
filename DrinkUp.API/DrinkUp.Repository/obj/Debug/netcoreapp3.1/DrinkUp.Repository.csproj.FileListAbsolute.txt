@@ -1,0 +1,5 @@
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Repository\bin\Debug\netcoreapp3.1\DrinkUp.Repository.deps.json
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Repository\bin\Debug\netcoreapp3.1\DrinkUp.Repository.dll
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Repository\obj\Debug\netcoreapp3.1\DrinkUp.Repository.csprojAssemblyReference.cache
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Repository\obj\Debug\netcoreapp3.1\DrinkUp.Repository.AssemblyInfoInputs.cache
+C:\Users\Kacko\source\repos\DrinkUp.API\DrinkUp.Repository\obj\Debug\netcoreapp3.1\DrinkUp.Repository.AssemblyInfo.cs
