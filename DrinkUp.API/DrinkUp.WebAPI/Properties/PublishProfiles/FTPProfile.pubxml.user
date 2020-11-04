@@ -10,47 +10,101 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <_PublishTargetUrl>ftps://waws-prod-fra-005.ftp.azurewebsites.windows.net/site/wwwroot</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
+    <File Include="App.Config">
+      <publishTime>05/28/2020 16:23:07</publishTime>
+    </File>
     <File Include="appsettings.Development.json">
-      <publishTime>11/02/2020 21:04:18</publishTime>
+      <publishTime>02/11/2020 21:04:18</publishTime>
     </File>
     <File Include="appsettings.json">
-      <publishTime>11/02/2020 21:04:18</publishTime>
+      <publishTime>02/11/2020 21:04:18</publishTime>
+    </File>
+    <File Include="Autofac.dll">
+      <publishTime>09/28/2020 18:37:00</publishTime>
+    </File>
+    <File Include="Autofac.Extensions.DependencyInjection.dll">
+      <publishTime>10/29/2020 13:06:32</publishTime>
+    </File>
+    <File Include="AutoMapper.dll">
+      <publishTime>06/18/2018 13:00:14</publishTime>
+    </File>
+    <File Include="AutoMapper.Extensions.Microsoft.DependencyInjection.dll">
+      <publishTime>07/20/2018 18:45:54</publishTime>
     </File>
     <File Include="BouncyCastle.Crypto.dll">
       <publishTime>11/08/2018 10:03:48</publishTime>
     </File>
     <File Include="DrinkUp.Common.dll">
-      <publishTime>02/11/2020 21:05:00</publishTime>
+      <publishTime>11/04/2020 19:20:42</publishTime>
     </File>
     <File Include="DrinkUp.Common.dll.config">
-      <publishTime>02/11/2020 20:24:43</publishTime>
+      <publishTime>11/02/2020 20:24:43</publishTime>
     </File>
     <File Include="DrinkUp.Common.pdb">
-      <publishTime>02/11/2020 21:05:00</publishTime>
+      <publishTime>11/04/2020 19:20:42</publishTime>
     </File>
     <File Include="DrinkUp.DAL.dll">
-      <publishTime>02/11/2020 23:06:58</publishTime>
+      <publishTime>11/04/2020 19:20:43</publishTime>
     </File>
     <File Include="DrinkUp.DAL.dll.config">
       <publishTime>02/11/2020 20:49:53</publishTime>
     </File>
     <File Include="DrinkUp.DAL.pdb">
-      <publishTime>02/11/2020 23:06:58</publishTime>
+      <publishTime>11/04/2020 19:20:43</publishTime>
+    </File>
+    <File Include="DrinkUp.Models.Common.dll">
+      <publishTime>11/04/2020 20:01:53</publishTime>
+    </File>
+    <File Include="DrinkUp.Models.Common.pdb">
+      <publishTime>11/04/2020 20:01:53</publishTime>
+    </File>
+    <File Include="DrinkUp.Models.dll">
+      <publishTime>11/04/2020 20:01:53</publishTime>
+    </File>
+    <File Include="DrinkUp.Models.pdb">
+      <publishTime>11/04/2020 20:01:53</publishTime>
+    </File>
+    <File Include="DrinkUp.Repository.dll">
+      <publishTime>11/04/2020 20:01:54</publishTime>
+    </File>
+    <File Include="DrinkUp.Repository.pdb">
+      <publishTime>11/04/2020 20:01:54</publishTime>
+    </File>
+    <File Include="DrinkUp.Service.Common.dll">
+      <publishTime>11/04/2020 20:01:54</publishTime>
+    </File>
+    <File Include="DrinkUp.Service.Common.pdb">
+      <publishTime>11/04/2020 20:01:54</publishTime>
+    </File>
+    <File Include="DrinkUp.Service.dll">
+      <publishTime>11/04/2020 20:01:54</publishTime>
+    </File>
+    <File Include="DrinkUp.Service.pdb">
+      <publishTime>11/04/2020 20:01:54</publishTime>
     </File>
     <File Include="DrinkUp.WebAPI.deps.json">
-      <publishTime>11/02/2020 23:07:51</publishTime>
+      <publishTime>11/04/2020 20:56:00</publishTime>
     </File>
     <File Include="DrinkUp.WebAPI.dll">
-      <publishTime>11/02/2020 23:07:51</publishTime>
+      <publishTime>11/04/2020 21:00:31</publishTime>
+    </File>
+    <File Include="DrinkUp.WebAPI.dll.config">
+      <publishTime>05/28/2020 16:23:07</publishTime>
     </File>
     <File Include="DrinkUp.WebAPI.exe">
-      <publishTime>11/02/2020 23:07:51</publishTime>
+      <publishTime>11/04/2020 21:00:31</publishTime>
     </File>
     <File Include="DrinkUp.WebAPI.pdb">
-      <publishTime>11/02/2020 23:07:51</publishTime>
+      <publishTime>11/04/2020 21:00:31</publishTime>
     </File>
     <File Include="DrinkUp.WebAPI.runtimeconfig.json">
-      <publishTime>02/11/2020 23:06:59</publishTime>
+      <publishTime>11/04/2020 19:37:34</publishTime>
+    </File>
+    <File Include="EntityFramework.dll">
+      <publishTime>10/23/2017 13:15:18</publishTime>
+    </File>
+    <File Include="EntityFramework.SqlServer.dll">
+      <publishTime>10/23/2017 13:15:20</publishTime>
     </File>
     <File Include="Google.Protobuf.dll">
       <publishTime>02/16/2020 13:04:38</publishTime>
@@ -80,16 +134,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/07/2019 20:39:02</publishTime>
     </File>
     <File Include="Microsoft.Bcl.AsyncInterfaces.dll">
-      <publishTime>04/14/2020 22:39:20</publishTime>
+      <publishTime>04/14/2020 22:39:12</publishTime>
     </File>
     <File Include="Microsoft.Bcl.AsyncInterfaces.xml">
       <publishTime>04/14/2020 22:39:20</publishTime>
     </File>
     <File Include="Microsoft.Bcl.HashCode.dll">
-      <publishTime>11/15/2019 08:38:12</publishTime>
+      <publishTime>11/15/2019 08:38:50</publishTime>
     </File>
     <File Include="Microsoft.Bcl.HashCode.xml">
       <publishTime>11/15/2019 08:38:12</publishTime>
+    </File>
+    <File Include="Microsoft.Data.SqlClient.dll">
+      <publishTime>05/15/2020 23:07:32</publishTime>
     </File>
     <File Include="Microsoft.EntityFrameworkCore.Abstractions.dll">
       <publishTime>09/23/2020 17:19:02</publishTime>
@@ -101,13 +158,67 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/23/2020 17:19:34</publishTime>
     </File>
     <File Include="Microsoft.EntityFrameworkCore.Relational.dll">
-      <publishTime>12/14/2019 20:11:48</publishTime>
+      <publishTime>09/23/2020 17:19:40</publishTime>
     </File>
     <File Include="Microsoft.EntityFrameworkCore.Relational.xml">
       <publishTime>12/14/2019 20:11:48</publishTime>
     </File>
+    <File Include="Microsoft.EntityFrameworkCore.SqlServer.dll">
+      <publishTime>09/23/2020 17:19:44</publishTime>
+    </File>
     <File Include="Microsoft.EntityFrameworkCore.xml">
       <publishTime>09/23/2020 17:19:34</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Caching.Abstractions.dll">
+      <publishTime>09/23/2020 16:04:22</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Caching.Memory.dll">
+      <publishTime>09/23/2020 16:04:46</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Configuration.Abstractions.dll">
+      <publishTime>09/23/2020 16:04:32</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Configuration.Binder.dll">
+      <publishTime>09/23/2020 16:05:18</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Configuration.dll">
+      <publishTime>09/23/2020 16:04:40</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.DependencyInjection.Abstractions.dll">
+      <publishTime>09/23/2020 16:04:46</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.DependencyInjection.dll">
+      <publishTime>09/23/2020 16:04:36</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Logging.Abstractions.dll">
+      <publishTime>09/23/2020 16:06:36</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Logging.dll">
+      <publishTime>09/23/2020 16:06:26</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Options.dll">
+      <publishTime>09/23/2020 16:04:36</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Primitives.dll">
+      <publishTime>09/23/2020 16:05:20</publishTime>
+    </File>
+    <File Include="Microsoft.Identity.Client.dll">
+      <publishTime>04/29/2019 22:04:14</publishTime>
+    </File>
+    <File Include="Microsoft.IdentityModel.JsonWebTokens.dll">
+      <publishTime>06/24/2019 19:50:38</publishTime>
+    </File>
+    <File Include="Microsoft.IdentityModel.Logging.dll">
+      <publishTime>06/24/2019 19:53:26</publishTime>
+    </File>
+    <File Include="Microsoft.IdentityModel.Protocols.dll">
+      <publishTime>06/24/2019 19:54:24</publishTime>
+    </File>
+    <File Include="Microsoft.IdentityModel.Protocols.OpenIdConnect.dll">
+      <publishTime>06/24/2019 19:59:32</publishTime>
+    </File>
+    <File Include="Microsoft.IdentityModel.Tokens.dll">
+      <publishTime>06/24/2019 19:56:06</publishTime>
     </File>
     <File Include="MySql.Data.dll">
       <publishTime>09/18/2020 18:21:54</publishTime>
@@ -121,17 +232,62 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="MySql.Data.xml">
       <publishTime>09/18/2020 18:21:24</publishTime>
     </File>
+    <File Include="Newtonsoft.Json.dll">
+      <publishTime>03/20/2017 20:03:18</publishTime>
+    </File>
     <File Include="Renci.SshNet.dll">
       <publishTime>10/16/2017 20:53:06</publishTime>
     </File>
     <File Include="Renci.SshNet.xml">
       <publishTime>10/16/2017 20:53:06</publishTime>
     </File>
+    <File Include="runtimes/unix/lib/netcoreapp2.0/System.Runtime.Caching.dll">
+      <publishTime>05/15/2018 13:29:40</publishTime>
+    </File>
+    <File Include="runtimes/unix/lib/netcoreapp2.1/Microsoft.Data.SqlClient.dll">
+      <publishTime>05/15/2020 23:07:24</publishTime>
+    </File>
+    <File Include="runtimes/win-arm64/native/sni.dll">
+      <publishTime>08/26/2020 12:40:01</publishTime>
+    </File>
+    <File Include="runtimes/win-x64/native/sni.dll">
+      <publishTime>08/26/2020 12:40:01</publishTime>
+    </File>
+    <File Include="runtimes/win-x86/native/sni.dll">
+      <publishTime>08/26/2020 12:40:01</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netcoreapp2.0/System.Runtime.Caching.dll">
+      <publishTime>05/15/2018 13:29:40</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netcoreapp2.1/Microsoft.Data.SqlClient.dll">
+      <publishTime>05/15/2020 23:07:26</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll">
+      <publishTime>11/15/2019 08:53:46</publishTime>
+    </File>
+    <File Include="System.Collections.Immutable.dll">
+      <publishTime>04/14/2020 22:38:40</publishTime>
+    </File>
+    <File Include="System.Configuration.ConfigurationManager.dll">
+      <publishTime>11/15/2019 08:37:04</publishTime>
+    </File>
+    <File Include="System.Diagnostics.DiagnosticSource.dll">
+      <publishTime>04/14/2020 22:48:06</publishTime>
+    </File>
+    <File Include="System.IdentityModel.Tokens.Jwt.dll">
+      <publishTime>06/24/2019 19:49:50</publishTime>
+    </File>
+    <File Include="System.Runtime.Caching.dll">
+      <publishTime>05/15/2018 13:29:40</publishTime>
+    </File>
+    <File Include="System.Security.Cryptography.ProtectedData.dll">
+      <publishTime>11/15/2019 08:37:42</publishTime>
+    </File>
     <File Include="Ubiety.Dns.Core.dll">
       <publishTime>09/18/2020 18:20:50</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>11/02/2020 23:07:52</publishTime>
+      <publishTime>11/04/2020 21:00:36</publishTime>
     </File>
     <File Include="Zstandard.Net.dll">
       <publishTime>09/18/2020 18:20:50</publishTime>
