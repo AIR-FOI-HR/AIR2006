@@ -7,12 +7,12 @@ namespace DrinkUp.DAL.Entities
     {
         public UlogaEntity()
         {
-            Korisnik = new HashSet<KorisnikEntity>();
+            Korisnik = new HashSet<KorisnikTokenEntity>();
         }
 
         public int Id { get; set; }
         public string Naziv { get; set; }
 
-        public virtual ICollection<KorisnikEntity> Korisnik { get; set; }
+        public virtual ICollection<KorisnikTokenEntity> Korisnik { get; set; }
     }
 }

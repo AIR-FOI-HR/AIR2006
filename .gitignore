@@ -237,3 +237,7 @@ DrinkUp.API/DrinkUp.Models/obj
 DrinkUp.API/DrinkUp.Models.Common/obj
 DrinkUp.API/DrinkUp.Repository/obj
 DrinkUp.API/DrinkUp.Repository.Common/obj
+DrinkUp.API/DrinkUp.WebAPI/obj
+DrinkUp.API/DrinkUp.Models.Common/bin
+DrinkUp.API/DrinkUp.Repository/bin
+DrinkUp.API/DrinkUp.WebAPI/bin

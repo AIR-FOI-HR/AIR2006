@@ -16,7 +16,7 @@ namespace DrinkUp.DAL.Context
         {
         }
 
-        public virtual DbSet<KorisnikEntity> Korisnik { get; set; }
+        public virtual DbSet<KorisnikTokenEntity> Korisnik { get; set; }
         public virtual DbSet<KorisnikTokenEntity> KorisnikToken { get; set; }
         public virtual DbSet<ObjektEntity> Objekt { get; set; }
         public virtual DbSet<ObjektPonudaEntity> ObjektPonuda { get; set; }
@@ -37,7 +37,7 @@ namespace DrinkUp.DAL.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<KorisnikEntity>(entity =>
+            modelBuilder.Entity<KorisnikTokenEntity>(entity =>
             {
                 entity.HasIndex(e => e.Oib)
                     .HasName("Korisnik_UN")
