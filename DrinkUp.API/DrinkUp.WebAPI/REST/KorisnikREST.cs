@@ -2,23 +2,24 @@
 using DrinkUp.Models.Common;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace DrinkUp.Models
+namespace DrinkUp.WebAPI.REST
 {
-    public class KorisnikModel : IKorisnikModel
+    public class KorisnikREST
     {
         public int Id { get; set; }
         public string OIB { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
         public string Email { get; set; }
-        public Spol Spol { get; set; }
+        public string Spol { get; set; }
         public int UlogaId { get; set; }
         public bool Aktivan { get; set; }
-        
-        public IUlogaModel Uloga { get; set; }
-        public ICollection<IKorisnikTokenModel> KorisnikToken { get; set; }
-        public ICollection<IZaposlenikObjektModel> ZaposlenikObjekt { get; set; }
+
+        public UlogaREST Uloga { get; set; }
+        public ICollection<KorisnikTokenREST> KorisnikToken { get; set; }
+        public ICollection<ZaposlenikObjektREST> ZaposlenikObjekt { get; set; }
     }
 }

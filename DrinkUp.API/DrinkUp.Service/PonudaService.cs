@@ -13,7 +13,7 @@ namespace DrinkUp.Service
 {
     public class PonudaService : IPonudaService
     {
-        protected GenericRepository<PonudaEntity> Repository { get; private set; }
+        protected GenericRepository<Ponuda> Repository { get; private set; }
         protected IMapper Mapper { get; private set; }
         private readonly UnitOfWork unitOfWork;
 
@@ -32,7 +32,7 @@ namespace DrinkUp.Service
 
         public async Task<IEnumerable<IPonudaModel>> GetAsync(GetParams<IPonudaModel> getParams)
         {
-            return Mapper.Map<ICollection<IPonudaModel>>(await Repository.Get(Mapper.Map<GetParams<PonudaEntity>>(getParams)));
+            return Mapper.Map<ICollection<IPonudaModel>>(await Repository.Get(Mapper.Map<GetParams<Ponuda>>(getParams)));
         }
 
         public async Task<IPonudaModel> GetAsync(int id)
@@ -42,13 +42,13 @@ namespace DrinkUp.Service
 
         public async Task InsertAsync(IPonudaModel entity)
         {
-            Repository.Insert(Mapper.Map<PonudaEntity>(entity));
+            Repository.Insert(Mapper.Map<Ponuda>(entity));
             await unitOfWork.SaveAsync();
         }
 
         public async Task UpdateAsync(IPonudaModel entity)
         {
-            Repository.Update(Mapper.Map<PonudaEntity>(entity));
+            Repository.Update(Mapper.Map<Ponuda>(entity));
             await unitOfWork.SaveAsync();
         }
     }

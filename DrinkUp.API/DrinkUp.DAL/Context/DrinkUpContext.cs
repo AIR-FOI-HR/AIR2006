@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using DrinkUp.DAL.Entities;
+using System.Threading.Tasks;
 
 namespace DrinkUp.DAL.Context
 {
-    public partial class DrinkUpContext : DbContext
+    public partial class DrinkUpContext : DbContext, IDrinkContext
     {
         public DrinkUpContext()
         {
@@ -16,15 +17,20 @@ namespace DrinkUp.DAL.Context
         {
         }
 
-        public virtual DbSet<KorisnikTokenEntity> Korisnik { get; set; }
-        public virtual DbSet<KorisnikTokenEntity> KorisnikToken { get; set; }
-        public virtual DbSet<ObjektEntity> Objekt { get; set; }
-        public virtual DbSet<ObjektPonudaEntity> ObjektPonuda { get; set; }
-        public virtual DbSet<PonudaEntity> Ponuda { get; set; }
-        public virtual DbSet<TokenEntity> Token { get; set; }
-        public virtual DbSet<UlogaEntity> Uloga { get; set; }
-        public virtual DbSet<VrstaPonudeEntity> VrstaPonude { get; set; }
-        public virtual DbSet<ZaposlenikObjektEntity> ZaposlenikObjekt { get; set; }
+        public virtual DbSet<Korisnik> Korisnik { get; set; }
+        public virtual DbSet<KorisnikToken> KorisnikToken { get; set; }
+        public virtual DbSet<Objekt> Objekt { get; set; }
+        public virtual DbSet<ObjektPonuda> ObjektPonuda { get; set; }
+        public virtual DbSet<Ponuda> Ponuda { get; set; }
+        public virtual DbSet<Token> Token { get; set; }
+        public virtual DbSet<Uloga> Uloga { get; set; }
+        public virtual DbSet<VrstaPonude> VrstaPonude { get; set; }
+        public virtual DbSet<ZaposlenikObjekt> ZaposlenikObjekt { get; set; }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await base.SaveChangesAsync();
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -37,7 +43,7 @@ namespace DrinkUp.DAL.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<KorisnikTokenEntity>(entity =>
+            modelBuilder.Entity<Korisnik>(entity =>
             {
                 entity.HasIndex(e => e.Oib)
                     .HasName("Korisnik_UN")
@@ -71,7 +77,7 @@ namespace DrinkUp.DAL.Context
                     .HasConstraintName("Korisnik_FK");
             });
 
-            modelBuilder.Entity<KorisnikTokenEntity>(entity =>
+            modelBuilder.Entity<KorisnikToken>(entity =>
             {
                 entity.Property(e => e.TokenId)
                     .IsRequired()
@@ -91,7 +97,7 @@ namespace DrinkUp.DAL.Context
                     .HasConstraintName("KorisnikToken_FK_1");
             });
 
-            modelBuilder.Entity<ObjektEntity>(entity =>
+            modelBuilder.Entity<Objekt>(entity =>
             {
                 entity.Property(e => e.Adresa)
                     .HasMaxLength(45)
@@ -100,6 +106,10 @@ namespace DrinkUp.DAL.Context
                 entity.Property(e => e.Grad)
                     .IsRequired()
                     .HasMaxLength(45)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.KodZaAktivaciju)
+                    .HasMaxLength(20)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Kontakt)
@@ -123,7 +133,7 @@ namespace DrinkUp.DAL.Context
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<ObjektPonudaEntity>(entity =>
+            modelBuilder.Entity<ObjektPonuda>(entity =>
             {
                 entity.HasOne(d => d.Objekt)
                     .WithMany(p => p.ObjektPonuda)
@@ -138,7 +148,7 @@ namespace DrinkUp.DAL.Context
                     .HasConstraintName("ObjektPonuda_FK_1");
             });
 
-            modelBuilder.Entity<PonudaEntity>(entity =>
+            modelBuilder.Entity<Ponuda>(entity =>
             {
                 entity.HasIndex(e => e.Naslov)
                     .HasName("Ponuda_UN")
@@ -161,7 +171,7 @@ namespace DrinkUp.DAL.Context
                     .HasConstraintName("Ponuda_FK");
             });
 
-            modelBuilder.Entity<TokenEntity>(entity =>
+            modelBuilder.Entity<Token>(entity =>
             {
                 entity.Property(e => e.Id)
                     .HasMaxLength(60)
@@ -174,7 +184,7 @@ namespace DrinkUp.DAL.Context
                     .HasConstraintName("Token_FK");
             });
 
-            modelBuilder.Entity<UlogaEntity>(entity =>
+            modelBuilder.Entity<Uloga>(entity =>
             {
                 entity.HasIndex(e => e.Naziv)
                     .HasName("Uloga_UN")
@@ -186,7 +196,7 @@ namespace DrinkUp.DAL.Context
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<VrstaPonudeEntity>(entity =>
+            modelBuilder.Entity<VrstaPonude>(entity =>
             {
                 entity.HasIndex(e => e.Naziv)
                     .HasName("VrstaPonude_UN")
@@ -198,11 +208,12 @@ namespace DrinkUp.DAL.Context
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<ZaposlenikObjektEntity>(entity =>
+            modelBuilder.Entity<ZaposlenikObjekt>(entity =>
             {
                 entity.HasOne(d => d.Korisnik)
                     .WithMany(p => p.ZaposlenikObjekt)
                     .HasForeignKey(d => d.KorisnikId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("ZaposlenikObjekt_FK_1");
 
                 entity.HasOne(d => d.Objekt)

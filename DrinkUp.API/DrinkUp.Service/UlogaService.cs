@@ -13,7 +13,7 @@ namespace DrinkUp.Service
 {
     public class UlogaService : IUlogaService
     {
-        protected GenericRepository<UlogaEntity> Repository { get; private set; }
+        protected GenericRepository<Uloga> Repository { get; private set; }
         protected IMapper Mapper { get; private set; }
         private readonly UnitOfWork unitOfWork;
 
@@ -32,7 +32,7 @@ namespace DrinkUp.Service
 
         public async Task<IEnumerable<IUlogaModel>> GetAsync(GetParams<IUlogaModel> getParams)
         {
-            return Mapper.Map<ICollection<IUlogaModel>>(await Repository.Get(Mapper.Map<GetParams<UlogaEntity>>(getParams)));
+            return Mapper.Map<ICollection<IUlogaModel>>(await Repository.Get(Mapper.Map<GetParams<Uloga>>(getParams)));
         }
 
         public async Task<IUlogaModel> GetAsync(int id)
@@ -42,13 +42,13 @@ namespace DrinkUp.Service
 
         public async Task InsertAsync(IUlogaModel entity)
         {
-            Repository.Insert(Mapper.Map<UlogaEntity>(entity));
+            Repository.Insert(Mapper.Map<Uloga>(entity));
             await unitOfWork.SaveAsync();
         }
 
         public async Task UpdateAsync(IUlogaModel entity)
         {
-            Repository.Update(Mapper.Map<UlogaEntity>(entity));
+            Repository.Update(Mapper.Map<Uloga>(entity));
             await unitOfWork.SaveAsync();
         }
     }

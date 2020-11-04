@@ -1,4 +1,5 @@
 ﻿using DrinkUp.Common;
+using DrinkUp.Models;
 using DrinkUp.Models.Common;
 using System;
 using System.Collections.Generic;

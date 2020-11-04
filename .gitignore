@@ -242,3 +242,5 @@ DrinkUp.API/DrinkUp.Models.Common/bin
 DrinkUp.API/DrinkUp.Repository/bin
 DrinkUp.API/DrinkUp.WebAPI/bin
 .idea
+DrinkUp.API/DrinkUp.Common/bin
+DrinkUp.API/DrinkUp.DAL/bin

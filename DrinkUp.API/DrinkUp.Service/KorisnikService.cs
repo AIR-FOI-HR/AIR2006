@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DrinkUp.Common;
 using DrinkUp.DAL.Entities;
+using DrinkUp.Models;
 using DrinkUp.Models.Common;
 using DrinkUp.Repository;
 using DrinkUp.Service.Common;
@@ -13,7 +14,7 @@ namespace DrinkUp.Service
 {
     public class KorisnikService : IKorisnikService
     {
-        protected GenericRepository<KorisnikEntity> Repository { get; private set; }
+        protected GenericRepository<Korisnik> Repository { get; private set; }
         protected IMapper Mapper { get; private set; }
         private readonly UnitOfWork unitOfWork;
 
@@ -32,7 +33,7 @@ namespace DrinkUp.Service
 
         public async Task<IEnumerable<IKorisnikModel>> GetAsync(GetParams<IKorisnikModel> getParams)
         {
-            return Mapper.Map<ICollection<IKorisnikModel>>(await Repository.Get(Mapper.Map<GetParams<KorisnikEntity>>(getParams)));
+            return Mapper.Map<ICollection<IKorisnikModel>>(await Repository.Get(Mapper.Map<GetParams<Korisnik>>(getParams)));
         }
 
         public async Task<IKorisnikModel> GetAsync(int id)
@@ -42,13 +43,13 @@ namespace DrinkUp.Service
 
         public async Task InsertAsync(IKorisnikModel entity)
         {
-            Repository.Insert(Mapper.Map<KorisnikEntity>(entity));
+            Repository.Insert(Mapper.Map<Korisnik>(entity));
             await unitOfWork.SaveAsync();
         }
 
         public async Task UpdateAsync(IKorisnikModel entity)
         {
-            Repository.Update(Mapper.Map<KorisnikEntity>(entity));
+            Repository.Update(Mapper.Map<Korisnik>(entity));
             await unitOfWork.SaveAsync();
         }
     }

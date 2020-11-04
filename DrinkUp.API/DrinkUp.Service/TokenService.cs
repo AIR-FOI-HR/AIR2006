@@ -13,7 +13,7 @@ namespace DrinkUp.Service
 {
     public class TokenService : ITokenService
     {
-        protected GenericRepository<TokenEntity> Repository { get; private set; }
+        protected GenericRepository<Token> Repository { get; private set; }
         protected IMapper Mapper { get; private set; }
         private readonly UnitOfWork unitOfWork;
 
@@ -32,7 +32,7 @@ namespace DrinkUp.Service
 
         public async Task<IEnumerable<ITokenModel>> GetAsync(GetParams<ITokenModel> getParams)
         {
-            return Mapper.Map<ICollection<ITokenModel>>(await Repository.Get(Mapper.Map<GetParams<TokenEntity>>(getParams)));
+            return Mapper.Map<ICollection<ITokenModel>>(await Repository.Get(Mapper.Map<GetParams<Token>>(getParams)));
         }
 
         public async Task<ITokenModel> GetAsync(int id)
@@ -42,13 +42,13 @@ namespace DrinkUp.Service
 
         public async Task InsertAsync(ITokenModel entity)
         {
-            Repository.Insert(Mapper.Map<TokenEntity>(entity));
+            Repository.Insert(Mapper.Map<Token>(entity));
             await unitOfWork.SaveAsync();
         }
 
         public async Task UpdateAsync(ITokenModel entity)
         {
-            Repository.Update(Mapper.Map<TokenEntity>(entity));
+            Repository.Update(Mapper.Map<Token>(entity));
             await unitOfWork.SaveAsync();
         }
     }

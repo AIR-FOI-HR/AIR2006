@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DrinkUp.Models;
 
 namespace DrinkUp.Models.Common
 {
@@ -14,7 +15,7 @@ namespace DrinkUp.Models.Common
         string Email { get; set; }
         Spol Spol { get; set; }
         int UlogaId { get; set; }
-        byte Aktivan { get; set; }
+        bool Aktivan { get; set; }
 
         IUlogaModel Uloga { get; set; }
         ICollection<IKorisnikTokenModel> KorisnikToken { get; set; }
