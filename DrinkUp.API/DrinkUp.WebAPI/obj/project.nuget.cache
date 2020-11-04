@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6fgosmXESL51Z2QZs5Zb2R5KET5Bj9X9WyL+jpxtRrLQ4qdyH7fbd2dER58zSTfHI2kNw0MsZdRC/f4gR2JRyw==",
+  "dgSpecHash": "CImV6hnVu5sBwqhmFD4uVDI1SQ560ViunLPhnDBOjdxHXQAKmCciJmLKf6ocHNP/S6GUlL5qYHSaiIyFHhV9fw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kacko\\source\\repos\\DrinkUp.API\\DrinkUp.WebAPI\\DrinkUp.WebAPI.csproj",
+  "projectFilePath": "C:\\Users\\Kacko\\source\\repos\\DrinkUp\\DrinkUp.API\\DrinkUp.WebAPI\\DrinkUp.WebAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kacko\\.nuget\\packages\\autofac\\6.0.0\\autofac.6.0.0.nupkg.sha512",
     "C:\\Users\\Kacko\\.nuget\\packages\\entityframework\\6.2.0\\entityframework.6.2.0.nupkg.sha512",

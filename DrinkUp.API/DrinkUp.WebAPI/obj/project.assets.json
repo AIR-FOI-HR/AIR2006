@@ -5893,11 +5893,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kacko\\source\\repos\\DrinkUp.API\\DrinkUp.WebAPI\\DrinkUp.WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Kacko\\source\\repos\\DrinkUp\\DrinkUp.API\\DrinkUp.WebAPI\\DrinkUp.WebAPI.csproj",
       "projectName": "DrinkUp.WebAPI",
-      "projectPath": "C:\\Users\\Kacko\\source\\repos\\DrinkUp.API\\DrinkUp.WebAPI\\DrinkUp.WebAPI.csproj",
+      "projectPath": "C:\\Users\\Kacko\\source\\repos\\DrinkUp\\DrinkUp.API\\DrinkUp.WebAPI\\DrinkUp.WebAPI.csproj",
       "packagesPath": "C:\\Users\\Kacko\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kacko\\source\\repos\\DrinkUp.API\\DrinkUp.WebAPI\\obj\\",
+      "outputPath": "C:\\Users\\Kacko\\source\\repos\\DrinkUp\\DrinkUp.API\\DrinkUp.WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5916,11 +5916,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\Kacko\\source\\repos\\DrinkUp.API\\DrinkUp.Common\\DrinkUp.Common.csproj": {
-              "projectPath": "C:\\Users\\Kacko\\source\\repos\\DrinkUp.API\\DrinkUp.Common\\DrinkUp.Common.csproj"
+            "C:\\Users\\Kacko\\source\\repos\\DrinkUp\\DrinkUp.API\\DrinkUp.Common\\DrinkUp.Common.csproj": {
+              "projectPath": "C:\\Users\\Kacko\\source\\repos\\DrinkUp\\DrinkUp.API\\DrinkUp.Common\\DrinkUp.Common.csproj"
             },
-            "C:\\Users\\Kacko\\source\\repos\\DrinkUp.API\\DrinkUp.DAL\\DrinkUp.DAL.csproj": {
-              "projectPath": "C:\\Users\\Kacko\\source\\repos\\DrinkUp.API\\DrinkUp.DAL\\DrinkUp.DAL.csproj"
+            "C:\\Users\\Kacko\\source\\repos\\DrinkUp\\DrinkUp.API\\DrinkUp.DAL\\DrinkUp.DAL.csproj": {
+              "projectPath": "C:\\Users\\Kacko\\source\\repos\\DrinkUp\\DrinkUp.API\\DrinkUp.DAL\\DrinkUp.DAL.csproj"
             }
           }
         }
