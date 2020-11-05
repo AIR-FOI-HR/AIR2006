@@ -2,6 +2,7 @@ package com.example.drinkup.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.drinkup.R;
+import com.example.drinkup.registration.RegistrationActivity;
 
 
 import android.content.Intent;
@@ -18,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView Error;
     private Button Login;
     private TextView ForgotPassword;
+    private TextView LoginRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +30,18 @@ public class LoginActivity extends AppCompatActivity {
         Password = (EditText)findViewById(R.id.loginPassword);
         Login =(Button)findViewById(R.id.loginButton);
         ForgotPassword =(TextView)findViewById(R.id.loginForgotPassword);
+        LoginRegister=(TextView)findViewById(R.id.loginRegister);
 
         ForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 forgotPassword();
+            }
+        });
+        LoginRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginRegister();
             }
         });
 
@@ -46,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
     private void forgotPassword(){
         Intent intentForgotPassword= new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         startActivity(intentForgotPassword);
+    }
+    private void loginRegister(){
+        Intent intentLoginRegister= new Intent(LoginActivity.this, RegistrationActivity.class);
+        startActivity(intentLoginRegister);
     }
 
     private void validate(String userName, String userPassword){
