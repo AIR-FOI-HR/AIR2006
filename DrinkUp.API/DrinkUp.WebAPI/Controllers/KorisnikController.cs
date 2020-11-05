@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -25,14 +26,16 @@ namespace DrinkUp.WebAPI.Controllers
     public class KorisnikController : ControllerBase
     {
         public IKorisnikService Service { get; }
+        public IMailService MailService { get; }
         public IMapper Mapper { get; }
         public IFilter Filter { get; }
         public ISort Sort { get; }
         public IPagedResult PagedResult { get; }
 
-        public KorisnikController(IKorisnikService service, IMapper mapper, IFilter filter, ISort sort, IPagedResult pagedResult)
+        public KorisnikController(IKorisnikService service, IMailService mailService, IMapper mapper, IFilter filter, ISort sort, IPagedResult pagedResult)
         {
             Service = service;
+            MailService = mailService;
             Mapper = mapper;
             Filter = filter;
             Sort = sort;
@@ -116,6 +119,17 @@ namespace DrinkUp.WebAPI.Controllers
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
             return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
+        [HttpPost("login")]
+        public async Task<KorisnikREST> Login(LoginVM user)
+        {
+            return null;
+        }
+
+        private async Task SendMail(IMailRequest mailRequest)
+        {
+            await MailService.SendEmailAsync(mailRequest);
         }
     }
 }

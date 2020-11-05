@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.9.0" />
+    <PackageReference Include="MimeKit" Version="2.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DrinkUp.Common\DrinkUp.Common.csproj" />
     <ProjectReference Include="..\DrinkUp.Models.Common\DrinkUp.Models.Common.csproj" />
     <ProjectReference Include="..\DrinkUp.Models\DrinkUp.Models.csproj" />

@@ -20,6 +20,7 @@ namespace DrinkUp.Service
             builder.RegisterType<UlogaService>().As<IUlogaService>();
             builder.RegisterType<VrstaPonudeService>().As<IVrstaPonudeService>();
             builder.RegisterType<ZaposlenikObjektService>().As<IZaposlenikObjektService>();
+            builder.RegisterType<MailService>().As<IMailService>();
         }
     }
 }
