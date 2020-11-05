@@ -16,7 +16,7 @@ namespace DrinkUp.DAL
         {
             using (DrinkUpContext context = new DrinkUpContext())
             {
-                return "hue";
+                return "huehue";
             }
         }
     }
