@@ -244,3 +244,4 @@ DrinkUp.API/DrinkUp.WebAPI/bin
 .idea
 DrinkUp.API/DrinkUp.Common/bin
 DrinkUp.API/DrinkUp.DAL/bin
+DrinkUp.API/DrinkUp.WebAPI/appsettings.Development.json

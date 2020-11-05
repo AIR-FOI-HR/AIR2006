@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
 using DrinkUp.DAL;
+using DrinkUp.Models;
 using DrinkUp.Service;
 using DrinkUp.WebAPI.Modules;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +34,7 @@ namespace DrinkUp.WebAPI
             services.AddMvc().AddControllersAsServices();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
         }
 
         public void ConfigureContainer(ContainerBuilder containerBuilder)
