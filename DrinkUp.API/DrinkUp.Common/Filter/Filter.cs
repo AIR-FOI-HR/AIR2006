@@ -170,7 +170,8 @@ namespace DrinkUp.Common.Filter
                         }
                         else
                         {
-                            data = data.Where(x => EF.Property<object>(x, filterColumn.Name) != null && EF.Property<string>(x, filterColumn.Name).ToString().ToLower() == filterValue.ToLower());
+                            filterValue = filterValue.ToLower();
+                            data = data.Where(x => EF.Property<object>(x, filterColumn.Name) != null && EF.Property<string>(x, filterColumn.Name) == filterValue);
                         }
                     }
                     break;

@@ -83,7 +83,7 @@ namespace DrinkUp.Service
         {
             FilterParams tokenParam = new FilterParams()
             {
-                ColumnName = "TokenId",
+                ColumnName = "KodId",
                 FilterOption = FilterOptions.IsEqualTo,
                 FilterValue = token
             };
@@ -145,6 +145,26 @@ namespace DrinkUp.Service
             str.Close();
             mailText = mailText.Replace("[message]", message);
             return mailText;
+        }
+
+        public async Task<IKorisnikModel> Login(string email, string password, GetParams<IKorisnikModel> getParams)
+        {
+            FilterParams emailParam = new FilterParams()
+            {
+                ColumnName = "Email",
+                FilterOption = FilterOptions.IsEqualTo,
+                FilterValue = email
+            };
+            password = Sha256(password);
+            FilterParams passwordParam = new FilterParams()
+            {
+                ColumnName = "Lozinka",
+                FilterOption = FilterOptions.IsEqualTo,
+                FilterValue = password
+            };
+            getParams.FilterParam = new[] { emailParam, passwordParam };
+
+            return Mapper.Map<IKorisnikModel>((await Repository.Get(Mapper.Map<GetParams<Korisnik>>(getParams))).First());
         }
     }
 }

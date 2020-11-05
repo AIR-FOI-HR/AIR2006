@@ -28,9 +28,12 @@ namespace DrinkUp.Repository
 
             query = getParams.Filter.FilteredData(query, getParams.FilterParam);
             query = getParams.Sort.SortData(query, getParams.SortingParam);
-            foreach (string include in getParams.Include.Replace(" ", string.Empty).Split(','))
+            if (getParams.Include != null)
             {
-                query = query.Include(include);
+                foreach (string include in getParams.Include.Replace(" ", string.Empty).Split(','))
+                {
+                    query = query.Include(include);
+                }
             }
             return await getParams.Page.GetPagedAsync(query, getParams.PageNumber, getParams.PageSize);
         }

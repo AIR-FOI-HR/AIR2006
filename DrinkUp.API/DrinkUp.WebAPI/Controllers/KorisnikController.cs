@@ -150,7 +150,22 @@ namespace DrinkUp.WebAPI.Controllers
         [HttpPost("login")]
         public async Task<KorisnikREST> Login(LoginVM user)
         {
-            return null;
+            try
+            {
+                GetParams<IKorisnikModel> getParams = new GetParams<IKorisnikModel>()
+                {
+                    PageSize = 1,
+                    PageNumber = 1,
+                    Filter = Filter,
+                    Sort = Sort,
+                    Page = PagedResult
+                };
+                return Mapper.Map<KorisnikREST>(await Service.Login(user.Email, user.Lozinka, getParams));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private async Task SendMail(IMailRequest mailRequest)

@@ -16,6 +16,7 @@ namespace DrinkUp.WebAPI.Profiles
         public RESTProfile()
         {
             CreateMap<KorisnikModel, KorisnikREST>().PreserveReferences().ReverseMap();
+            CreateMap<IKorisnikModel, KorisnikREST>().PreserveReferences().ReverseMap();
             CreateMap<KorisnikTokenModel, KorisnikTokenREST>().PreserveReferences().ReverseMap();
             CreateMap<ObjektModel, ObjektREST>().PreserveReferences().ReverseMap();
             CreateMap<ObjektPonudaModel, ObjektPonudaREST>().PreserveReferences().ReverseMap();
