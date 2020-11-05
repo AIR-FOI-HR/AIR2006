@@ -8,6 +8,7 @@ namespace DrinkUp.WebAPI.ViewModels
     public class KorisnikVM
     {
         public int? Id { get; set; }
+        public string Lozinka { get; set; }
         public string OIB { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }

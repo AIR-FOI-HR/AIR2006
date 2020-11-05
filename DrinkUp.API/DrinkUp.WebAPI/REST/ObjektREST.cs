@@ -16,8 +16,6 @@ namespace DrinkUp.WebAPI.REST
         public string Kontakt { get; set; }
         public double Longituda { get; set; }
         public double Latituda { get; set; }
-
-        public ICollection<ObjektPonudaREST> ObjektPonuda { get; set; }
-        public ICollection<ZaposlenikObjektREST> ZaposlenikObjekt { get; set; }
+        public bool Aktivan { get; set; }
     }
 }

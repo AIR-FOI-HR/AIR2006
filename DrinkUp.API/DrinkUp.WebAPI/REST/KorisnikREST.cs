@@ -17,9 +17,5 @@ namespace DrinkUp.WebAPI.REST
         public string Spol { get; set; }
         public int UlogaId { get; set; }
         public bool Aktivan { get; set; }
-
-        public UlogaREST Uloga { get; set; }
-        public ICollection<KorisnikTokenREST> KorisnikToken { get; set; }
-        public ICollection<ZaposlenikObjektREST> ZaposlenikObjekt { get; set; }
     }
 }

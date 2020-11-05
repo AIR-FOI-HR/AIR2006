@@ -2,11 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using DrinkUp.DAL.Entities;
-using System.Threading.Tasks;
 
 namespace DrinkUp.DAL.Context
 {
-    public partial class DrinkUpContext : DbContext, IDrinkContext
+    public partial class DrinkUpContext : DbContext
     {
         public DrinkUpContext()
         {
@@ -17,7 +16,11 @@ namespace DrinkUp.DAL.Context
         {
         }
 
+        public virtual DbSet<AktivacijaObjekta> AktivacijaObjekta { get; set; }
+        public virtual DbSet<Kod> Kod { get; set; }
         public virtual DbSet<Korisnik> Korisnik { get; set; }
+        public virtual DbSet<KorisnikAktivacija> KorisnikAktivacija { get; set; }
+        public virtual DbSet<KorisnikReset> KorisnikReset { get; set; }
         public virtual DbSet<KorisnikToken> KorisnikToken { get; set; }
         public virtual DbSet<Objekt> Objekt { get; set; }
         public virtual DbSet<ObjektPonuda> ObjektPonuda { get; set; }
@@ -26,11 +29,6 @@ namespace DrinkUp.DAL.Context
         public virtual DbSet<Uloga> Uloga { get; set; }
         public virtual DbSet<VrstaPonude> VrstaPonude { get; set; }
         public virtual DbSet<ZaposlenikObjekt> ZaposlenikObjekt { get; set; }
-
-        public async Task<int> SaveChangesAsync()
-        {
-            return await base.SaveChangesAsync();
-        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,6 +41,37 @@ namespace DrinkUp.DAL.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AktivacijaObjekta>(entity =>
+            {
+                entity.Property(e => e.KodId)
+                    .IsRequired()
+                    .HasMaxLength(65)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Kod)
+                    .WithMany(p => p.AktivacijaObjekta)
+                    .HasForeignKey(d => d.KodId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("AktivacijaObjekta_FK_1");
+
+                entity.HasOne(d => d.Objekt)
+                    .WithMany(p => p.AktivacijaObjekta)
+                    .HasForeignKey(d => d.ObjektId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("AktivacijaObjekta_FK");
+            });
+
+            modelBuilder.Entity<Kod>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasMaxLength(65)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DatumKreiranja)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+            });
+
             modelBuilder.Entity<Korisnik>(entity =>
             {
                 entity.HasIndex(e => e.Oib)
@@ -57,6 +86,10 @@ namespace DrinkUp.DAL.Context
                 entity.Property(e => e.Ime)
                     .IsRequired()
                     .HasMaxLength(45)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Lozinka)
+                    .HasMaxLength(65)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Oib)
@@ -75,6 +108,46 @@ namespace DrinkUp.DAL.Context
                     .HasForeignKey(d => d.UlogaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Korisnik_FK");
+            });
+
+            modelBuilder.Entity<KorisnikAktivacija>(entity =>
+            {
+                entity.Property(e => e.KodId)
+                    .IsRequired()
+                    .HasMaxLength(65)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Kod)
+                    .WithMany(p => p.KorisnikAktivacija)
+                    .HasForeignKey(d => d.KodId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("KorisnikAktivacija_FK_1");
+
+                entity.HasOne(d => d.Korisnik)
+                    .WithMany(p => p.KorisnikAktivacija)
+                    .HasForeignKey(d => d.KorisnikId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("KorisnikAktivacija_FK");
+            });
+
+            modelBuilder.Entity<KorisnikReset>(entity =>
+            {
+                entity.Property(e => e.KodId)
+                    .IsRequired()
+                    .HasMaxLength(65)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Kod)
+                    .WithMany(p => p.KorisnikReset)
+                    .HasForeignKey(d => d.KodId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("KorisnikReset_FK_1");
+
+                entity.HasOne(d => d.Korisnik)
+                    .WithMany(p => p.KorisnikReset)
+                    .HasForeignKey(d => d.KorisnikId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("KorisnikReset_FK");
             });
 
             modelBuilder.Entity<KorisnikToken>(entity =>
@@ -106,10 +179,6 @@ namespace DrinkUp.DAL.Context
                 entity.Property(e => e.Grad)
                     .IsRequired()
                     .HasMaxLength(45)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.KodZaAktivaciju)
-                    .HasMaxLength(20)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Kontakt)

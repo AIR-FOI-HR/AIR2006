@@ -16,7 +16,9 @@ namespace DrinkUp.Models.Common
         string Kontakt { get; set; }
         double Longituda { get; set; }
         double Latituda { get; set; }
+        bool Aktivan { get; set; }
 
+        ICollection<IAktivacijaObjektaModel> AktivacijaObjekta { get; set; }
         ICollection<IObjektPonudaModel> ObjektPonuda { get; set; }
         ICollection<IZaposlenikObjektModel> ZaposlenikObjekt { get; set; }
     }

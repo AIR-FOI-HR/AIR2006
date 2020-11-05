@@ -10,8 +10,5 @@ namespace DrinkUp.WebAPI.REST
         public int Id { get; set; }
         public int ObjektId { get; set; }
         public int PonudaId { get; set; }
-
-        public ObjektREST Objekt { get; set; }
-        public PonudaREST Ponuda { get; set; }
     }
 }

@@ -13,9 +13,5 @@ namespace DrinkUp.WebAPI.REST
         public double Cijena { get; set; }
         public int BrojTokena { get; set; }
         public int VrstaPonudeId { get; set; }
-
-        public VrstaPonudeREST VrstaPonude { get; set; }
-        public ICollection<ObjektPonudaREST> ObjektPonuda { get; set; }
-        public ICollection<TokenREST> Token { get; set; }
     }
 }

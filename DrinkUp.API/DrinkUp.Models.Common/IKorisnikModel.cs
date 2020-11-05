@@ -16,8 +16,11 @@ namespace DrinkUp.Models.Common
         Spol Spol { get; set; }
         int UlogaId { get; set; }
         bool Aktivan { get; set; }
+        public string Lozinka { get; set; }
 
         IUlogaModel Uloga { get; set; }
+        ICollection<IKorisnikAktivacija> KorisnikAktivacija { get; set; }
+        ICollection<IKorisnikReset> KorisnikReset { get; set; }
         ICollection<IKorisnikTokenModel> KorisnikToken { get; set; }
         ICollection<IZaposlenikObjektModel> ZaposlenikObjekt { get; set; }
     }

@@ -16,5 +16,6 @@ namespace DrinkUp.WebAPI.ViewModels
         public string Kontakt { get; set; }
         public double Longituda { get; set; }
         public double Latituda { get; set; }
+        public bool Aktivan { get; set; }
     }
 }
