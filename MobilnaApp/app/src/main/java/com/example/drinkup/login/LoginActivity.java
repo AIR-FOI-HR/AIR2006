@@ -17,12 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText Password;
     private TextView Error;
     private Button Login;
-
-
-
-
-
-
+    private TextView ForgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +27,15 @@ public class LoginActivity extends AppCompatActivity {
         Name = (EditText)findViewById(R.id.loginUsername);
         Password = (EditText)findViewById(R.id.loginPassword);
         Login =(Button)findViewById(R.id.loginButton);
+        ForgotPassword =(TextView)findViewById(R.id.loginForgotPassword);
+
+        ForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forgotPassword();
+            }
+        });
+
         Login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -39,16 +43,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    private void forgotPassword(){
+        Intent intentForgotPassword= new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+        startActivity(intentForgotPassword);
+    }
 
     private void validate(String userName, String userPassword){
         if((userName.equals("admin")) && (userPassword.equals("admin"))){
 
-            Intent intent= new Intent(LoginActivity.this, SecondActivity.class);
-            startActivity(intent);
+            Intent intentSucces= new Intent(LoginActivity.this, SecondActivity.class);
+            startActivity(intentSucces);
 
         }else{
             Error=(TextView)findViewById(R.id.loginError);
-            Error.setText("Greška");
+            Error.setText("Pogrešno upisani podaci! Molimo pokušajte ponovo.");
         }
     }
 }
