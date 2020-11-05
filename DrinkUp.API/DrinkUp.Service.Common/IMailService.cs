@@ -9,5 +9,6 @@ namespace DrinkUp.Service.Common
     public interface IMailService
     {
         Task SendEmailAsync(IMailRequest mailRequest);
+        IMailRequest CreateRegistrationMail(string email, string name, string token);
     }
 }

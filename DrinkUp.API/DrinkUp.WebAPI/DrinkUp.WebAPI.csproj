@@ -20,5 +20,11 @@
     <ProjectReference Include="..\DrinkUp.Service\DrinkUp.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Media\Images\logo.jpg" />
+    <None Include="wwwroot\Templates\AccountActivation.html" />
+    <None Include="wwwroot\Templates\AccountActivationSuccess.html" />
+  </ItemGroup>
+
 
 </Project>

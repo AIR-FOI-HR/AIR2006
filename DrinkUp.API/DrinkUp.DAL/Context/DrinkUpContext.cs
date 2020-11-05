@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using DrinkUp.DAL.Entities;
+using System.Threading.Tasks;
 
 namespace DrinkUp.DAL.Context
 {
-    public partial class DrinkUpContext : DbContext
+    public partial class DrinkUpContext : DbContext, IDrinkContext
     {
         public DrinkUpContext()
         {
@@ -29,6 +30,11 @@ namespace DrinkUp.DAL.Context
         public virtual DbSet<Uloga> Uloga { get; set; }
         public virtual DbSet<VrstaPonude> VrstaPonude { get; set; }
         public virtual DbSet<ZaposlenikObjekt> ZaposlenikObjekt { get; set; }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await base.SaveChangesAsync();
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

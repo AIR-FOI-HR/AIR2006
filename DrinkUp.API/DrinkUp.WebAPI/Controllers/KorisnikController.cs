@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -42,7 +43,7 @@ namespace DrinkUp.WebAPI.Controllers
             PagedResult = pagedResult;
         }
 
-        [HttpGet]
+        [HttpGet("")]
         public async Task<ICollection<KorisnikREST>> GetAsync(string filterColumn = "",
             string filterValue = "", int filterOption = 3, string sortBy = "",
             int sortOrder = 1, int pageSize = 10, int page = 1)
@@ -50,7 +51,10 @@ namespace DrinkUp.WebAPI.Controllers
             GetParams<KorisnikModel> getParams = new GetParams<KorisnikModel>()
             {
                 PageNumber = page,
-                PageSize = pageSize
+                PageSize = pageSize,
+                Filter = Filter,
+                Sort = Sort,
+                Page = PagedResult
             };
             FilterParams filterParams = new FilterParams()
             {
@@ -66,11 +70,31 @@ namespace DrinkUp.WebAPI.Controllers
 
             getParams.FilterParam = new[] { filterParams };
             getParams.SortingParam = new[] { sortingParams };
-            getParams.Filter = Filter;
-            getParams.Sort = Sort;
-            getParams.Page = PagedResult;
 
             return Mapper.Map<List<KorisnikREST>>(await Service.GetAsync(Mapper.Map<GetParams<IKorisnikModel>>(getParams)));
+        }
+
+        [HttpGet("activate")]
+        public async Task<ContentResult> Activate(string token)
+        {
+            try
+            {
+                GetParams<KorisnikModel> getParams = new GetParams<KorisnikModel>()
+                {
+                    PageSize = 100,
+                    PageNumber = 1,
+                    Filter = Filter,
+                    Sort = Sort,
+                    Page = PagedResult
+                };
+                
+                await Service.ActivateAccountAsync(token, Mapper.Map<GetParams<IKorisnikModel>>(getParams));
+            }
+            catch
+            {
+                return base.Content(Service.GetAccountActivationPage("Token ne postoji ili je istekao."), "text/html");
+            }
+            return base.Content(Service.GetAccountActivationPage("Račun uspješno aktiviran."), "text/html");
         }
 
         [HttpGet("{id}")]
@@ -79,14 +103,15 @@ namespace DrinkUp.WebAPI.Controllers
             return Mapper.Map<KorisnikREST>(await Service.GetAsync(id));
         }
 
-        [HttpPost("add")]
-        public async Task<HttpResponseMessage> AddAsync(KorisnikVM korisnik)
+        [HttpPost("register")]
+        public async Task<HttpResponseMessage> RegisterAsync(KorisnikVM korisnik)
         {
             try
             {
-                await Service.InsertAsync(Mapper.Map<KorisnikModel>(korisnik));
+                string token = await Service.InsertAsync(Mapper.Map<KorisnikModel>(korisnik));
+                await MailService.SendEmailAsync(MailService.CreateRegistrationMail(korisnik.Email, korisnik.Ime, token));
             }
-            catch
+            catch (Exception e)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
@@ -100,9 +125,10 @@ namespace DrinkUp.WebAPI.Controllers
             {
                 await Service.UpdateAsync(Mapper.Map<KorisnikModel>(korisnik));
             }
-            catch
+            catch (Exception e)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
+
             }
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }

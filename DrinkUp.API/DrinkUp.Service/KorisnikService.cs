@@ -1,13 +1,20 @@
 ﻿using AutoMapper;
 using DrinkUp.Common;
+using DrinkUp.Common.Filter;
 using DrinkUp.DAL.Entities;
 using DrinkUp.Models;
 using DrinkUp.Models.Common;
 using DrinkUp.Repository;
 using DrinkUp.Service.Common;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace DrinkUp.Service
@@ -15,6 +22,8 @@ namespace DrinkUp.Service
     public class KorisnikService : IKorisnikService
     {
         protected GenericRepository<Korisnik> Repository { get; private set; }
+        protected GenericRepository<KorisnikAktivacija> AktivacijaRepository { get; private set; }
+        protected GenericRepository<Kod> KodRepository { get; private set; }
         protected IMapper Mapper { get; private set; }
         private readonly UnitOfWork unitOfWork;
 
@@ -22,6 +31,8 @@ namespace DrinkUp.Service
         {
             unitOfWork = new UnitOfWork();
             Repository = unitOfWork.KorisnikRepository;
+            AktivacijaRepository = unitOfWork.KorisnikAktivacijaRepository;
+            KodRepository = unitOfWork.KodRepository;
             Mapper = mapper;
         }
 
@@ -41,16 +52,99 @@ namespace DrinkUp.Service
             return Mapper.Map<IKorisnikModel>(await Repository.GetByID(id));
         }
 
-        public async Task InsertAsync(IKorisnikModel entity)
+        public async Task<string> InsertAsync(IKorisnikModel entity)
         {
-            Repository.Insert(Mapper.Map<Korisnik>(entity));
+            entity.Lozinka = Sha256(entity.Lozinka);
+            entity.Aktivan = false;
+            EntityEntry<Korisnik> entry = Repository.Insert(Mapper.Map<Korisnik>(entity));
+
+            string token = GenerateNewToken();
+            Kod kod = new Kod()
+            {
+                Id = token,
+                DatumKreiranja = DateTime.Now
+            };
+            KodRepository.Insert(kod);
             await unitOfWork.SaveAsync();
+
+            KorisnikAktivacija aktivacija = new KorisnikAktivacija()
+            {
+                KodId = token,
+                KorisnikId = entry.Entity.Id
+            };
+
+            AktivacijaRepository.Insert(aktivacija);
+            await unitOfWork.SaveAsync();
+
+            return token;
+        }
+
+        public async Task ActivateAccountAsync(string token, GetParams<IKorisnikModel> getParams)
+        {
+            FilterParams tokenParam = new FilterParams()
+            {
+                ColumnName = "TokenId",
+                FilterOption = FilterOptions.IsEqualTo,
+                FilterValue = token
+            };
+            getParams.FilterParam = new[] { tokenParam };
+            getParams.Include = "Kod, Korisnik";
+
+            IEnumerable<KorisnikAktivacija> aktivacije = (await AktivacijaRepository.Get(Mapper.Map<GetParams<KorisnikAktivacija>>(getParams)))
+                .Where(x => x.Kod.DatumKreiranja.AddDays(3) > DateTime.Now);
+
+            if (aktivacije != null && aktivacije.Count() > 0)
+            {
+                KorisnikAktivacija aktivacija = aktivacije.First();
+                Korisnik korisnik = aktivacija.Korisnik;
+                korisnik.Aktivan = Convert.ToByte(true);
+
+                Repository.Update(korisnik);
+                AktivacijaRepository.Delete(aktivacija);
+                await unitOfWork.SaveAsync();
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         public async Task UpdateAsync(IKorisnikModel entity)
         {
             Repository.Update(Mapper.Map<Korisnik>(entity));
             await unitOfWork.SaveAsync();
+        }
+
+        private string Sha256(string rawData)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                string salt = @"}#f4ga~g%7hjg4&j(7mk?/!bjčj56zydrEQWE|€°˘˘°5J#E6WT;IO[JN";
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(salt + rawData));
+                StringBuilder builder = new StringBuilder();
+
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+
+                return builder.ToString();
+            }
+        }
+
+        private string GenerateNewToken()
+        {
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+        }
+
+        public string GetAccountActivationPage(string message)
+        {
+            string FilePath = Directory.GetCurrentDirectory() + "\\wwwroot\\Templates\\AccountActivationSuccess.html";
+            StreamReader str = new StreamReader(FilePath);
+            string mailText = str.ReadToEnd();
+            str.Close();
+            mailText = mailText.Replace("[message]", message);
+            return mailText;
         }
     }
 }

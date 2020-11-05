@@ -1,9 +1,11 @@
 ﻿using DrinkUp.Common;
 using DrinkUp.DAL.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,7 +28,16 @@ namespace DrinkUp.Repository
 
             query = getParams.Filter.FilteredData(query, getParams.FilterParam);
             query = getParams.Sort.SortData(query, getParams.SortingParam);
-            return (await getParams.Page.GetPagedAsync(query, getParams.PageNumber, getParams.PageSize));
+            foreach (string include in getParams.Include.Replace(" ", string.Empty).Split(','))
+            {
+                query = query.Include(include);
+            }
+            return await getParams.Page.GetPagedAsync(query, getParams.PageNumber, getParams.PageSize);
+        }
+
+        public virtual async Task<IEnumerable<TEntity>> Get(IQueryable<TEntity> linq)
+        {
+            return await linq.ToListAsync();
         }
 
         public virtual async Task<TEntity> GetByID(object id)
@@ -34,9 +45,9 @@ namespace DrinkUp.Repository
             return await dbSet.FindAsync(id);
         }
 
-        public virtual void Insert(TEntity entity)
+        public virtual EntityEntry<TEntity> Insert(TEntity entity)
         {
-            dbSet.Add(entity);
+            return dbSet.Add(entity);
         }
 
         public virtual async Task DeleteAsync(object id)

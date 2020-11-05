@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -29,8 +30,7 @@ namespace DrinkUp.Service
             {
                 Sender = MailboxAddress.Parse(mailSettings.Mail)
             };
-            email.From.Clear();
-            email.From.Add(MailboxAddress.Parse(mailSettings.From));
+            email.Sender = MailboxAddress.Parse(mailSettings.From);
             email.To.Add(MailboxAddress.Parse(mailRequest.To));
             email.Subject = mailRequest.Subject;
 
@@ -46,5 +46,22 @@ namespace DrinkUp.Service
             await smtp.SendAsync(email);
             smtp.Disconnect(true);
         }
+
+        public IMailRequest CreateRegistrationMail(string email, string name, string token)
+        {
+            string FilePath = Directory.GetCurrentDirectory() + "\\Templates\\AccountActivation.html";
+            StreamReader str = new StreamReader(FilePath);
+            string MailText = str.ReadToEnd();
+            str.Close();
+            MailText = MailText.Replace("[username]", name).Replace("[token]", token);
+            return new MailRequest()
+            {
+                To = email,
+                Subject = "Activate your DrinkUp account",
+                Body = MailText
+            };
+        }
+
+        
     }
 }
