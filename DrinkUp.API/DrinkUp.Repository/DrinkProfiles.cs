@@ -28,6 +28,9 @@ namespace DrinkUp.Repository
             CreateMap<IVrstaPonudeModel, VrstaPonude>().PreserveReferences().ReverseMap();
             CreateMap<ZaposlenikObjektModel, ZaposlenikObjekt>().PreserveReferences().ReverseMap();
             CreateMap<IZaposlenikObjektModel, ZaposlenikObjekt>().PreserveReferences().ReverseMap();
+
+            CreateMap<IMailRequest, MailRequest>().PreserveReferences().ReverseMap();
+            CreateMap<IMailSettings, MailSettings>().PreserveReferences().ReverseMap();
         }
     }
 }
