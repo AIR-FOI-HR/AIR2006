@@ -13,7 +13,7 @@ namespace DrinkUp.Service
 {
     public class ZaposlenikObjektService : IZaposlenikObjektService
     {
-        protected GenericRepository<ZaposlenikObjektEntity> Repository { get; private set; }
+        protected GenericRepository<ZaposlenikObjekt> Repository { get; private set; }
         protected IMapper Mapper { get; private set; }
         private readonly UnitOfWork unitOfWork;
 
@@ -32,7 +32,7 @@ namespace DrinkUp.Service
 
         public async Task<IEnumerable<IZaposlenikObjektModel>> GetAsync(GetParams<IZaposlenikObjektModel> getParams)
         {
-            return Mapper.Map<ICollection<IZaposlenikObjektModel>>(await Repository.Get(Mapper.Map<GetParams<ZaposlenikObjektEntity>>(getParams)));
+            return Mapper.Map<ICollection<IZaposlenikObjektModel>>(await Repository.Get(Mapper.Map<GetParams<ZaposlenikObjekt>>(getParams)));
         }
 
         public async Task<IZaposlenikObjektModel> GetAsync(int id)
@@ -42,13 +42,13 @@ namespace DrinkUp.Service
 
         public async Task InsertAsync(IZaposlenikObjektModel entity)
         {
-            Repository.Insert(Mapper.Map<ZaposlenikObjektEntity>(entity));
+            Repository.Insert(Mapper.Map<ZaposlenikObjekt>(entity));
             await unitOfWork.SaveAsync();
         }
 
         public async Task UpdateAsync(IZaposlenikObjektModel entity)
         {
-            Repository.Update(Mapper.Map<ZaposlenikObjektEntity>(entity));
+            Repository.Update(Mapper.Map<ZaposlenikObjekt>(entity));
             await unitOfWork.SaveAsync();
         }
     }

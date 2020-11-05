@@ -13,7 +13,7 @@ namespace DrinkUp.Service
 {
     public class KorisnikTokenService : IKorisnikTokenService
     {
-        protected GenericRepository<KorisnikTokenEntity> Repository { get; private set; }
+        protected GenericRepository<KorisnikToken> Repository { get; private set; }
         protected IMapper Mapper { get; private set; }
         private readonly UnitOfWork unitOfWork;
 
@@ -32,7 +32,7 @@ namespace DrinkUp.Service
 
         public async Task<IEnumerable<IKorisnikTokenModel>> GetAsync(GetParams<IKorisnikTokenModel> getParams)
         {
-            return Mapper.Map<ICollection<IKorisnikTokenModel>>(await Repository.Get(Mapper.Map<GetParams<KorisnikTokenEntity>>(getParams)));
+            return Mapper.Map<ICollection<IKorisnikTokenModel>>(await Repository.Get(Mapper.Map<GetParams<KorisnikToken>>(getParams)));
         }
 
         public async Task<IKorisnikTokenModel> GetAsync(int id)
@@ -42,13 +42,13 @@ namespace DrinkUp.Service
 
         public async Task InsertAsync(IKorisnikTokenModel entity)
         {
-            Repository.Insert(Mapper.Map<KorisnikTokenEntity>(entity));
+            Repository.Insert(Mapper.Map<KorisnikToken>(entity));
             await unitOfWork.SaveAsync();
         }
 
         public async Task UpdateAsync(IKorisnikTokenModel entity)
         {
-            Repository.Update(Mapper.Map<KorisnikTokenEntity>(entity));
+            Repository.Update(Mapper.Map<KorisnikToken>(entity));
             await unitOfWork.SaveAsync();
         }
     }

@@ -10,15 +10,15 @@ namespace DrinkUp.DAL.Context
 {
     public interface IDrinkContext
     {
-        DbSet<KorisnikEntity> Korisnik { get; set; }
-        DbSet<KorisnikTokenEntity> KorisnikToken { get; set; }
-        DbSet<ObjektEntity> Objekt { get; set; }
-        DbSet<ObjektPonudaEntity> ObjektPonuda { get; set; }
-        DbSet<PonudaEntity> Ponuda { get; set; }
-        DbSet<TokenEntity> Token { get; set; }
-        DbSet<UlogaEntity> Uloga { get; set; }
-        DbSet<VrstaPonudeEntity> VrstaPonude { get; set; }
-        DbSet<ZaposlenikObjektEntity> ZaposlenikObjekt { get; set; }
+        DbSet<Korisnik> Korisnik { get; set; }
+        DbSet<KorisnikToken> KorisnikToken { get; set; }
+        DbSet<Objekt> Objekt { get; set; }
+        DbSet<ObjektPonuda> ObjektPonuda { get; set; }
+        DbSet<Ponuda> Ponuda { get; set; }
+        DbSet<Token> Token { get; set; }
+        DbSet<Uloga> Uloga { get; set; }
+        DbSet<VrstaPonude> VrstaPonude { get; set; }
+        DbSet<ZaposlenikObjekt> ZaposlenikObjekt { get; set; }
 
         Task<int> SaveChangesAsync();
         ValueTask DisposeAsync();

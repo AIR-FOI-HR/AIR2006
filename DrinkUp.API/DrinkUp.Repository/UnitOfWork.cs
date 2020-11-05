@@ -10,130 +10,130 @@ namespace DrinkUp.Repository
     public class UnitOfWork : IDisposable
     {
         private DrinkUpContext context = new DrinkUpContext();
-        private GenericRepository<KorisnikEntity> korisnikRepository;
-        private GenericRepository<KorisnikTokenEntity> korisnikTokenRepository;
-        private GenericRepository<ObjektEntity> objektRepository;
-        private GenericRepository<ObjektPonudaEntity> objektPonudaRepository;
-        private GenericRepository<PonudaEntity> ponudaRepository;
-        private GenericRepository<TokenEntity> tokenRepository;
-        private GenericRepository<UlogaEntity> ulogaRepository;
-        private GenericRepository<VrstaPonudeEntity> vrstaPonudeRepository;
-        private GenericRepository<ZaposlenikObjektEntity> zaposlenikObjektRepository;
+        private GenericRepository<Korisnik> korisnikRepository;
+        private GenericRepository<KorisnikToken> korisnikTokenRepository;
+        private GenericRepository<Objekt> objektRepository;
+        private GenericRepository<ObjektPonuda> objektPonudaRepository;
+        private GenericRepository<Ponuda> ponudaRepository;
+        private GenericRepository<Token> tokenRepository;
+        private GenericRepository<Uloga> ulogaRepository;
+        private GenericRepository<VrstaPonude> vrstaPonudeRepository;
+        private GenericRepository<ZaposlenikObjekt> zaposlenikObjektRepository;
 
         #region Repository Getters
 
-        public GenericRepository<KorisnikEntity> KorisnikRepository
+        public GenericRepository<Korisnik> KorisnikRepository
         {
             get
             {
 
                 if (korisnikRepository == null)
                 {
-                    korisnikRepository = new GenericRepository<KorisnikEntity>(context);
+                    korisnikRepository = new GenericRepository<Korisnik>(context);
                 }
                 return korisnikRepository;
             }
         }
 
-        public GenericRepository<KorisnikTokenEntity> KorisnikTokenRepository
+        public GenericRepository<KorisnikToken> KorisnikTokenRepository
         {
             get
             {
 
                 if (korisnikTokenRepository == null)
                 {
-                    korisnikTokenRepository = new GenericRepository<KorisnikTokenEntity>(context);
+                    korisnikTokenRepository = new GenericRepository<KorisnikToken>(context);
                 }
                 return korisnikTokenRepository;
             }
         }
 
-        public GenericRepository<ObjektEntity> ObjektRepository
+        public GenericRepository<Objekt> ObjektRepository
         {
             get
             {
 
                 if (objektRepository == null)
                 {
-                    objektRepository = new GenericRepository<ObjektEntity>(context);
+                    objektRepository = new GenericRepository<Objekt>(context);
                 }
                 return objektRepository;
             }
         }
 
-        public GenericRepository<ObjektPonudaEntity> ObjektPonudaRepository
+        public GenericRepository<ObjektPonuda> ObjektPonudaRepository
         {
             get
             {
 
                 if (objektPonudaRepository == null)
                 {
-                    objektPonudaRepository = new GenericRepository<ObjektPonudaEntity>(context);
+                    objektPonudaRepository = new GenericRepository<ObjektPonuda>(context);
                 }
                 return objektPonudaRepository;
             }
         }
 
-        public GenericRepository<PonudaEntity> PonudaRepository
+        public GenericRepository<Ponuda> PonudaRepository
         {
             get
             {
 
                 if (ponudaRepository == null)
                 {
-                    ponudaRepository = new GenericRepository<PonudaEntity>(context);
+                    ponudaRepository = new GenericRepository<Ponuda>(context);
                 }
                 return ponudaRepository;
             }
         }
 
-        public GenericRepository<TokenEntity> TokenRepository
+        public GenericRepository<Token> TokenRepository
         {
             get
             {
 
                 if (tokenRepository == null)
                 {
-                    tokenRepository = new GenericRepository<TokenEntity>(context);
+                    tokenRepository = new GenericRepository<Token>(context);
                 }
                 return tokenRepository;
             }
         }
 
-        public GenericRepository<UlogaEntity> UlogaRepository
+        public GenericRepository<Uloga> UlogaRepository
         {
             get
             {
 
                 if (ulogaRepository == null)
                 {
-                    ulogaRepository = new GenericRepository<UlogaEntity>(context);
+                    ulogaRepository = new GenericRepository<Uloga>(context);
                 }
                 return ulogaRepository;
             }
         }
 
-        public GenericRepository<VrstaPonudeEntity> VrstaPonudeRepository
+        public GenericRepository<VrstaPonude> VrstaPonudeRepository
         {
             get
             {
 
                 if (vrstaPonudeRepository == null)
                 {
-                    vrstaPonudeRepository = new GenericRepository<VrstaPonudeEntity>(context);
+                    vrstaPonudeRepository = new GenericRepository<VrstaPonude>(context);
                 }
                 return vrstaPonudeRepository;
             }
         }
 
-        public GenericRepository<ZaposlenikObjektEntity> ZaposlenikObjektRepository
+        public GenericRepository<ZaposlenikObjekt> ZaposlenikObjektRepository
         {
             get
             {
 
                 if (zaposlenikObjektRepository == null)
                 {
-                    zaposlenikObjektRepository = new GenericRepository<ZaposlenikObjektEntity>(context);
+                    zaposlenikObjektRepository = new GenericRepository<ZaposlenikObjekt>(context);
                 }
                 return zaposlenikObjektRepository;
             }

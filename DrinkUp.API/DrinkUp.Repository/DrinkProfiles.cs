@@ -10,24 +10,24 @@ namespace DrinkUp.Repository
     {
         public DrinkProfiles()
         {
-            CreateMap<KorisnikModel, KorisnikEntity>().PreserveReferences().ReverseMap();
-            CreateMap<IKorisnikModel, KorisnikEntity>().PreserveReferences().ReverseMap();
-            CreateMap<KorisnikTokenModel, KorisnikTokenEntity>().PreserveReferences().ReverseMap();
-            CreateMap<IKorisnikTokenModel, KorisnikTokenEntity>().PreserveReferences().ReverseMap();
-            CreateMap<ObjektModel, ObjektEntity>().PreserveReferences().ReverseMap();
-            CreateMap<IObjektModel, ObjektEntity>().PreserveReferences().ReverseMap();
-            CreateMap<ObjektPonudaModel, ObjektPonudaEntity>().PreserveReferences().ReverseMap();
-            CreateMap<IObjektPonudaModel, ObjektPonudaEntity>().PreserveReferences().ReverseMap();
-            CreateMap<PonudaModel, PonudaEntity>().PreserveReferences().ReverseMap();
-            CreateMap<IPonudaModel, PonudaEntity>().PreserveReferences().ReverseMap();
-            CreateMap<TokenModel, TokenEntity>().PreserveReferences().ReverseMap();
-            CreateMap<ITokenModel, TokenEntity>().PreserveReferences().ReverseMap();
-            CreateMap<UlogaModel, UlogaEntity>().PreserveReferences().ReverseMap();
-            CreateMap<IUlogaModel, UlogaEntity>().PreserveReferences().ReverseMap();
-            CreateMap<VrstaPonudeModel, VrstaPonudeEntity>().PreserveReferences().ReverseMap();
-            CreateMap<IVrstaPonudeModel, VrstaPonudeEntity>().PreserveReferences().ReverseMap();
-            CreateMap<ZaposlenikObjektModel, ZaposlenikObjektEntity>().PreserveReferences().ReverseMap();
-            CreateMap<IZaposlenikObjektModel, ZaposlenikObjektEntity>().PreserveReferences().ReverseMap();
+            CreateMap<KorisnikModel, Korisnik>().PreserveReferences().ReverseMap();
+            CreateMap<IKorisnikModel, Korisnik>().PreserveReferences().ReverseMap();
+            CreateMap<KorisnikTokenModel, KorisnikToken>().PreserveReferences().ReverseMap();
+            CreateMap<IKorisnikTokenModel, KorisnikToken>().PreserveReferences().ReverseMap();
+            CreateMap<ObjektModel, Objekt>().PreserveReferences().ReverseMap();
+            CreateMap<IObjektModel, Objekt>().PreserveReferences().ReverseMap();
+            CreateMap<ObjektPonudaModel, ObjektPonuda>().PreserveReferences().ReverseMap();
+            CreateMap<IObjektPonudaModel, ObjektPonuda>().PreserveReferences().ReverseMap();
+            CreateMap<PonudaModel, Ponuda>().PreserveReferences().ReverseMap();
+            CreateMap<IPonudaModel, Ponuda>().PreserveReferences().ReverseMap();
+            CreateMap<TokenModel, Token>().PreserveReferences().ReverseMap();
+            CreateMap<ITokenModel, Token>().PreserveReferences().ReverseMap();
+            CreateMap<UlogaModel, Uloga>().PreserveReferences().ReverseMap();
+            CreateMap<IUlogaModel, Uloga>().PreserveReferences().ReverseMap();
+            CreateMap<VrstaPonudeModel, VrstaPonude>().PreserveReferences().ReverseMap();
+            CreateMap<IVrstaPonudeModel, VrstaPonude>().PreserveReferences().ReverseMap();
+            CreateMap<ZaposlenikObjektModel, ZaposlenikObjekt>().PreserveReferences().ReverseMap();
+            CreateMap<IZaposlenikObjektModel, ZaposlenikObjekt>().PreserveReferences().ReverseMap();
         }
     }
 }

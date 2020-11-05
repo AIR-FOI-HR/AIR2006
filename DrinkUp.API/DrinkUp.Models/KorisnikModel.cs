@@ -15,7 +15,7 @@ namespace DrinkUp.Models
         public string Email { get; set; }
         public Spol Spol { get; set; }
         public int UlogaId { get; set; }
-        public byte Aktivan { get; set; }
+        public bool Aktivan { get; set; }
         
         public IUlogaModel Uloga { get; set; }
         public ICollection<IKorisnikTokenModel> KorisnikToken { get; set; }

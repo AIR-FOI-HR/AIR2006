@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using AutoMapper;
+using DrinkUp.DAL;
+using DrinkUp.Service;
+using DrinkUp.WebAPI.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,7 +31,15 @@ namespace DrinkUp.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddControllersAsServices();
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
+        }
+
+        public void ConfigureContainer(ContainerBuilder containerBuilder)
+        {
+            containerBuilder.RegisterModule(new DALDIModule());
+            containerBuilder.RegisterModule(new ServiceDIModule());
+            containerBuilder.RegisterModule(new WebAPIDIModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +57,7 @@ namespace DrinkUp.WebAPI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=WeatherForecast}/{action=Get}/{id?}");
+                    pattern: "{controller=Ponuda}/{action=Get}/{id?}");
             });
         }
     }
