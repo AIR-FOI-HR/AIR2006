@@ -1,19 +1,18 @@
 package com.example.drinkup.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-import com.example.drinkup.R;
-import com.example.drinkup.models.Korisnik;
-import com.example.drinkup.models.LoginModel;
-import com.example.drinkup.registration.RegistrationActivity;
-import com.example.drinkup.services.RequestService;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.drinkup.R;
+import com.example.drinkup.models.LoginModel;
+import com.example.drinkup.registration.RegistrationActivity;
+import com.example.drinkup.services.RequestService;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -53,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view){
                 RequestService rs = new RequestService(getApplicationContext());
                 LoginModel korisnik = new LoginModel();
-                korisnik.email = Name.getText().toString();
-                korisnik.lozinka = Password.getText().toString();
+                korisnik.setEmail(Name.getText().toString());
+                korisnik.setLozinka(Password.getText().toString());
                 rs.SendLoginRequest(korisnik);
                 //validate(Name.getText().toString(), Password.getText().toString());
             }

@@ -1,15 +1,15 @@
 package com.example.drinkup.models;
 
 public class Korisnik {
-    public int Id;
-    public String OIB;
-    public String ime;
-    public String prezime;
-    public String email;
-    public String lozinka;
-    public int spol;
-    public int ulogaID;
-    public boolean status;
+    private int Id;
+    private String OIB;
+    private String ime;
+    private String prezime;
+    private String email;
+    private String lozinka;
+    private int spol;
+    private int ulogaID;
+    private boolean status;
 
     public Korisnik() {
     }

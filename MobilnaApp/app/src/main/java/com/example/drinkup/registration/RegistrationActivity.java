@@ -1,24 +1,37 @@
 package com.example.drinkup.registration;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.drinkup.models.Korisnik;
+import com.android.volley.VolleyError;
 import com.example.drinkup.R;
+import com.example.drinkup.login.LoginActivity;
+import com.example.drinkup.models.Korisnik;
+import com.example.drinkup.models.Uloga;
 import com.example.drinkup.services.RequestService;
-import com.example.drinkup.services.VolleyCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+
 
 public class RegistrationActivity extends AppCompatActivity {
+
+    Map<String, Integer> roleIdsByTheirNames = new HashMap<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,10 +45,7 @@ public class RegistrationActivity extends AppCompatActivity {
         final EditText oibEditText = findViewById(R.id.oib);
         final EditText firstNameEditText = findViewById(R.id.firstName);
         final EditText lastNameEditText = findViewById(R.id.lastName);
-        final RadioButton maleGenderRadio = findViewById(R.id.radio1);
-        final RadioButton femaleGenderRadio = findViewById(R.id.radio2);
-        final RadioButton ownerRoleRadio = findViewById(R.id.radioRoleOwner);
-        final RadioButton guestRoleRadio = findViewById(R.id.radioRoleOwner);
+        final RadioButton maleGenderRadio = findViewById(R.id.radioOptionMale);
 
         oibEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -110,6 +120,21 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
+        RequestService rs = new RequestService(getApplicationContext());
+        rs.fetchAvailableRoles(new Consumer<Uloga[]>() {
+            @Override
+            public void accept(Uloga[] roles) {
+                RegistrationActivity.this.displayFetchedRoles(roles);
+            }
+        }, new Consumer<VolleyError>() {
+            @Override
+            public void accept(VolleyError volleyError) {
+                Toast.makeText(RegistrationActivity.this.getApplicationContext(), R.string.role_retrieval_failed, Toast.LENGTH_LONG).show();
+                Intent intentRegisterLogin = new Intent(RegistrationActivity.this, LoginActivity.class);
+                startActivity(intentRegisterLogin);
+            }
+        });
+
         registrationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,17 +142,37 @@ public class RegistrationActivity extends AppCompatActivity {
                     if (oibEditText.getError() == null && firstNameEditText.getError() == null && lastNameEditText.getError() == null && emailEditText.getError() == null && passwordEditText.getError() == null && passwordRepeatEditText.getError() == null) {
 //                        final FrameLayout progressBarHolder = findViewById(R.id.loading);
 //                        progressBarHolder.setVisibility(View.VISIBLE);
-                        // TODO implementirati slanje registracijskih podataka na web-servis
                         RequestService rs = new RequestService(getApplicationContext());
                         Korisnik registriraniKorisnik = new Korisnik();
-                        registriraniKorisnik.OIB = oibEditText.getText().toString();
-                        registriraniKorisnik.email = emailEditText.getText().toString();
-                        registriraniKorisnik.ime = firstNameEditText.getText().toString();
-                        registriraniKorisnik.prezime = lastNameEditText.getText().toString();
-                        registriraniKorisnik.lozinka = passwordEditText.getText().toString();
-                        registriraniKorisnik.spol = maleGenderRadio.isChecked() ? 0 : 1;
-                        registriraniKorisnik.ulogaID = ownerRoleRadio.isChecked() ? 1 : 0;
-                        rs.SendRegistrationRequest(registriraniKorisnik);
+                        registriraniKorisnik.setOIB(oibEditText.getText().toString());
+                        registriraniKorisnik.setEmail(emailEditText.getText().toString());
+                        registriraniKorisnik.setIme(firstNameEditText.getText().toString());
+                        registriraniKorisnik.setPrezime(lastNameEditText.getText().toString());
+                        registriraniKorisnik.setLozinka(passwordEditText.getText().toString());
+                        registriraniKorisnik.setSpol(maleGenderRadio.isChecked() ? 0 : 1);
+                        registriraniKorisnik.setUlogaID(readSelectedRoleId());
+                        rs.SendRegistrationRequest(registriraniKorisnik,
+                                new Consumer<JSONObject>() {
+                                    @Override
+                                    public void accept(JSONObject response) {
+                                        try {
+                                            if (response.getInt("statusCode") == 400) {
+                                                Toast.makeText(getApplicationContext(), R.string.duplicate_email_or_oib, Toast.LENGTH_LONG).show();
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), R.string.registration_successful, Toast.LENGTH_LONG).show();
+                                                Intent intentRegisterLogin = new Intent(RegistrationActivity.this, LoginActivity.class);
+                                                startActivity(intentRegisterLogin);
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Consumer<VolleyError>() {
+                                    @Override
+                                    public void accept(VolleyError volleyError) {
+                                        Toast.makeText(getApplicationContext(), R.string.registration_failed, Toast.LENGTH_LONG).show();
+                                    }
+                                });
                     }
                     else {
                         Toast.makeText(getApplicationContext(), R.string.some_errors_exist, Toast.LENGTH_LONG).show();
@@ -140,19 +185,38 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    public void registration(String oib, String ime, String prezime, String email, int spol, int ulogaId, boolean status) {
-        Korisnik korisnik = new Korisnik();
-        korisnik.OIB = oib;
-        korisnik.ime = ime;
-        korisnik.prezime = prezime;
-        korisnik.email = email;
-        korisnik.spol = spol;
-        korisnik.ulogaID = ulogaId;
-        korisnik.status = status;
-
-        //HttpClient httpclient = HttpClients.createDefault();
-        //HttpPost httppost = new HttpPost("http://www.a-domain.com/foo/");
-
+    private int readSelectedRoleId() {
+        if (findViewById(R.id.roleOptionsV1).getVisibility() == View.VISIBLE) {
+             RadioGroup roleRadioGroup = findViewById(R.id.roleOptionsV1);
+            RadioButton checkedRadioButton = findViewById(roleRadioGroup.getCheckedRadioButtonId());
+            return roleIdsByTheirNames.get(checkedRadioButton.getText());
+        }
+        else {
+            Spinner roleDropdown = findViewById(R.id.roleOptionsV2);
+            return ((Uloga) roleDropdown.getSelectedItem()).getId();
+        }
     }
 
+    private void displayFetchedRoles(Uloga[] roles) {
+        for (Uloga role : roles) {
+            roleIdsByTheirNames.put(role.getNaziv(), role.getId());
+        }
+        Object[] roleNames = roleIdsByTheirNames.keySet().toArray();
+        final View roleOptionsViewElement;
+        if (roles.length == 2) {
+            RadioGroup roleRadioGroup = findViewById(R.id.roleOptionsV1);
+            RadioButton roleOptionRadioButton1 = findViewById(R.id.roleOptionRadioButton1);
+            roleOptionRadioButton1.setText(roleNames[0].toString());
+            RadioButton roleOptionRadioButton2 = findViewById(R.id.roleOptionRadioButton2);
+            roleOptionRadioButton2.setText(roleNames[1].toString());
+            roleOptionsViewElement = roleRadioGroup;
+        }
+        else {
+            Spinner roleDropdown = findViewById(R.id.roleOptionsV2);
+            SpinnerAdapter roleSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, roleNames);
+            roleDropdown.setAdapter(roleSpinnerAdapter);
+            roleOptionsViewElement = roleDropdown;
+        }
+        roleOptionsViewElement.setVisibility(View.VISIBLE);
+    }
 }

@@ -7,7 +7,8 @@
     <string name="registration_successful">"Zahtjev za registracijom je uspješno poslan!"</string>
     <string name="invalid_email_format">Email adresa nije u valjanom formatu!</string>
     <string name="invalid_password">Lozinka treba sadržavati minimalno 8 znakova, među kojima trebaju biti slova i brojevi!</string>
-    <string name="registration_failed">"Dogodio se neuspjeh kod registracije"</string>
+    <string name="duplicate_email_or_oib">"Izgleda da već postoji korisnički račun s navedenim OIB-om i/ili e-mail adresom!"</string>
+    <string name="registration_failed">"Dogodio se neuspjeh kod registracije!"</string>
     <string name="oib">OIB</string>
     <string name="firstName">Ime</string>
     <string name="lastName">Prezime</string>
@@ -22,8 +23,8 @@
     <string name="undefined_last_name">Niste unijeli prezime!</string>
     <string name="some_errors_exist">U neka polja nisu navedene ispravne vrijednosti!</string>
     <string name="undefined_fields_exist">Neka polja nisu popunjena</string>
+    <string name="role_retrieval_failed">Trenutno nije moguće obaviti registraciju. Pokušajte malo kasnije!</string>
+    <string name="get_all_roles_url">https://air2006.azurewebsites.net/api/uloga/</string>
     <string name="registration_url">https://air2006.azurewebsites.net/api/korisnik/register</string>
     <string name="login_url">https://air2006.azurewebsites.net/api/korisnik/login</string>
-    <string name="owner">Ugostitelj</string>
-    <string name="guest">Gost</string>
 </resources>

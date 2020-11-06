@@ -1,8 +1,8 @@
 package com.example.drinkup.models;
 
 public class LoginModel {
-    public String email;
-    public String lozinka;
+    private String email;
+    private String lozinka;
 
     public String getEmail() {
         return email;
