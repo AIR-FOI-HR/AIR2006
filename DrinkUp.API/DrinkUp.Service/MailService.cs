@@ -30,7 +30,6 @@ namespace DrinkUp.Service
             {
                 Sender = MailboxAddress.Parse(mailSettings.Mail)
             };
-            email.Sender = MailboxAddress.Parse(mailSettings.From);
             email.To.Add(MailboxAddress.Parse(mailRequest.To));
             email.Subject = mailRequest.Subject;
 
