@@ -2,7 +2,10 @@ package com.example.drinkup.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.drinkup.R;
+import com.example.drinkup.models.Korisnik;
+import com.example.drinkup.models.LoginModel;
 import com.example.drinkup.registration.RegistrationActivity;
+import com.example.drinkup.services.RequestService;
 
 
 import android.content.Intent;
@@ -48,7 +51,12 @@ public class LoginActivity extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                validate(Name.getText().toString(), Password.getText().toString());
+                RequestService rs = new RequestService(getApplicationContext());
+                LoginModel korisnik = new LoginModel();
+                korisnik.email = Name.getText().toString();
+                korisnik.lozinka = Password.getText().toString();
+                rs.SendLoginRequest(korisnik);
+                //validate(Name.getText().toString(), Password.getText().toString());
             }
         });
     }
@@ -62,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validate(String userName, String userPassword){
+
         if((userName.equals("admin")) && (userPassword.equals("admin"))){
 
             Intent intentSucces= new Intent(LoginActivity.this, SecondActivity.class);

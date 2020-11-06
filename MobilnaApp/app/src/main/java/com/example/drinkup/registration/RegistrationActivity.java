@@ -4,11 +4,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.drinkup.models.Korisnik;
 import com.example.drinkup.R;
+import com.example.drinkup.services.RequestService;
+import com.example.drinkup.services.VolleyCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -24,6 +32,10 @@ public class RegistrationActivity extends AppCompatActivity {
         final EditText oibEditText = findViewById(R.id.oib);
         final EditText firstNameEditText = findViewById(R.id.firstName);
         final EditText lastNameEditText = findViewById(R.id.lastName);
+        final RadioButton maleGenderRadio = findViewById(R.id.radio1);
+        final RadioButton femaleGenderRadio = findViewById(R.id.radio2);
+        final RadioButton ownerRoleRadio = findViewById(R.id.radioRoleOwner);
+        final RadioButton guestRoleRadio = findViewById(R.id.radioRoleOwner);
 
         oibEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -106,12 +118,16 @@ public class RegistrationActivity extends AppCompatActivity {
 //                        final FrameLayout progressBarHolder = findViewById(R.id.loading);
 //                        progressBarHolder.setVisibility(View.VISIBLE);
                         // TODO implementirati slanje registracijskih podataka na web-servis
-                        if (emailEditText.getText().toString().equals("admin@foi.hr")) {
-                            Toast.makeText(getApplicationContext(), R.string.registration_failed, Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(), R.string.registration_successful, Toast.LENGTH_LONG).show();
-                        }
+                        RequestService rs = new RequestService(getApplicationContext());
+                        Korisnik registriraniKorisnik = new Korisnik();
+                        registriraniKorisnik.OIB = oibEditText.getText().toString();
+                        registriraniKorisnik.email = emailEditText.getText().toString();
+                        registriraniKorisnik.ime = firstNameEditText.getText().toString();
+                        registriraniKorisnik.prezime = lastNameEditText.getText().toString();
+                        registriraniKorisnik.lozinka = passwordEditText.getText().toString();
+                        registriraniKorisnik.spol = maleGenderRadio.isChecked() ? 0 : 1;
+                        registriraniKorisnik.ulogaID = ownerRoleRadio.isChecked() ? 1 : 0;
+                        rs.SendRegistrationRequest(registriraniKorisnik);
                     }
                     else {
                         Toast.makeText(getApplicationContext(), R.string.some_errors_exist, Toast.LENGTH_LONG).show();
@@ -123,4 +139,20 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void registration(String oib, String ime, String prezime, String email, int spol, int ulogaId, boolean status) {
+        Korisnik korisnik = new Korisnik();
+        korisnik.OIB = oib;
+        korisnik.ime = ime;
+        korisnik.prezime = prezime;
+        korisnik.email = email;
+        korisnik.spol = spol;
+        korisnik.ulogaID = ulogaId;
+        korisnik.status = status;
+
+        //HttpClient httpclient = HttpClients.createDefault();
+        //HttpPost httppost = new HttpPost("http://www.a-domain.com/foo/");
+
+    }
+
 }
