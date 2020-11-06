@@ -23,6 +23,7 @@ namespace DrinkUp.Service
     {
         protected GenericRepository<Korisnik> Repository { get; private set; }
         protected GenericRepository<KorisnikAktivacija> AktivacijaRepository { get; private set; }
+        protected GenericRepository<KorisnikReset> ResetRepository { get; private set; }
         protected GenericRepository<Kod> KodRepository { get; private set; }
         protected IMapper Mapper { get; private set; }
         private readonly UnitOfWork unitOfWork;
@@ -33,6 +34,7 @@ namespace DrinkUp.Service
             Repository = unitOfWork.KorisnikRepository;
             AktivacijaRepository = unitOfWork.KorisnikAktivacijaRepository;
             KodRepository = unitOfWork.KodRepository;
+            ResetRepository = unitOfWork.KorisnikResetRepository;
             Mapper = mapper;
         }
 
@@ -98,15 +100,61 @@ namespace DrinkUp.Service
                 KorisnikAktivacija aktivacija = aktivacije.First();
                 Korisnik korisnik = aktivacija.Korisnik;
                 korisnik.Aktivan = Convert.ToByte(true);
+                string kodId = aktivacija.KodId;
 
                 Repository.Update(korisnik);
                 AktivacijaRepository.Delete(aktivacija);
+                await KodRepository.DeleteAsync(kodId);
                 await unitOfWork.SaveAsync();
             }
             else
             {
                 throw new InvalidOperationException();
             }
+        }
+
+        public async Task<string> ResetPasswordToken(IKorisnikModel korisnik)
+        {
+            if (korisnik == null)
+            {
+                throw new InvalidOperationException();
+            }
+             
+            string token = GenerateNewToken();
+            Kod kod = new Kod()
+            {
+                Id = token,
+                DatumKreiranja = DateTime.Now
+            };
+            KodRepository.Insert(kod);
+            await unitOfWork.SaveAsync();
+
+            KorisnikReset reset = new KorisnikReset()
+            {
+                KodId = token,
+                KorisnikId = korisnik.Id
+            };
+
+            ResetRepository.Insert(reset);
+            await unitOfWork.SaveAsync();
+
+            return token;
+        }
+
+        public async Task<IKorisnikReset> ValidatePasswordReset(string token, string email, GetParams<IKorisnikModel> getParams)
+        {
+            FilterParams tokenParam = new FilterParams()
+            {
+                ColumnName = "KodId",
+                FilterOption = FilterOptions.IsEqualTo,
+                FilterValue = token
+            };
+            getParams.FilterParam = new[] { tokenParam };
+            getParams.Include = "Korisnik, Kod";
+            KorisnikReset reset = (await ResetRepository.Get(Mapper.Map<GetParams<KorisnikReset>>(getParams)))
+                .Where(x => x.Kod.DatumKreiranja.AddDays(3) > DateTime.Now).FirstOrDefault();
+
+            return Mapper.Map<IKorisnikReset>(reset);
         }
 
         public async Task UpdateAsync(IKorisnikModel entity)
@@ -145,6 +193,35 @@ namespace DrinkUp.Service
             str.Close();
             mailText = mailText.Replace("[message]", message);
             return mailText;
+        }
+
+        public string GetPasswordResetForm(string token, string email)
+        {
+            string FilePath = Directory.GetCurrentDirectory() + "\\wwwroot\\Templates\\PasswordResetForm.html";
+            StreamReader str = new StreamReader(FilePath);
+            string mailText = str.ReadToEnd();
+            str.Close();
+            mailText = mailText.Replace("[token]", token).Replace("[email]", email);
+            return mailText;
+        }
+
+        public async Task ResetPassword(IKorisnikReset korisnikReset, string password)
+        {
+            if (korisnikReset != null)
+            {
+                string kodId = korisnikReset.KodId;
+                Korisnik korisnik = await Repository.GetByID(korisnikReset.KorisnikId);
+                korisnik.Lozinka = Sha256(password);
+
+                Repository.Update(korisnik);
+                await ResetRepository.DeleteAsync(korisnikReset.Id);
+                await KodRepository.DeleteAsync(kodId);
+                await unitOfWork.SaveAsync();
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         public async Task<IKorisnikModel> Login(string email, string password, GetParams<IKorisnikModel> getParams)
