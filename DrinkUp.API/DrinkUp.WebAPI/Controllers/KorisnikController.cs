@@ -111,7 +111,7 @@ namespace DrinkUp.WebAPI.Controllers
                 string token = await Service.InsertAsync(Mapper.Map<KorisnikModel>(korisnik));
                 await MailService.SendEmailAsync(MailService.CreateRegistrationMail(korisnik.Email, korisnik.Ime, token));
             }
-            catch
+            catch (Exception e)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
