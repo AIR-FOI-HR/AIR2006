@@ -10,5 +10,6 @@ namespace DrinkUp.Service.Common
     {
         Task SendEmailAsync(IMailRequest mailRequest);
         IMailRequest CreateRegistrationMail(string email, string name, string token);
+        IMailRequest CreatePasswordResetEmail(string email, string name, string token);
     }
 }

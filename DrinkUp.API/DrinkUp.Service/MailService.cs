@@ -49,7 +49,7 @@ namespace DrinkUp.Service
 
         public IMailRequest CreateRegistrationMail(string email, string name, string token)
         {
-            string FilePath = Directory.GetCurrentDirectory() + "\\Templates\\AccountActivation.html";
+            string FilePath = Directory.GetCurrentDirectory() + "\\wwwroot\\Templates\\AccountActivation.html";
             StreamReader str = new StreamReader(FilePath);
             string MailText = str.ReadToEnd();
             str.Close();
@@ -58,6 +58,21 @@ namespace DrinkUp.Service
             {
                 To = email,
                 Subject = "Activate your DrinkUp account",
+                Body = MailText
+            };
+        }
+
+        public IMailRequest CreatePasswordResetEmail(string email, string name, string token)
+        {
+            string FilePath = Directory.GetCurrentDirectory() + "\\wwwroot\\Templates\\PasswordResetMail.html";
+            StreamReader str = new StreamReader(FilePath);
+            string MailText = str.ReadToEnd();
+            str.Close();
+            MailText = MailText.Replace("[username]", name).Replace("[token]", token).Replace("[email]", email);
+            return new MailRequest()
+            {
+                To = email,
+                Subject = "Reset your DrinkUp password",
                 Body = MailText
             };
         }

@@ -23,6 +23,14 @@ namespace DrinkUp.Service.Common
 
         string GetAccountActivationPage(string message);
 
+        string GetPasswordResetForm(string token, string email);
+
         Task ActivateAccountAsync(string token, GetParams<IKorisnikModel> getParams);
+
+        Task<string> ResetPasswordToken(IKorisnikModel korisnik);
+
+        Task<IKorisnikReset> ValidatePasswordReset(string token, string email, GetParams<IKorisnikModel> getParams);
+
+        Task ResetPassword(IKorisnikReset korisnikReset, string password);
     }
 }
