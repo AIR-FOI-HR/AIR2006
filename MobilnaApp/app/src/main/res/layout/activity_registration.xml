@@ -12,68 +12,6 @@
     tools:context=".registration.RegistrationActivity"
     >
 
-    <TextView
-        android:id="@+id/roleLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/roleLabelCaption"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <RadioGroup
-        android:id="@+id/roleOptionsV1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:visibility="gone"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roleLabel"
-        >
-        <RadioButton
-            android:id="@+id/roleOptionRadioButton1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            tools:layout_editor_absoluteX="250dp"
-            />
-        <RadioButton
-            android:id="@+id/roleOptionRadioButton2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            tools:layout_editor_absoluteX="250dp"
-            />
-    </RadioGroup>
-
-    <Spinner
-        android:id="@+id/roleOptionsV2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:drawSelectorOnTop="true"
-        android:spinnerMode="dropdown"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roleLabel"
-        />
-
     <EditText
         android:id="@+id/oib"
         android:layout_width="0dp"
@@ -87,7 +25,7 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roleOptionsV1"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <EditText
@@ -215,6 +153,68 @@
             />
 
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/roleLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/roleLabelCaption"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/genderOptions"
+        />
+
+    <RadioGroup
+        android:id="@+id/roleOptionsV1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/roleLabel"
+        >
+        <RadioButton
+            android:id="@+id/roleOptionRadioButton1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            tools:layout_editor_absoluteX="250dp"
+            />
+        <RadioButton
+            android:id="@+id/roleOptionRadioButton2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            tools:layout_editor_absoluteX="250dp"
+            />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/roleOptionsV2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:drawSelectorOnTop="true"
+        android:spinnerMode="dropdown"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/roleLabel"
+        />
 
     <Button
         android:id="@+id/register"
