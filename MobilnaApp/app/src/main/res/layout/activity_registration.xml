@@ -188,6 +188,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
+            android:checked="true"
             tools:layout_editor_absoluteX="250dp"
             />
         <RadioButton
