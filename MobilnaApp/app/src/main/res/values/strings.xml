@@ -9,6 +9,9 @@
     <string name="invalid_password">Lozinka treba sadržavati minimalno 8 znakova, među kojima trebaju biti slova i brojevi!</string>
     <string name="duplicate_email_or_oib">"Izgleda da već postoji korisnički račun s navedenim OIB-om i/ili e-mail adresom!"</string>
     <string name="registration_failed">"Dogodio se neuspjeh kod registracije!"</string>
+    <string name="login_failed">"Račun s unesenim podatcima ne postoji"</string>
+    <string name="reset_password_failed">"Račun s unesenim email-om ne postoji"</string>
+    <string name="reset_password_success">"Link za resetiranje lozinke je uspješno poslan na vašu email adresu."</string>
     <string name="oib">OIB</string>
     <string name="firstName">Ime</string>
     <string name="lastName">Prezime</string>
@@ -27,4 +30,5 @@
     <string name="get_all_roles_url">https://air2006.azurewebsites.net/api/uloga/</string>
     <string name="registration_url">https://air2006.azurewebsites.net/api/korisnik/register</string>
     <string name="login_url">https://air2006.azurewebsites.net/api/korisnik/login</string>
+    <string name="forgot_pass_url">https://air2006.azurewebsites.net/api/korisnik/reset-password-mail</string>
 </resources>

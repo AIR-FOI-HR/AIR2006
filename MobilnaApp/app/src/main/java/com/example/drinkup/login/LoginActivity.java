@@ -6,13 +6,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.VolleyError;
 import com.example.drinkup.R;
 import com.example.drinkup.models.LoginModel;
 import com.example.drinkup.registration.RegistrationActivity;
 import com.example.drinkup.services.RequestService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.function.Consumer;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -54,8 +61,26 @@ public class LoginActivity extends AppCompatActivity {
                 LoginModel korisnik = new LoginModel();
                 korisnik.setEmail(Name.getText().toString());
                 korisnik.setLozinka(Password.getText().toString());
-                rs.SendLoginRequest(korisnik);
-                //validate(Name.getText().toString(), Password.getText().toString());
+
+                rs.SendLoginRequest(korisnik,
+                        new Consumer<JSONObject>() {
+                            @Override
+                            public void accept(JSONObject response) {
+                                try {
+                                    response.getInt("id");
+                                    Intent intentSucces = new Intent(LoginActivity.this, SecondActivity.class);
+                                    startActivity(intentSucces);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Consumer<VolleyError>() {
+                            @Override
+                            public void accept(VolleyError volleyError) {
+                                Error=(TextView)findViewById(R.id.loginError);
+                                Error.setText(R.string.login_failed);
+                            }
+                        });
             }
         });
     }
@@ -66,18 +91,5 @@ public class LoginActivity extends AppCompatActivity {
     private void loginRegister(){
         Intent intentLoginRegister= new Intent(LoginActivity.this, RegistrationActivity.class);
         startActivity(intentLoginRegister);
-    }
-
-    private void validate(String userName, String userPassword){
-
-        if((userName.equals("admin")) && (userPassword.equals("admin"))){
-
-            Intent intentSucces= new Intent(LoginActivity.this, SecondActivity.class);
-            startActivity(intentSucces);
-
-        }else{
-            Error=(TextView)findViewById(R.id.loginError);
-            Error.setText("Pogrešno upisani podaci! Molimo pokušajte ponovo.");
-        }
     }
 }
