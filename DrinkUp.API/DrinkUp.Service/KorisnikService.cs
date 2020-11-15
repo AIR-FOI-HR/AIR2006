@@ -241,7 +241,7 @@ namespace DrinkUp.Service
             };
             getParams.FilterParam = new[] { emailParam, passwordParam };
 
-            return Mapper.Map<IKorisnikModel>((await Repository.Get(Mapper.Map<GetParams<Korisnik>>(getParams))).First());
+            return Mapper.Map<IKorisnikModel>((await Repository.Get(Mapper.Map<GetParams<Korisnik>>(getParams))).First(k => k.Aktivan == 1));
         }
     }
 }
