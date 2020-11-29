@@ -10,12 +10,13 @@ namespace DrinkUp.Models.Common
         int Id { get; set; }
         string Naslov { get; set; }
         string Opis { get; set; }
-        double Cijena { get; set; }
-        int BrojTokena { get; set; }
+        double? Cijena { get; set; }
+        double? Popust { get; set; }
         int VrstaPonudeId { get; set; }
+        int ObjektId { get; set; }
 
+        IObjektModel Objekt { get; set; }
         IVrstaPonudeModel VrstaPonude { get; set; }
-        ICollection<IObjektPonudaModel> ObjektPonuda { get; set; }
         ICollection<ITokenModel> Token { get; set; }
     }
 }

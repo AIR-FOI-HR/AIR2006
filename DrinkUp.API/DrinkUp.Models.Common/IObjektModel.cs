@@ -18,8 +18,8 @@ namespace DrinkUp.Models.Common
         double Latituda { get; set; }
         bool Aktivan { get; set; }
 
+        ICollection<IPonudaModel> Ponuda { get; set; }
         ICollection<IAktivacijaObjektaModel> AktivacijaObjekta { get; set; }
-        ICollection<IObjektPonudaModel> ObjektPonuda { get; set; }
         ICollection<IZaposlenikObjektModel> ZaposlenikObjekt { get; set; }
     }
 }

@@ -7,19 +7,20 @@ namespace DrinkUp.DAL.Entities
     {
         public Ponuda()
         {
-            ObjektPonuda = new HashSet<ObjektPonuda>();
             Token = new HashSet<Token>();
         }
 
         public int Id { get; set; }
         public string Naslov { get; set; }
         public string Opis { get; set; }
-        public double Cijena { get; set; }
+        public double? Cijena { get; set; }
         public int BrojTokena { get; set; }
         public int VrstaPonudeId { get; set; }
+        public int ObjektId { get; set; }
+        public double? Popust { get; set; }
 
+        public virtual Objekt Objekt { get; set; }
         public virtual VrstaPonude VrstaPonude { get; set; }
-        public virtual ICollection<ObjektPonuda> ObjektPonuda { get; set; }
         public virtual ICollection<Token> Token { get; set; }
     }
 }

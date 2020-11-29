@@ -13,7 +13,6 @@ namespace DrinkUp.DAL.Context
         DbSet<Korisnik> Korisnik { get; set; }
         DbSet<KorisnikToken> KorisnikToken { get; set; }
         DbSet<Objekt> Objekt { get; set; }
-        DbSet<ObjektPonuda> ObjektPonuda { get; set; }
         DbSet<Ponuda> Ponuda { get; set; }
         DbSet<Token> Token { get; set; }
         DbSet<Uloga> Uloga { get; set; }

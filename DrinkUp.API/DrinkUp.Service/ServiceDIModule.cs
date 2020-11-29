@@ -13,7 +13,6 @@ namespace DrinkUp.Service
         {
             builder.RegisterType<KorisnikService>().As<IKorisnikService>();
             builder.RegisterType<KorisnikTokenService>().As<IKorisnikTokenService>();
-            builder.RegisterType<ObjektPonudaService>().As<IObjektPonudaService>();
             builder.RegisterType<ObjektService>().As<IObjektService>();
             builder.RegisterType<PonudaService>().As<IPonudaService>();
             builder.RegisterType<TokenService>().As<ITokenService>();
