@@ -9,7 +9,7 @@ namespace DrinkUp.WebAPI.ViewModels
     public class KodVM
     {
         public string Id { get; set; }
-        public DateTime DatumKreiranja { get; set; }
+        public DateTime? DatumKreiranja { get; set; }
 
         public ICollection<IAktivacijaObjektaModel> AktivacijaObjekta { get; set; }
         public ICollection<IKorisnikAktivacija> KorisnikAktivacija { get; set; }

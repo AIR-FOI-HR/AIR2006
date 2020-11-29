@@ -11,12 +11,10 @@ namespace DrinkUp.Repository
     {
         private DrinkUpContext context = new DrinkUpContext();
         private GenericRepository<Korisnik> korisnikRepository;
-        private GenericRepository<KorisnikToken> korisnikTokenRepository;
         private GenericRepository<KorisnikAktivacija> korisnikAktivacijaRepository;
         private GenericRepository<KorisnikReset> korisnikResetRepository;
         private GenericRepository<Kod> kodRepository;
         private GenericRepository<Objekt> objektRepository;
-        private GenericRepository<ObjektPonuda> objektPonudaRepository;
         private GenericRepository<Ponuda> ponudaRepository;
         private GenericRepository<Token> tokenRepository;
         private GenericRepository<Uloga> ulogaRepository;
@@ -35,19 +33,6 @@ namespace DrinkUp.Repository
                     korisnikRepository = new GenericRepository<Korisnik>(context);
                 }
                 return korisnikRepository;
-            }
-        }
-
-        public GenericRepository<KorisnikToken> KorisnikTokenRepository
-        {
-            get
-            {
-
-                if (korisnikTokenRepository == null)
-                {
-                    korisnikTokenRepository = new GenericRepository<KorisnikToken>(context);
-                }
-                return korisnikTokenRepository;
             }
         }
 
@@ -100,19 +85,6 @@ namespace DrinkUp.Repository
                     objektRepository = new GenericRepository<Objekt>(context);
                 }
                 return objektRepository;
-            }
-        }
-
-        public GenericRepository<ObjektPonuda> ObjektPonudaRepository
-        {
-            get
-            {
-
-                if (objektPonudaRepository == null)
-                {
-                    objektPonudaRepository = new GenericRepository<ObjektPonuda>(context);
-                }
-                return objektPonudaRepository;
             }
         }
 

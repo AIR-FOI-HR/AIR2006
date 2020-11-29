@@ -9,5 +9,6 @@ namespace DrinkUp.WebAPI.ViewModels
     {
         public string Id { get; set; }
         public int PonudaId { get; set; }
+        public int KorisnikId { get; set; }
     }
 }

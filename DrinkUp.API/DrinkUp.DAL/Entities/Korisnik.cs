@@ -9,7 +9,7 @@ namespace DrinkUp.DAL.Entities
         {
             KorisnikAktivacija = new HashSet<KorisnikAktivacija>();
             KorisnikReset = new HashSet<KorisnikReset>();
-            KorisnikToken = new HashSet<KorisnikToken>();
+            Token = new HashSet<Token>();
             ZaposlenikObjekt = new HashSet<ZaposlenikObjekt>();
         }
 
@@ -26,7 +26,7 @@ namespace DrinkUp.DAL.Entities
         public virtual Uloga Uloga { get; set; }
         public virtual ICollection<KorisnikAktivacija> KorisnikAktivacija { get; set; }
         public virtual ICollection<KorisnikReset> KorisnikReset { get; set; }
-        public virtual ICollection<KorisnikToken> KorisnikToken { get; set; }
+        public virtual ICollection<Token> Token { get; set; }
         public virtual ICollection<ZaposlenikObjekt> ZaposlenikObjekt { get; set; }
     }
 }

@@ -17,9 +17,7 @@ namespace DrinkUp.WebAPI.Profiles
         {
             CreateMap<KorisnikModel, KorisnikREST>().PreserveReferences().ReverseMap();
             CreateMap<IKorisnikModel, KorisnikREST>().PreserveReferences().ReverseMap();
-            CreateMap<KorisnikTokenModel, KorisnikTokenREST>().PreserveReferences().ReverseMap();
             CreateMap<ObjektModel, ObjektREST>().PreserveReferences().ReverseMap();
-            CreateMap<ObjektPonudaModel, ObjektPonudaREST>().PreserveReferences().ReverseMap();
             CreateMap<PonudaModel, PonudaREST>().PreserveReferences().ReverseMap();
             CreateMap<TokenModel, TokenREST>().PreserveReferences().ReverseMap();
             CreateMap<UlogaModel, UlogaREST>().PreserveReferences().ReverseMap();
@@ -27,9 +25,7 @@ namespace DrinkUp.WebAPI.Profiles
             CreateMap<VrstaPonudeModel, VrstaPonudeREST>().PreserveReferences().ReverseMap();
 
             CreateMap<KorisnikModel, KorisnikVM>().PreserveReferences().ReverseMap();
-            CreateMap<KorisnikTokenModel, KorisnikTokenVM>().PreserveReferences().ReverseMap();
             CreateMap<ObjektModel, ObjektVM>().PreserveReferences().ReverseMap();
-            CreateMap<ObjektPonudaModel, ObjektPonudaVM>().PreserveReferences().ReverseMap();
             CreateMap<PonudaModel, PonudaVM>().PreserveReferences().ReverseMap();
             CreateMap<TokenModel, TokenVM>().PreserveReferences().ReverseMap();
             CreateMap<UlogaModel, UlogaVM>().PreserveReferences().ReverseMap();

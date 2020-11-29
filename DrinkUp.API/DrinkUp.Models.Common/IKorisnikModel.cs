@@ -21,7 +21,7 @@ namespace DrinkUp.Models.Common
         IUlogaModel Uloga { get; set; }
         ICollection<IKorisnikAktivacija> KorisnikAktivacija { get; set; }
         ICollection<IKorisnikReset> KorisnikReset { get; set; }
-        ICollection<IKorisnikTokenModel> KorisnikToken { get; set; }
+        ICollection<ITokenModel> Token { get; set; }
         ICollection<IZaposlenikObjektModel> ZaposlenikObjekt { get; set; }
     }
 }

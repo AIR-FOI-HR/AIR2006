@@ -12,12 +12,8 @@ namespace DrinkUp.Repository
         {
             CreateMap<KorisnikModel, Korisnik>().PreserveReferences().ReverseMap();
             CreateMap<IKorisnikModel, Korisnik>().PreserveReferences().ReverseMap();
-            CreateMap<KorisnikTokenModel, KorisnikToken>().PreserveReferences().ReverseMap();
-            CreateMap<IKorisnikTokenModel, KorisnikToken>().PreserveReferences().ReverseMap();
             CreateMap<ObjektModel, Objekt>().PreserveReferences().ReverseMap();
             CreateMap<IObjektModel, Objekt>().PreserveReferences().ReverseMap();
-            CreateMap<ObjektPonudaModel, ObjektPonuda>().PreserveReferences().ReverseMap();
-            CreateMap<IObjektPonudaModel, ObjektPonuda>().PreserveReferences().ReverseMap();
             CreateMap<PonudaModel, Ponuda>().PreserveReferences().ReverseMap();
             CreateMap<IPonudaModel, Ponuda>().PreserveReferences().ReverseMap();
             CreateMap<TokenModel, Token>().PreserveReferences().ReverseMap();

@@ -9,7 +9,7 @@ namespace DrinkUp.DAL.Entities
         public int KorisnikId { get; set; }
         public string KodId { get; set; }
 
-        public Kod Kod { get; set; }
-        public Korisnik Korisnik { get; set; }
+        public virtual Kod Kod { get; set; }
+        public virtual Korisnik Korisnik { get; set; }
     }
 }

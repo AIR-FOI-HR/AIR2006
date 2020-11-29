@@ -8,7 +8,7 @@ namespace DrinkUp.DAL.Entities
         public Objekt()
         {
             AktivacijaObjekta = new HashSet<AktivacijaObjekta>();
-            ObjektPonuda = new HashSet<ObjektPonuda>();
+            Ponuda = new HashSet<Ponuda>();
             ZaposlenikObjekt = new HashSet<ZaposlenikObjekt>();
         }
 
@@ -24,7 +24,7 @@ namespace DrinkUp.DAL.Entities
         public byte Aktivan { get; set; }
 
         public virtual ICollection<AktivacijaObjekta> AktivacijaObjekta { get; set; }
-        public virtual ICollection<ObjektPonuda> ObjektPonuda { get; set; }
+        public virtual ICollection<Ponuda> Ponuda { get; set; }
         public virtual ICollection<ZaposlenikObjekt> ZaposlenikObjekt { get; set; }
     }
 }
