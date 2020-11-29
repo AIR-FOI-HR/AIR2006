@@ -69,31 +69,30 @@ namespace DrinkUp.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<TokenREST> GetAsync(int id)
+        public async Task<TokenREST> GetAsync(string id)
         {
             return Mapper.Map<TokenREST>(await Service.GetAsync(id));
         }
 
         [HttpPost("add")]
-        public async Task<HttpResponseMessage> AddAsync(TokenVM uloga)
+        public async Task<byte[]> AddAsync(TokenVM token)
         {
             try
             {
-                await Service.InsertAsync(Mapper.Map<TokenModel>(uloga));
+                 return await Service.InsertAsync(Mapper.Map<TokenModel>(token));
             }
             catch
             {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+                return null;
             }
-            return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
         [HttpPut("update")]
-        public async Task<HttpResponseMessage> UpdateAsync(TokenVM uloga)
+        public async Task<HttpResponseMessage> UpdateAsync(TokenVM token)
         {
             try
             {
-                await Service.UpdateAsync(Mapper.Map<TokenModel>(uloga));
+                await Service.UpdateAsync(Mapper.Map<TokenModel>(token));
             }
             catch
             {

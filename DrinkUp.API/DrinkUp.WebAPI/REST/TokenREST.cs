@@ -12,5 +12,6 @@ namespace DrinkUp.WebAPI.REST
         public DateTime DatumKreiranja { get; set; }
         public bool Iskoristen { get; set; }
         public int KorisnikId { get; set; }
+        public byte[] QR { get; set; }
     }
 }

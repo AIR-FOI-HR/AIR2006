@@ -12,6 +12,7 @@ namespace DrinkUp.Models
         public DateTime DatumKreiranja { get; set; }
         public bool Iskoristen { get; set; }
         public int KorisnikId { get; set; }
+        public byte[] QR { get; set; }
 
         public IPonudaModel Ponuda { get; set; }
         public IKorisnikModel Korisnik { get; set; }

@@ -228,6 +228,10 @@ namespace DrinkUp.DAL.Context
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
+                entity.Property(e => e.Qr)
+                    .HasColumnName("QR")
+                    .HasColumnType("image");
+
                 entity.HasOne(d => d.Korisnik)
                     .WithMany(p => p.Token)
                     .HasForeignKey(d => d.KorisnikId)
