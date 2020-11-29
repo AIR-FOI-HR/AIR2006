@@ -11,7 +11,6 @@ namespace DrinkUp.DAL.Context
     public interface IDrinkContext
     {
         DbSet<Korisnik> Korisnik { get; set; }
-        DbSet<KorisnikToken> KorisnikToken { get; set; }
         DbSet<Objekt> Objekt { get; set; }
         DbSet<Ponuda> Ponuda { get; set; }
         DbSet<Token> Token { get; set; }

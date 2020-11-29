@@ -9,8 +9,11 @@ namespace DrinkUp.Models
     {
         public string Id { get; set; }
         public int PonudaId { get; set; }
-        
+        public DateTime DatumKreiranja { get; set; }
+        public bool Iskoristen { get; set; }
+        public int KorisnikId { get; set; }
+
         public IPonudaModel Ponuda { get; set; }
-        public ICollection<IKorisnikTokenModel> KorisnikToken { get; set; }
+        public IKorisnikModel Korisnik { get; set; }
     }
 }

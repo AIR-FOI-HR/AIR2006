@@ -5,15 +5,13 @@ namespace DrinkUp.DAL.Entities
 {
     public partial class Token
     {
-        public Token()
-        {
-            KorisnikToken = new HashSet<KorisnikToken>();
-        }
-
         public string Id { get; set; }
         public int PonudaId { get; set; }
+        public DateTime DatumKreiranja { get; set; }
+        public byte Iskoristen { get; set; }
+        public int KorisnikId { get; set; }
 
+        public virtual Korisnik Korisnik { get; set; }
         public virtual Ponuda Ponuda { get; set; }
-        public virtual ICollection<KorisnikToken> KorisnikToken { get; set; }
     }
 }

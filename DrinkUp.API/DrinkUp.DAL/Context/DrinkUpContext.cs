@@ -22,7 +22,6 @@ namespace DrinkUp.DAL.Context
         public virtual DbSet<Korisnik> Korisnik { get; set; }
         public virtual DbSet<KorisnikAktivacija> KorisnikAktivacija { get; set; }
         public virtual DbSet<KorisnikReset> KorisnikReset { get; set; }
-        public virtual DbSet<KorisnikToken> KorisnikToken { get; set; }
         public virtual DbSet<Objekt> Objekt { get; set; }
         public virtual DbSet<Ponuda> Ponuda { get; set; }
         public virtual DbSet<Token> Token { get; set; }
@@ -158,26 +157,6 @@ namespace DrinkUp.DAL.Context
                     .HasConstraintName("KorisnikReset_FK");
             });
 
-            modelBuilder.Entity<KorisnikToken>(entity =>
-            {
-                entity.Property(e => e.TokenId)
-                    .IsRequired()
-                    .HasMaxLength(60)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.Korisnik)
-                    .WithMany(p => p.KorisnikToken)
-                    .HasForeignKey(d => d.KorisnikId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("KorisnikToken_FK");
-
-                entity.HasOne(d => d.Token)
-                    .WithMany(p => p.KorisnikToken)
-                    .HasForeignKey(d => d.TokenId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("KorisnikToken_FK_1");
-            });
-
             modelBuilder.Entity<Objekt>(entity =>
             {
                 entity.Property(e => e.Adresa)
@@ -244,6 +223,16 @@ namespace DrinkUp.DAL.Context
                 entity.Property(e => e.Id)
                     .HasMaxLength(60)
                     .IsUnicode(false);
+
+                entity.Property(e => e.DatumKreiranja)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Korisnik)
+                    .WithMany(p => p.Token)
+                    .HasForeignKey(d => d.KorisnikId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Token_FK_1");
 
                 entity.HasOne(d => d.Ponuda)
                     .WithMany(p => p.Token)

@@ -12,7 +12,6 @@ namespace DrinkUp.Service
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<KorisnikService>().As<IKorisnikService>();
-            builder.RegisterType<KorisnikTokenService>().As<IKorisnikTokenService>();
             builder.RegisterType<ObjektService>().As<IObjektService>();
             builder.RegisterType<PonudaService>().As<IPonudaService>();
             builder.RegisterType<TokenService>().As<ITokenService>();
