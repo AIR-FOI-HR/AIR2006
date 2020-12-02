@@ -18,8 +18,11 @@ namespace DrinkUp.WebAPI.Profiles
             CreateMap<KorisnikModel, KorisnikREST>().PreserveReferences().ReverseMap();
             CreateMap<IKorisnikModel, KorisnikREST>().PreserveReferences().ReverseMap();
             CreateMap<ObjektModel, ObjektREST>().PreserveReferences().ReverseMap();
+            CreateMap<IObjektModel, ObjektREST>().PreserveReferences().ReverseMap();
             CreateMap<PonudaModel, PonudaREST>().PreserveReferences().ReverseMap();
+            CreateMap<IPonudaModel, PonudaREST>().PreserveReferences().ReverseMap();
             CreateMap<TokenModel, TokenREST>().PreserveReferences().ReverseMap();
+            CreateMap<ITokenModel, TokenREST>().PreserveReferences().ReverseMap();
             CreateMap<UlogaModel, UlogaREST>().PreserveReferences().ReverseMap();
             CreateMap<ZaposlenikObjektModel, ZaposlenikObjektREST>().PreserveReferences().ReverseMap();
             CreateMap<VrstaPonudeModel, VrstaPonudeREST>().PreserveReferences().ReverseMap();
