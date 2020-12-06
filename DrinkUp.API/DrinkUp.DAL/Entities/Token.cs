@@ -10,7 +10,7 @@ namespace DrinkUp.DAL.Entities
         public DateTime DatumKreiranja { get; set; }
         public byte Iskoristen { get; set; }
         public int KorisnikId { get; set; }
-        public byte[] Qr{ get; set; }
+        public byte[] Qr { get; set; }
 
         public virtual Korisnik Korisnik { get; set; }
         public virtual Ponuda Ponuda { get; set; }
