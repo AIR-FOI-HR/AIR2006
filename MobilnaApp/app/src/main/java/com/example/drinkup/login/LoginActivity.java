@@ -6,13 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.VolleyError;
 import com.example.drinkup.R;
 import com.example.drinkup.models.LoginModel;
+import com.example.drinkup.offers.OfferListActivity;
 import com.example.drinkup.registration.RegistrationActivity;
 import com.example.drinkup.services.RequestService;
 
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void accept(JSONObject response) {
                                 try {
                                     response.getInt("id");
-                                    Intent intentSucces = new Intent(LoginActivity.this, SecondActivity.class);
+                                    Intent intentSucces = new Intent(LoginActivity.this, OfferListActivity.class);
                                     startActivity(intentSucces);
                                 } catch (JSONException e) {
                                     e.printStackTrace();

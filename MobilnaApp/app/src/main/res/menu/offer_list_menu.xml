@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item android:id="@+id/offerListCustomization"
+        android:icon="@drawable/customize_button"
+        android:title="@string/customize_offer_list"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.widget.PopupMenu"
+        >
+        <menu>
+            <item android:id="@+id/sortOffers"
+                android:title="@string/offer_order"
+                app:showAsAction="ifRoom|collapseActionView"
+                app:actionViewClass="android.widget.PopupMenu"
+                >
+                <menu>
+                </menu>
+            </item>
+            <item android:id="@+id/filterOffers"
+                android:title="@string/offer_filter"
+                app:showAsAction="ifRoom|collapseActionView"
+                app:actionViewClass="android.widget.PopupMenu"
+                >
+                <menu>
+                </menu>
+            </item>
+        </menu>
+    </item>
+</menu>
