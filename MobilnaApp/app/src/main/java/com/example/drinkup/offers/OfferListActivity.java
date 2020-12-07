@@ -1,5 +1,14 @@
 package com.example.drinkup.offers;
 
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -11,20 +20,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.drinkup.R;
-import com.example.drinkup.login.LoginActivity;
 import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
-
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -123,16 +120,16 @@ public class OfferListActivity extends AppCompatActivity {
                         boolean aktivan = objekt.getBoolean("aktivan");
 
                         Objekt noviObjekt = new Objekt();
-                        noviObjekt.Id = idObjekta;
-                        noviObjekt.naziv = naziv;
-                        noviObjekt.grad = grad;
-                        noviObjekt.ulica = ulica;
-                        noviObjekt.adresa = adresa;
-                        noviObjekt.radnoVrijeme = radnoVrijeme;
-                        noviObjekt.kontakt = kontakt;
-                        noviObjekt.longituda = longituda;
-                        noviObjekt.latituda = latituda;
-                        noviObjekt.aktivan = aktivan;
+                        noviObjekt.setId(idObjekta);
+                        noviObjekt.setNaziv(naziv);
+                        noviObjekt.setGrad(grad);
+                        noviObjekt.setUlica(ulica);
+                        noviObjekt.setAdresa(adresa);
+                        noviObjekt.setRadnoVrijeme(radnoVrijeme);
+                        noviObjekt.setKontakt(kontakt);
+                        noviObjekt.setLongituda(longituda);
+                        noviObjekt.setLatituda(latituda);
+                        noviObjekt.setAktivan(aktivan);
 
                         listaObjekata.add(noviObjekt);
                     }
@@ -151,7 +148,7 @@ public class OfferListActivity extends AppCompatActivity {
     }
 
     private void dohvatiPonude() {
-        String urlPonude = "https://air2006.azurewebsites.net/api/ponuda?pageSize=100";
+        String urlPonude = getString(R.string.offers_url);
 
         JsonArrayRequest requestPonude = new JsonArrayRequest(Request.Method.GET, urlPonude, null, new Response.Listener<JSONArray>() {
             @Override
@@ -170,13 +167,13 @@ public class OfferListActivity extends AppCompatActivity {
                         int objektId = ponuda.getInt("objektId");
 
                         Ponuda novaPonuda = new Ponuda();
-                        novaPonuda.Id = id;
-                        novaPonuda.naslov = naslov;
-                        novaPonuda.opis = opis;
-                        novaPonuda.cijena = cijena;
-                        novaPonuda.brojTokena = brojTokena;
-                        novaPonuda.vrstaPonudeId = vrstaPonudeId;
-                        novaPonuda.objektId = objektId;
+                        novaPonuda.setId(id);
+                        novaPonuda.setNaslov(naslov);
+                        novaPonuda.setOpis(opis);
+                        novaPonuda.setCijena(cijena);
+                        novaPonuda.setBrojTokena(brojTokena);
+                        novaPonuda.setVrstaPonude(vrstaPonudeId);
+                        novaPonuda.setObjektId(objektId);
 
                         listaPonuda.add(novaPonuda);
                     }
@@ -203,14 +200,14 @@ public class OfferListActivity extends AppCompatActivity {
         params.gravity = 1;
 
         for (int i = 0; i < listaPonuda.size(); i++) {
-            String opis = listaPonuda.get(i).opis;
-            Float cijena = listaPonuda.get(i).cijena;
-            int brojTokena = listaPonuda.get(i).brojTokena;
-            int objektId = listaPonuda.get(i).objektId;
+            String opis = listaPonuda.get(i).getOpis();
+            Float cijena = listaPonuda.get(i).getCijena();
+            int brojTokena = listaPonuda.get(i).getBrojTokena();
+            int objektId = listaPonuda.get(i).getObjektId();
             String nazivObjekta = "";
 
             for (Objekt o: listaObjekata) {
-                if(o.Id == objektId) {
+                if(o.getId() == objektId) {
                     nazivObjekta = o.naziv;
                     break;
                 }

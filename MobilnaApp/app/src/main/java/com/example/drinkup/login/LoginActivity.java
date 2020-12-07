@@ -6,12 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.VolleyError;
 import com.example.drinkup.R;
 import com.example.drinkup.models.LoginModel;
+import com.example.drinkup.offers.OfferCreationActivity;
 import com.example.drinkup.offers.OfferListActivity;
 import com.example.drinkup.registration.RegistrationActivity;
 import com.example.drinkup.services.RequestService;
@@ -67,9 +69,34 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void accept(JSONObject response) {
                                 try {
-                                    response.getInt("id");
-                                    Intent intentSucces = new Intent(LoginActivity.this, OfferListActivity.class);
-                                    startActivity(intentSucces);
+                                    int userId = response.getInt("id");
+                                    int roleId = response.getInt("ulogaId");
+                                    if (roleId == 0) {
+                                        Intent intentSuccess = new Intent(LoginActivity.this, OfferListActivity.class);
+                                        intentSuccess.putExtra("userId", userId);
+                                        intentSuccess.putExtra("roleId", roleId);
+                                        startActivity(intentSuccess);
+                                        finish();
+                                    }
+                                    else {
+                                        rs.fetchWorkplaceOfUser(userId,
+                                                new Consumer<Integer>() {
+                                                    @Override
+                                                    public void accept(Integer barId) {
+                                                        Intent intentSuccess = new Intent(LoginActivity.this, OfferCreationActivity.class);
+                                                        intentSuccess.putExtra("userId", userId);
+                                                        intentSuccess.putExtra("roleId", roleId);
+                                                        intentSuccess.putExtra("barId", barId);
+                                                        startActivity(intentSuccess);
+                                                        finish();
+                                                    }
+                                                }, new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(getApplicationContext(), getString(R.string.no_bars_for_user_found), Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+                                    }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

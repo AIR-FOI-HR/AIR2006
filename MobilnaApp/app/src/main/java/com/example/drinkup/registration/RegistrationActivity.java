@@ -3,6 +3,7 @@ package com.example.drinkup.registration;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,11 +19,9 @@ import com.android.volley.VolleyError;
 import com.example.drinkup.R;
 import com.example.drinkup.login.LoginActivity;
 import com.example.drinkup.models.Korisnik;
+import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Uloga;
 import com.example.drinkup.services.RequestService;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +32,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     Map<String, Integer> roleIdsByTheirNames = new HashMap<>();
 
+    Map<String, Integer> barIdsByTheirNames = new HashMap<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +42,8 @@ public class RegistrationActivity extends AppCompatActivity {
         final EditText emailEditText = findViewById(R.id.email);
         final EditText passwordEditText = findViewById(R.id.password);
         final EditText passwordRepeatEditText = findViewById(R.id.passwordRepeat);
-        final Button registrationButton = findViewById(R.id.register);
-        final EditText oibEditText = findViewById(R.id.oib);
+        final Button registrationButton = findViewById(R.id.createOffer);
+        final EditText oibEditText = findViewById(R.id.naslov);
         final EditText firstNameEditText = findViewById(R.id.firstName);
         final EditText lastNameEditText = findViewById(R.id.lastName);
         final RadioButton maleGenderRadio = findViewById(R.id.radioOptionMale);
@@ -134,6 +135,19 @@ public class RegistrationActivity extends AppCompatActivity {
                 startActivity(intentRegisterLogin);
             }
         });
+        rs.fetchBars(new Consumer<Objekt[]>() {
+            @Override
+            public void accept(Objekt[] bars) {
+                RegistrationActivity.this.displayFetchedBars(bars);
+            }
+        }, new Consumer<VolleyError>() {
+            @Override
+            public void accept(VolleyError volleyError) {
+                Toast.makeText(RegistrationActivity.this.getApplicationContext(), R.string.role_retrieval_failed, Toast.LENGTH_LONG).show();
+                Intent intentRegisterLogin = new Intent(RegistrationActivity.this, LoginActivity.class);
+                startActivity(intentRegisterLogin);
+            }
+        });
 
         registrationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,25 +166,29 @@ public class RegistrationActivity extends AppCompatActivity {
                         registriraniKorisnik.setSpol(maleGenderRadio.isChecked() ? 0 : 1);
                         registriraniKorisnik.setUlogaID(readSelectedRoleId());
                         rs.SendRegistrationRequest(registriraniKorisnik,
-                                new Consumer<JSONObject>() {
+                                new Consumer<String>() {
                                     @Override
-                                    public void accept(JSONObject response) {
-                                        try {
-                                            if (response.getInt("statusCode") == 400) {
-                                                Toast.makeText(getApplicationContext(), R.string.duplicate_email_or_oib, Toast.LENGTH_LONG).show();
-                                            } else {
-                                                Toast.makeText(getApplicationContext(), R.string.registration_successful, Toast.LENGTH_LONG).show();
-                                                Intent intentRegisterLogin = new Intent(RegistrationActivity.this, LoginActivity.class);
-                                                startActivity(intentRegisterLogin);
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
+                                    public void accept(String response) {
+                                        if (registriraniKorisnik.getUlogaID() != 0) {
+                                            int generatedUserId = Integer.parseInt(response);
+                                            Spinner barDropdown = findViewById(R.id.barOptions);
+                                            String selectedBarName = barDropdown.getSelectedItem().toString();
+                                            Integer selectedBarId = barIdsByTheirNames.get(selectedBarName);
+                                            rs.assignEmployeeToBar(selectedBarId, generatedUserId);
                                         }
+                                        Toast.makeText(getApplicationContext(), R.string.registration_successful, Toast.LENGTH_LONG).show();
+                                        Intent intentRegisterLogin = new Intent(RegistrationActivity.this, LoginActivity.class);
+                                        startActivity(intentRegisterLogin);
                                     }
                                 }, new Consumer<VolleyError>() {
                                     @Override
                                     public void accept(VolleyError volleyError) {
-                                        Toast.makeText(getApplicationContext(), R.string.registration_failed, Toast.LENGTH_LONG).show();
+                                        if (volleyError.networkResponse != null) {
+                                            Toast.makeText(getApplicationContext(), R.string.duplicate_email_or_oib, Toast.LENGTH_LONG).show();
+                                        }
+                                        else {
+                                            Toast.makeText(getApplicationContext(), R.string.registration_failed, Toast.LENGTH_LONG).show();
+                                        }
                                     }
                                 });
                     }
@@ -185,16 +203,28 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
+    private void displayFetchedBars(Objekt[] bars) {
+        for (Objekt bar : bars) {
+            barIdsByTheirNames.put(bar.getNaziv(), bar.getId());
+        }
+        Object[] barNames = barIdsByTheirNames.keySet().toArray();
+        Spinner barsDropdown = findViewById(R.id.barOptions);
+        SpinnerAdapter barsSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, barNames);
+        barsDropdown.setAdapter(barsSpinnerAdapter);
+    }
+
     private int readSelectedRoleId() {
+        final String selectedRoleName;
         if (findViewById(R.id.roleOptionsV1).getVisibility() == View.VISIBLE) {
-             RadioGroup roleRadioGroup = findViewById(R.id.roleOptionsV1);
+            RadioGroup roleRadioGroup = findViewById(R.id.roleOptionsV1);
             RadioButton checkedRadioButton = findViewById(roleRadioGroup.getCheckedRadioButtonId());
-            return roleIdsByTheirNames.get(checkedRadioButton.getText());
+            selectedRoleName = checkedRadioButton.getText().toString();
         }
         else {
             Spinner roleDropdown = findViewById(R.id.roleOptionsV2);
-            return ((Uloga) roleDropdown.getSelectedItem()).getId();
+            selectedRoleName = roleDropdown.getSelectedItem().toString();
         }
+        return roleIdsByTheirNames.get(selectedRoleName);
     }
 
     private void displayFetchedRoles(Uloga[] roles) {
@@ -210,13 +240,40 @@ public class RegistrationActivity extends AppCompatActivity {
             RadioButton roleOptionRadioButton2 = findViewById(R.id.roleOptionRadioButton2);
             roleOptionRadioButton2.setText(roleNames[1].toString());
             roleOptionsViewElement = roleRadioGroup;
+            roleRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    toggleBarsDropdownVisibilityBasedOnCurrentRoleSelection();
+                }
+            });
         }
         else {
             Spinner roleDropdown = findViewById(R.id.roleOptionsV2);
             SpinnerAdapter roleSpinnerAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, roleNames);
             roleDropdown.setAdapter(roleSpinnerAdapter);
             roleOptionsViewElement = roleDropdown;
+            roleDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    toggleBarsDropdownVisibilityBasedOnCurrentRoleSelection();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
         }
         roleOptionsViewElement.setVisibility(View.VISIBLE);
+        toggleBarsDropdownVisibilityBasedOnCurrentRoleSelection();
+    }
+
+    private void toggleBarsDropdownVisibilityBasedOnCurrentRoleSelection() {
+        View barDropdown = findViewById(R.id.barOptions);
+        if (readSelectedRoleId() == 0) {  // if user is guest
+            barDropdown.setVisibility(View.GONE);
+        } else {
+            barDropdown.setVisibility(View.VISIBLE);
+        }
     }
 }

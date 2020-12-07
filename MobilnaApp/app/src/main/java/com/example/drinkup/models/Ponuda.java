@@ -1,22 +1,22 @@
 package com.example.drinkup.models;
 
 public class Ponuda {
-    public int Id;
-    public String naslov;
-    public String opis;
-    public Float cijena;
-    public int brojTokena;
-    public int vrstaPonudeId;
-    public int objektId;
+    private int id;
+    private String naslov;
+    private String opis;
+    private Float cijena;
+    private int brojTokena;
+    private int vrstaPonude;
+    private int objektId;
 
     public Ponuda() {}
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getNaslov() {
@@ -27,7 +27,9 @@ public class Ponuda {
         this.naslov = naslov;
     }
 
-    public String getOpis() { return opis; }
+    public String getOpis() {
+        return opis;
+    }
 
     public void setOpis(String opis) {
         this.opis = opis;
@@ -50,14 +52,18 @@ public class Ponuda {
     }
 
     public int getVrstaPonude() {
-        return vrstaPonudeId;
+        return vrstaPonude;
     }
 
-    public void setVrstaPonude(int vrstaPonudeId) {
-        this.vrstaPonudeId = vrstaPonudeId;
+    public void setVrstaPonude(int vrstaPonude) {
+        this.vrstaPonude = vrstaPonude;
     }
 
-    public int getObjektId() { return objektId; }
+    public int getObjektId() {
+        return objektId;
+    }
 
-    public void setObjektId(int objektId) { this.objektId = objektId; }
+    public void setObjektId(int objektId) {
+        this.objektId = objektId;
+    }
 }

@@ -14,6 +14,7 @@
         android:theme="@style/Theme.DrinkUp">
         <activity android:name=".login.PonudaDetaljiActivity" />
         <activity android:name=".login.ForgotPasswordActivity" />
+        <activity android:name=".offers.OfferCreationActivity" />
         <activity android:name=".offers.OfferListActivity" />
         <activity
             android:name=".login.LoginActivity"
