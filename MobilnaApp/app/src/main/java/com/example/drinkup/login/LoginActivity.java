@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void accept(JSONObject response) {
                                 try {
                                     response.getInt("id");
-                                    Intent intentSucces = new Intent(LoginActivity.this, SecondActivity.class);
+                                    Intent intentSucces = new Intent(LoginActivity.this, PonudaDetaljiActivity.class);
                                     startActivity(intentSucces);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
