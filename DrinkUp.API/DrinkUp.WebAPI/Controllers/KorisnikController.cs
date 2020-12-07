@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using DrinkUp.Common;
@@ -104,18 +105,22 @@ namespace DrinkUp.WebAPI.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<HttpResponseMessage> RegisterAsync(KorisnikVM korisnik)
+        public async Task<IActionResult> RegisterAsync(KorisnikVM korisnik)
         {
+            int id;
+
             try
             {
-                string token = await Service.InsertAsync(Mapper.Map<KorisnikModel>(korisnik));
+                string token;
+                (id, token) = await Service.InsertAsync(Mapper.Map<KorisnikModel>(korisnik));
                 await MailService.SendEmailAsync(MailService.CreateRegistrationMail(korisnik.Email, korisnik.Ime, token));
             }
-            catch (Exception e)
+            catch
             {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+                return BadRequest();
             }
-            return new HttpResponseMessage(HttpStatusCode.Created);
+
+            return CreatedAtRoute(ControllerContext.ActionDescriptor.AttributeRouteInfo.Name, id);
         }
 
         [HttpPut("update")]
