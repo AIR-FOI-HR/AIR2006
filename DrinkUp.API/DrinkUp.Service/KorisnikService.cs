@@ -54,7 +54,7 @@ namespace DrinkUp.Service
             return Mapper.Map<IKorisnikModel>(await Repository.GetByID(id));
         }
 
-        public async Task<string> InsertAsync(IKorisnikModel entity)
+        public async Task<(int, string)> InsertAsync(IKorisnikModel entity)
         {
             entity.Lozinka = Sha256(entity.Lozinka);
             entity.Aktivan = false;
@@ -78,7 +78,7 @@ namespace DrinkUp.Service
             AktivacijaRepository.Insert(aktivacija);
             await unitOfWork.SaveAsync();
 
-            return token;
+            return (entry.Entity.Id, token);
         }
 
         public async Task ActivateAccountAsync(string token, GetParams<IKorisnikModel> getParams)

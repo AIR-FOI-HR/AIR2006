@@ -15,7 +15,7 @@ namespace DrinkUp.Service.Common
 
         Task<IKorisnikModel> Login(string email, string password, GetParams<IKorisnikModel> getParams);
 
-        Task<string> InsertAsync(IKorisnikModel entity);
+        Task<(int, string)> InsertAsync(IKorisnikModel entity);
 
         Task UpdateAsync(IKorisnikModel entity);
 
