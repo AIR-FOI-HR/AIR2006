@@ -6,7 +6,8 @@ public class Ponuda {
     public String opis;
     public Float cijena;
     public int brojTokena;
-    public String vrstaPonude;
+    public int vrstaPonudeId;
+    public int objektId;
 
     public Ponuda() {}
 
@@ -26,9 +27,7 @@ public class Ponuda {
         this.naslov = naslov;
     }
 
-    public String getOpis() {
-        return opis;
-    }
+    public String getOpis() { return opis; }
 
     public void setOpis(String opis) {
         this.opis = opis;
@@ -50,11 +49,15 @@ public class Ponuda {
         this.brojTokena = brojTokena;
     }
 
-    public String getVrstaPonude() {
-        return vrstaPonude;
+    public int getVrstaPonude() {
+        return vrstaPonudeId;
     }
 
-    public void setVrstaPonude(String vrstaPonude) {
-        this.vrstaPonude = vrstaPonude;
+    public void setVrstaPonude(int vrstaPonudeId) {
+        this.vrstaPonudeId = vrstaPonudeId;
     }
+
+    public int getObjektId() { return objektId; }
+
+    public void setObjektId(int objektId) { this.objektId = objektId; }
 }
