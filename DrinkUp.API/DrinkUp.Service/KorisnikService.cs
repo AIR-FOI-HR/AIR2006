@@ -182,7 +182,8 @@ namespace DrinkUp.Service
 
         private string GenerateNewToken()
         {
-            return Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+            Random random = new Random();
+            return Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Replace('+', (char)random.Next(97, 97 + 26));
         }
 
         public string GetAccountActivationPage(string message)
