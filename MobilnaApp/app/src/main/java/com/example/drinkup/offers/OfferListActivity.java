@@ -1,5 +1,6 @@
 package com.example.drinkup.offers;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,8 +21,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.drinkup.R;
+import com.example.drinkup.login.ForgotPasswordActivity;
+import com.example.drinkup.login.LoginActivity;
 import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
+import com.example.drinkup.models.VrstaPonude;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -204,14 +208,17 @@ public class OfferListActivity extends AppCompatActivity {
             Float cijena = listaPonuda.get(i).getCijena();
             int brojTokena = listaPonuda.get(i).getBrojTokena();
             int objektId = listaPonuda.get(i).getObjektId();
-            String nazivObjekta = "";
 
+            String nazivObjekta = "";
+            Ponuda ponuda = listaPonuda.get(i);
             for (Objekt o: listaObjekata) {
                 if(o.getId() == objektId) {
                     nazivObjekta = o.naziv;
                     break;
                 }
             }
+
+            final String objekt = nazivObjekta;
 
             TextView textView = new TextView(this);
             textView.setLayoutParams(params);
@@ -224,6 +231,19 @@ public class OfferListActivity extends AppCompatActivity {
             textView.append("PREOSTALO " + String.valueOf(brojTokena) + "\n\n");
             textView.append(nazivObjekta);
             linearLayout.addView(textView);
+            System.out.println(objekt);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    offerDetails(ponuda, objekt);
+                }
+            });
         }
+    }
+    private void offerDetails(Ponuda ponuda , String objekt){
+        Intent intentOfferDetails= new Intent(OfferListActivity.this, OfferDetailsActivity.class);
+        intentOfferDetails.putExtra("ponuda",ponuda);
+        intentOfferDetails.putExtra("objekt",objekt);
+        startActivity(intentOfferDetails);
     }
 }

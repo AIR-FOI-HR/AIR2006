@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrinkUp">
-        <activity android:name=".login.PonudaDetaljiActivity" />
+        <activity android:name=".offers.OfferDetailsActivity" />
         <activity android:name=".login.ForgotPasswordActivity" />
         <activity android:name=".offers.OfferCreationActivity" />
         <activity android:name=".offers.OfferListActivity" />

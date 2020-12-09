@@ -1,6 +1,8 @@
 package com.example.drinkup.models;
 
-public class Ponuda {
+import java.io.Serializable;
+
+public class Ponuda implements Serializable {
     private int id;
     private String naslov;
     private String opis;
