@@ -12,9 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrinkUp">
-        <activity android:name=".login.PonudaDetaljiActivity"></activity>
+        <activity android:name=".login.PonudaDetaljiActivity" />
         <activity android:name=".login.ForgotPasswordActivity" />
-        <activity android:name=".login.SecondActivity" />
+        <activity android:name=".offers.OfferCreationActivity" />
+        <activity android:name=".offers.OfferListActivity" />
         <activity
             android:name=".login.LoginActivity"
             android:label="DrinkUp">
@@ -34,5 +35,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

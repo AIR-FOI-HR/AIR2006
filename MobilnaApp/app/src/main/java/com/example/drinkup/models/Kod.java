@@ -3,17 +3,17 @@ package com.example.drinkup.models;
 import java.util.Date;
 
 public class Kod {
-    public int Id;
+    public int id;
     public Date datumKreiranja;
 
     public Kod() {}
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public Date getDatumKreiranja() {

@@ -1,21 +1,22 @@
 package com.example.drinkup.models;
 
 public class Ponuda {
-    public int Id;
-    public String naslov;
-    public String opis;
-    public Float cijena;
-    public int brojTokena;
-    public String vrstaPonude;
+    private int id;
+    private String naslov;
+    private String opis;
+    private Float cijena;
+    private int brojTokena;
+    private int vrstaPonude;
+    private int objektId;
 
     public Ponuda() {}
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getNaslov() {
@@ -50,11 +51,19 @@ public class Ponuda {
         this.brojTokena = brojTokena;
     }
 
-    public String getVrstaPonude() {
+    public int getVrstaPonude() {
         return vrstaPonude;
     }
 
-    public void setVrstaPonude(String vrstaPonude) {
+    public void setVrstaPonude(int vrstaPonude) {
         this.vrstaPonude = vrstaPonude;
+    }
+
+    public int getObjektId() {
+        return objektId;
+    }
+
+    public void setObjektId(int objektId) {
+        this.objektId = objektId;
     }
 }

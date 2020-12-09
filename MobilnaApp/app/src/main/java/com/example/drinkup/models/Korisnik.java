@@ -1,7 +1,7 @@
 package com.example.drinkup.models;
 
 public class Korisnik {
-    private int Id;
+    private int id;
     private String OIB;
     private String ime;
     private String prezime;
@@ -15,11 +15,11 @@ public class Korisnik {
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getOIB() {
