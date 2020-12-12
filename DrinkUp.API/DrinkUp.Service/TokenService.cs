@@ -50,7 +50,7 @@ namespace DrinkUp.Service
             string id;
             using (SHA1 hash = SHA1.Create())
             {
-                Guid guid = new Guid();
+                Guid guid = Guid.NewGuid();
                 byte[] bytes = hash.ComputeHash(guid.ToByteArray());
 
                 StringBuilder builder = new StringBuilder();
