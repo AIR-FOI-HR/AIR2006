@@ -1,6 +1,7 @@
 package com.example.drinkup.services;
 
 import android.content.Context;
+import android.media.Image;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,6 +20,7 @@ import com.example.drinkup.models.Uloga;
 import com.example.drinkup.models.VrstaPonude;
 import com.example.drinkup.util.StringRequestWithJsonObjectBody;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -281,5 +283,22 @@ public class RequestService {
                         }, null);
 
         queue.add(jsonArrayRequest);
+    }
+
+    public void addTokenToUser(int userId, int offerId) {
+        String url = appContext.getString(R.string.add_token_url);
+        RequestQueue queue = Volley.newRequestQueue(appContext);
+
+        JSONObject MyData = new JSONObject();
+        try {
+            MyData.put("ponudaId", offerId);
+            MyData.put("korisnikId", userId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, MyData, null, null);
+
+        queue.add(jsonObjectRequest);
     }
 }

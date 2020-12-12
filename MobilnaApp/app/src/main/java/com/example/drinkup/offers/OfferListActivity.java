@@ -70,6 +70,8 @@ public class OfferListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_offer_list);
 
+        currentUserId = (int) getIntent().getSerializableExtra("userId");
+
         linearLayout = findViewById(R.id.linear_layout);
 
         mQueue = Volley.newRequestQueue(this);
@@ -244,6 +246,7 @@ public class OfferListActivity extends AppCompatActivity {
         Intent intentOfferDetails= new Intent(OfferListActivity.this, OfferDetailsActivity.class);
         intentOfferDetails.putExtra("ponuda",ponuda);
         intentOfferDetails.putExtra("objekt",objekt);
+        intentOfferDetails.putExtra("userId", currentUserId);
         startActivity(intentOfferDetails);
     }
 }

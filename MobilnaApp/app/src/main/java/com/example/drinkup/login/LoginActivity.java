@@ -43,6 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         ForgotPassword =(TextView)findViewById(R.id.loginForgotPassword);
         LoginRegister=(TextView)findViewById(R.id.loginRegister);
 
+        Name.setText("lidijapitic@gmail.com");
+        Password.setText("123456789m");
+
         ForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

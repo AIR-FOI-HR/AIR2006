@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DrinkUp.Common\DrinkUp.Common.csproj" />
     <ProjectReference Include="..\DrinkUp.DAL\DrinkUp.DAL.csproj" />
+    <ProjectReference Include="..\DrinkUp.Models\DrinkUp.Models.csproj" />
     <ProjectReference Include="..\DrinkUp.Service\DrinkUp.Service.csproj" />
   </ItemGroup>
 

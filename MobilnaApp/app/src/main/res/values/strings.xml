@@ -38,6 +38,7 @@
     <string name="caffes_url">https://air2006.azurewebsites.net/api/objekt/</string>
     <string name="offer_categories_url">https://air2006.azurewebsites.net/api/vrsta-ponude/</string>
     <string name="bar_of_employee_url">https://air2006.azurewebsites.net/api/zaposlenik-objekt/?filterColumn=korisnikId&amp;filterValue={0}&amp;filterOption=11</string>
+    <string name="add_token_url">https://air2006.azurewebsites.net/api/token/add</string>
     <string name="navigation">Navigacija</string>
     <string name="customize_offer_list">Upravljaj prikazom ponuda</string>
     <string name="offer_order">Redoslijed ponuda</string>
