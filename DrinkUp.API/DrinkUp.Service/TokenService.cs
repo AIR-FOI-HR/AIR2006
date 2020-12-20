@@ -29,7 +29,7 @@ namespace DrinkUp.Service
             Mapper = mapper;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string id)
         {
             await Repository.DeleteAsync(id);
             await unitOfWork.SaveAsync();

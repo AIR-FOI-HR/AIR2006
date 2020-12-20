@@ -103,7 +103,7 @@ namespace DrinkUp.WebAPI.Controllers
         }
 
         [HttpDelete("delete/{id}")]
-        public async Task<HttpResponseMessage> DeleteAsync(int id)
+        public async Task<HttpResponseMessage> DeleteAsync(string id)
         {
             try
             {
