@@ -45,7 +45,8 @@ namespace DrinkUp.WebAPI.Controllers
             GetParams<TokenModel> getParams = new GetParams<TokenModel>()
             {
                 PageNumber = page,
-                PageSize = pageSize
+                PageSize = pageSize,
+                Include = "Ponuda,Ponuda.Objekt"
             };
             FilterParams filterParams = new FilterParams()
             {
