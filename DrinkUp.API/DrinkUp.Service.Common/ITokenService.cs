@@ -17,6 +17,6 @@ namespace DrinkUp.Service.Common
 
         Task UpdateAsync(ITokenModel entity);
 
-        Task DeleteAsync(int id);
+        Task DeleteAsync(string id);
     }
 }

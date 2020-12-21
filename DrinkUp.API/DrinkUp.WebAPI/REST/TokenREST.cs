@@ -9,6 +9,7 @@ namespace DrinkUp.WebAPI.REST
     {
         public string Id { get; set; }
         public int PonudaId { get; set; }
+        public PonudaREST Ponuda { get; set; }
         public DateTime DatumKreiranja { get; set; }
         public bool Iskoristen { get; set; }
         public int KorisnikId { get; set; }

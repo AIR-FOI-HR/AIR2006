@@ -45,7 +45,8 @@ namespace DrinkUp.WebAPI.Controllers
             GetParams<TokenModel> getParams = new GetParams<TokenModel>()
             {
                 PageNumber = page,
-                PageSize = pageSize
+                PageSize = pageSize,
+                Include = "Ponuda,Ponuda.Objekt"
             };
             FilterParams filterParams = new FilterParams()
             {
@@ -102,7 +103,7 @@ namespace DrinkUp.WebAPI.Controllers
         }
 
         [HttpDelete("delete/{id}")]
-        public async Task<HttpResponseMessage> DeleteAsync(int id)
+        public async Task<HttpResponseMessage> DeleteAsync(string id)
         {
             try
             {
