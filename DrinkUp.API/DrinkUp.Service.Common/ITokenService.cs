@@ -13,7 +13,9 @@ namespace DrinkUp.Service.Common
 
         Task<ITokenModel> GetAsync(string id);
 
-        Task<byte[]> InsertAsync(ITokenModel entity);
+        Task ActivateAsync(string id, GetParams<ITokenModel> getParams);
+
+        Task<byte[]> InsertAsync(ITokenModel entity, GetParams<ITokenModel> getParams);
 
         Task UpdateAsync(ITokenModel entity);
 

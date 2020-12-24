@@ -38,9 +38,15 @@ namespace DrinkUp.Repository
             return await getParams.Page.GetPagedAsync(query, getParams.PageNumber, getParams.PageSize);
         }
 
-        public virtual async Task<IEnumerable<TEntity>> Get(IQueryable<TEntity> linq)
+        public virtual async Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity,bool>> linq, string include = "")
         {
-            return await linq.ToListAsync();
+            IQueryable<TEntity> query = dbSet.Where(linq).AsNoTracking();
+
+            if (include != string.Empty)
+            {
+                query = query.Include(include);
+            }
+            return await query.ToListAsync();
         }
 
         public virtual async Task<TEntity> GetByID(object id)

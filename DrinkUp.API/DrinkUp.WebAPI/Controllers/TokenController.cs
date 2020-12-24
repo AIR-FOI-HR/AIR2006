@@ -69,6 +69,29 @@ namespace DrinkUp.WebAPI.Controllers
             return Mapper.Map<List<TokenREST>>(await Service.GetAsync(Mapper.Map<GetParams<ITokenModel>>(getParams)));
         }
 
+        [HttpGet("activate/{id}")]
+        public async Task<HttpResponseMessage> ActivateAsync(string id)
+        {
+            try
+            {
+                GetParams<TokenModel> getParams = new GetParams<TokenModel>()
+                {
+                    PageSize = 1000,
+                    PageNumber = 1,
+                    Filter = Filter,
+                    Sort = Sort,
+                    Page = PagedResult
+                };
+
+                await Service.ActivateAsync(id, Mapper.Map<GetParams<ITokenModel>>(getParams));
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
         [HttpGet("{id}")]
         public async Task<TokenREST> GetAsync(string id)
         {
@@ -80,9 +103,17 @@ namespace DrinkUp.WebAPI.Controllers
         {
             try
             {
-                 return await Service.InsertAsync(Mapper.Map<TokenModel>(token));
+                GetParams<TokenModel> getParams = new GetParams<TokenModel>()
+                {
+                    PageSize = 1000,
+                    PageNumber = 1,
+                    Filter = Filter,
+                    Sort = Sort,
+                    Page = PagedResult
+                };
+                return await Service.InsertAsync(Mapper.Map<TokenModel>(token), Mapper.Map<GetParams<ITokenModel>>(getParams));
             }
-            catch
+            catch (Exception)
             {
                 return null;
             }
