@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DrinkUp.Common;
+using DrinkUp.Common.Filter;
 using DrinkUp.DAL.Entities;
 using DrinkUp.Models.Common;
 using DrinkUp.Repository;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,7 @@ namespace DrinkUp.Service
     public class TokenService : ITokenService
     {
         protected GenericRepository<Token> Repository { get; private set; }
+        protected GenericRepository<Ponuda> PonudaRepository { get; private set; }
         protected IMapper Mapper { get; private set; }
         private readonly UnitOfWork unitOfWork;
 
@@ -26,6 +29,7 @@ namespace DrinkUp.Service
         {
             unitOfWork = new UnitOfWork();
             Repository = unitOfWork.TokenRepository;
+            PonudaRepository = unitOfWork.PonudaRepository;
             Mapper = mapper;
         }
 
@@ -45,12 +49,39 @@ namespace DrinkUp.Service
             return Mapper.Map<ITokenModel>(await Repository.GetByID(id));
         }
 
-        public async Task<byte[]> InsertAsync(ITokenModel entity)
+        public async Task<byte[]> InsertAsync(ITokenModel entity, GetParams<ITokenModel> getParams)
         {
+            Ponuda ponudaModel = (await PonudaRepository.Get(x => x.Id == entity.PonudaId)).FirstOrDefault();
+
+            if (ponudaModel == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            FilterParams ponudaFilterParam = new FilterParams()
+            {
+                ColumnName = "ponudaId",
+                FilterOption = FilterOptions.IsEqualTo,
+                FilterValue = entity.PonudaId.ToString()
+            };
+            FilterParams iskoristenFilterParam = new FilterParams()
+            {
+                ColumnName = "iskoristen",
+                FilterOption = FilterOptions.IsEqualTo,
+                FilterValue = "1"
+            };
+            getParams.FilterParam = new[] { ponudaFilterParam, iskoristenFilterParam };
+            int usedTokens = (await GetAsync(getParams)).Count();
+
+            if (usedTokens >= ponudaModel.BrojTokena)
+            {
+                throw new InvalidOperationException();
+            }
+
             string id;
             using (SHA1 hash = SHA1.Create())
             {
-                Guid guid = new Guid();
+                Guid guid = Guid.NewGuid();
                 byte[] bytes = hash.ComputeHash(guid.ToByteArray());
 
                 StringBuilder builder = new StringBuilder();
@@ -62,7 +93,7 @@ namespace DrinkUp.Service
             }
 
             QRCodeGenerator generator = new QRCodeGenerator();
-            QRCodeData codeData = generator.CreateQrCode("https://air2006.azurewebsites.net/api/token/activate?id=" + id, QRCodeGenerator.ECCLevel.Q);
+            QRCodeData codeData = generator.CreateQrCode("https://air2006.azurewebsites.net/api/token/activate/" + id, QRCodeGenerator.ECCLevel.Q);
             QRCode code = new QRCode(codeData);
             Bitmap image = code.GetGraphic(20);
 
@@ -84,6 +115,42 @@ namespace DrinkUp.Service
         public async Task UpdateAsync(ITokenModel entity)
         {
             Repository.Update(Mapper.Map<Token>(entity));
+            await unitOfWork.SaveAsync();
+        }
+
+        public async Task ActivateAsync(string id, GetParams<ITokenModel> getParams)
+        {
+            Token tokenModel = (await Repository.Get(x => x.Id == id, "Ponuda")).FirstOrDefault();
+            if (tokenModel == null)
+            {
+                throw new InvalidOperationException();
+            }
+            Ponuda ponudaModel = tokenModel.Ponuda;
+
+            FilterParams ponudaFilterParam = new FilterParams()
+            {
+                ColumnName = "ponudaId",
+                FilterOption = FilterOptions.IsEqualTo,
+                FilterValue = tokenModel.PonudaId.ToString()
+            };
+            FilterParams iskoristenFilterParam = new FilterParams()
+            {
+                ColumnName = "iskoristen",
+                FilterOption = FilterOptions.IsEqualTo,
+                FilterValue = "1"
+            };
+            getParams.FilterParam = new[] { ponudaFilterParam, iskoristenFilterParam };
+            int usedTokens = (await GetAsync(getParams)).Count();
+
+
+            if (usedTokens >= ponudaModel.BrojTokena || tokenModel.Iskoristen == 1)
+            {
+                throw new InvalidOperationException();
+            }
+
+            tokenModel.Iskoristen = 1;
+            tokenModel.Ponuda = null;
+            Repository.Update(tokenModel);
             await unitOfWork.SaveAsync();
         }
     }
