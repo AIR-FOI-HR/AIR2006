@@ -67,8 +67,11 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void accept(JSONObject response) {
                                 try {
-                                    response.getInt("id");
+                                    int userId = response.getInt("id");
+                                    int roleId = response.getInt("ulogaId");
                                     Intent intentSucces = new Intent(LoginActivity.this, OfferListActivity.class);
+                                    intentSucces.putExtra("userId", userId);
+                                    intentSucces.putExtra("roleId", roleId);
                                     startActivity(intentSucces);
                                 } catch (JSONException e) {
                                     e.printStackTrace();

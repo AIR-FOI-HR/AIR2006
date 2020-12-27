@@ -39,5 +39,6 @@
 <string name="offer_order">Redoslijed ponuda</string>
 <string name="offer_filter">Filtriraj ponude</string>
 <string name="offer_list_activity_title">Ponude</string>
+<string name="token_list_activity_title">Moji tokeni</string>
 <string name="offer_categories_retrieval_error">Dogodila se pogreška kod dohvaćanja kategorija ponuda. Zbog toga filtriranje podataka nije moguće</string>
 </resources>

@@ -8,6 +8,15 @@ public class Ponuda {
     public int brojTokena;
     public int vrstaPonudeId;
     public int objektId;
+    public Objekt objekt;
+
+    public Objekt getObjekt() {
+        return objekt;
+    }
+
+    public void setObjekt(Objekt objekt) {
+        this.objekt = objekt;
+    }
 
     public Ponuda() {}
 

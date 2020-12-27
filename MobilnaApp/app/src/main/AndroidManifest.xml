@@ -13,6 +13,7 @@
         android:theme="@style/Theme.DrinkUp">
         <activity android:name=".login.ForgotPasswordActivity"></activity>
         <activity android:name=".offers.OfferListActivity" />
+        <activity android:name=".tokens.TokenListActivity" />
         <activity
             android:name=".login.LoginActivity"
             android:label="DrinkUp">
