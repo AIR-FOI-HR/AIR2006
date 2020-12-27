@@ -32,6 +32,7 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -209,7 +210,11 @@ public class TokenListActivity extends AppCompatActivity {
                 calendar.add(Calendar.MINUTE, 30);
                 Date istekTokena = calendar.getTime();
 
-                long istekVremena = ((istekTokena.getTime() - datumKreiranja.getTime()) / (1000 * 60)) % 60;
+                long istekVremena = ((istekTokena.getTime() - System.currentTimeMillis()) / (1000 * 60)) % 60;
+
+                if (istekVremena < 0){
+                    istekVremena = 0;
+                }
 
                 TextView textView = new TextView(this);
                 textView.setLayoutParams(params);

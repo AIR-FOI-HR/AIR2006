@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void accept(JSONObject response) {
                                 try {
+                                    //ovdje se dohvaca neki cudni ID korisnika, moj ID u bazi je 3, a tu je dohvacen 153 ??????wtf
                                     int userId = response.getInt("id");
                                     int roleId = response.getInt("ulogaId");
                                     Intent intentSucces = new Intent(LoginActivity.this, OfferListActivity.class);
