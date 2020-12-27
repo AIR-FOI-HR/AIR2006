@@ -45,7 +45,7 @@
     <string name="offer_filter">Filtriraj ponude</string>
     <string name="offer_list_activity_title">Ponude</string>
     <string name="offer_categories_retrieval_error">Dogodila se pogreška kod dohvaćanja kategorija ponuda. Zbog toga filtriranje podataka nije moguće</string>
-    <string name="offer_creation_activity_title">Kreiranje ponude</string>
+    <string name="offer_creation_fragment_title">Kreiranje ponude</string>
     <string name="offer_title">Naslov ponude</string>
     <string name="offer_description">Opis ponude</string>
     <string name="offer_price">Cijena</string>
@@ -56,4 +56,5 @@
     <string name="offer_creation_successful">Ponuda je uspješno kreirana!</string>
     <string name="offer_creation_failed">Kreiranje ponude nije uspjelo! Molimo pokušajte kasnije</string>
     <string name="no_bars_for_user_found">Čini se da više niste dodijeljeni nijednome ugostiteljskom objektu. Probajte se prijaviti s nekim drugim korisničkim računom</string>
+    <string name="token_scanning_fragment_title">Skeniranje tokena</string>
 </resources>
