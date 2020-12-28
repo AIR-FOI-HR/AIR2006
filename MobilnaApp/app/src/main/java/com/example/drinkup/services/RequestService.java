@@ -1,7 +1,6 @@
 package com.example.drinkup.services;
 
 import android.content.Context;
-import android.media.Image;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,7 +19,6 @@ import com.example.drinkup.models.Uloga;
 import com.example.drinkup.models.VrstaPonude;
 import com.example.drinkup.util.StringRequestWithJsonObjectBody;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -298,6 +296,54 @@ public class RequestService {
         }
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, MyData, null, null);
+
+        queue.add(jsonObjectRequest);
+    }
+
+    public void retrieveOfferDetails(String tokenId, Consumer<JSONObject> jsonObjectConsumer, Consumer<VolleyError> errorConsumer) {
+        String urlTokenDetails = MessageFormat.format(appContext.getString(R.string.token_details_url), tokenId);
+        RequestQueue queue = Volley.newRequestQueue(appContext);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlTokenDetails, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if (response.length() == 0) {
+                    jsonObjectConsumer.accept(null);
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = response.getJSONObject(0);
+                        jsonObjectConsumer.accept(jsonObject);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                errorConsumer.accept(error);
+            }
+        });
+
+        queue.add(jsonArrayRequest);
+    }
+
+    public void redeemToken(String tokenId, Consumer<JSONObject> jsonObjectConsumer, Consumer<VolleyError> errorConsumer) {
+        String urlTokenDetails = MessageFormat.format(appContext.getString(R.string.token_activation_url), tokenId);
+        RequestQueue queue = Volley.newRequestQueue(appContext);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlTokenDetails, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                jsonObjectConsumer.accept(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                errorConsumer.accept(error);
+            }
+        });
 
         queue.add(jsonObjectRequest);
     }
