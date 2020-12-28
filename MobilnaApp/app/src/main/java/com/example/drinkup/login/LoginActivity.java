@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.VolleyError;
 import com.example.drinkup.R;
+import com.example.drinkup.employee.EmployeeMainActivity;
 import com.example.drinkup.models.LoginModel;
-import com.example.drinkup.offers.OfferCreationActivity;
 import com.example.drinkup.offers.OfferListActivity;
 import com.example.drinkup.registration.RegistrationActivity;
 import com.example.drinkup.services.RequestService;
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 new Consumer<Integer>() {
                                                     @Override
                                                     public void accept(Integer barId) {
-                                                        Intent intentSuccess = new Intent(LoginActivity.this, OfferCreationActivity.class);
+                                                        Intent intentSuccess = new Intent(LoginActivity.this, EmployeeMainActivity.class);
                                                         intentSuccess.putExtra("userId", userId);
                                                         intentSuccess.putExtra("roleId", roleId);
                                                         intentSuccess.putExtra("barId", barId);

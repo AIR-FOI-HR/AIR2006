@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_offer_creation">
+
+    <fragment
+        android:id="@+id/nav_offer_creation"
+        android:name="com.example.drinkup.employee.ui.creation.OfferCreationFragment"
+        android:label="@string/offer_creation_fragment_title"
+        tools:layout="@layout/fragment_offer_creation" />
+
+    <fragment
+        android:id="@+id/nav_token_scanning"
+        android:name="com.example.drinkup.employee.ui.activation.TokenScanningFragment"
+        android:label="@string/token_scanning_fragment_title"
+        tools:layout="@layout/fragment_token_scanning" />
+</navigation>

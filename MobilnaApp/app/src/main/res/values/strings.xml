@@ -35,6 +35,8 @@
     <string name="login_url">https://air2006.azurewebsites.net/api/korisnik/login</string>
     <string name="forgot_pass_url">https://air2006.azurewebsites.net/api/korisnik/reset-password-mail</string>
     <string name="offers_url">https://air2006.azurewebsites.net/api/ponuda/?pageSize=100</string>
+    <string name="token_details_url">https://air2006.azurewebsites.net/api/token/?filterColumn=id&amp;filterValue={0}&amp;filterOption=11</string>
+    <string name="token_activation_url">https://air2006.azurewebsites.net/api/token/activate/{0}</string>
     <string name="caffes_url">https://air2006.azurewebsites.net/api/objekt/</string>
     <string name="offer_categories_url">https://air2006.azurewebsites.net/api/vrsta-ponude/</string>
     <string name="bar_of_employee_url">https://air2006.azurewebsites.net/api/zaposlenik-objekt/?filterColumn=korisnikId&amp;filterValue={0}&amp;filterOption=11</string>
@@ -45,7 +47,7 @@
     <string name="offer_filter">Filtriraj ponude</string>
     <string name="offer_list_activity_title">Ponude</string>
     <string name="offer_categories_retrieval_error">Dogodila se pogreška kod dohvaćanja kategorija ponuda. Zbog toga filtriranje podataka nije moguće</string>
-    <string name="offer_creation_activity_title">Kreiranje ponude</string>
+    <string name="offer_creation_fragment_title">Kreiranje ponude</string>
     <string name="offer_title">Naslov ponude</string>
     <string name="offer_description">Opis ponude</string>
     <string name="offer_price">Cijena</string>
@@ -56,4 +58,17 @@
     <string name="offer_creation_successful">Ponuda je uspješno kreirana!</string>
     <string name="offer_creation_failed">Kreiranje ponude nije uspjelo! Molimo pokušajte kasnije</string>
     <string name="no_bars_for_user_found">Čini se da više niste dodijeljeni nijednome ugostiteljskom objektu. Probajte se prijaviti s nekim drugim korisničkim računom</string>
+    <string name="token_scanning_fragment_title">Skeniranje tokena</string>
+    <string name="token_successfully_activated">Uspješno skeniran i aktiviran token!</string>
+    <string name="token_activation_failed">Dogodio se neuspjeh prilikom pokušaja aktivacije tokena!</string>
+    <string name="token_info_retrieval_failed">Dogodio se neuspjeh kod dohvaća detalja o skeniranom tokenu!</string>
+    <string name="token_already_redeemed">Skenirani token je već iskorišten!</string>
+    <string name="token_not_applicable_here">Skenirani token nije iskoristiv u ovome ugostiteljskom objektu!</string>
+    <string name="token_no_longer_exists">Ne uspijeva se pronaći nijedan token za skenirani Qr kod!</string>
+    <string name="redeem_token_confirmation_message">Želite li poništiti token za ponudu \'\'{0}\'\' ({1})?</string>
+    <string name="redeem_token_confirmation_message_without_description">Želite li poništiti token za ponudu \'\'{0}\'\'?</string>
+    <string name="redeem_option">Prihvati</string>
+    <string name="reject_option">Odbij</string>
+    <string name="camera_permission_required">Potrebno je dozvoliti korištenje kamere od strane aplikacije za skeniranje tokena!</string>
+    <string name="error_loading_camera">\"Dogodio se sljedeći neuspjeh kod pokretanja kamere: \"</string>
 </resources>
