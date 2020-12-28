@@ -35,7 +35,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 // reference: https://github.com/learntodroid/AndroidQRCodeScanner
-public class TokenScanning extends Fragment {
+public class TokenScanningFragment extends Fragment {
 
     private static final int PERMISSION_REQUEST_CAMERA = 0;
 

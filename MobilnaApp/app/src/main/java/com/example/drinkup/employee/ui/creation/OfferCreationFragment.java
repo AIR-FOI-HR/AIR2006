@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class OfferCreation extends Fragment {
+public class OfferCreationFragment extends Fragment {
 
     private EmployeeMainActivity activity;
 
@@ -43,7 +43,7 @@ public class OfferCreation extends Fragment {
                 new Consumer<List<VrstaPonude>>() {
                     @Override
                     public void accept(List<VrstaPonude> vrstePonuda) {
-                        OfferCreation.this.displayFetchedOfferTypes(root, vrstePonuda);
+                        OfferCreationFragment.this.displayFetchedOfferTypes(root, vrstePonuda);
                     }
                 },
                 new Consumer<VolleyError>() {
