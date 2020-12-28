@@ -66,6 +66,7 @@
     <string name="token_not_applicable_here">Skenirani token nije iskoristiv u ovome ugostiteljskom objektu!</string>
     <string name="token_no_longer_exists">Ne uspijeva se pronaći nijedan token za skenirani Qr kod!</string>
     <string name="redeem_token_confirmation_message">Želite li poništiti token za ponudu \'\'{0}\'\' ({1})?</string>
+    <string name="redeem_token_confirmation_message_without_description">Želite li poništiti token za ponudu \'\'{0}\'\'?</string>
     <string name="redeem_option">Prihvati</string>
     <string name="reject_option">Odbij</string>
     <string name="camera_permission_required">Potrebno je dozvoliti korištenje kamere od strane aplikacije za skeniranje tokena!</string>

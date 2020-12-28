@@ -8,6 +8,7 @@ import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.MessageFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
@@ -40,11 +43,12 @@ public class TokenScanningFragment extends Fragment {
     private static final int PERMISSION_REQUEST_CAMERA = 0;
 
     private EmployeeMainActivity activity;
-    private Toast mToast;
-    private boolean qrCodeProcessingInProgress = false;
 
     private PreviewView cameraView;
+    private FrameLayout progressBarHolder;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
+    private final Timer timer = new Timer();
+    private boolean toastMessageShown;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +56,9 @@ public class TokenScanningFragment extends Fragment {
         activity = (EmployeeMainActivity) getActivity();
         activity.customizeActionBar(getString(R.string.token_scanning_fragment_title));
         cameraView = root.findViewById(R.id.cameraView);
+        progressBarHolder = root.findViewById(R.id.loading);
+        activity.runOnUiThread(() -> progressBarHolder.setVisibility(View.GONE));
+        toastMessageShown = false;
 
         cameraProviderFuture = ProcessCameraProvider.getInstance(getContext());
         requestCamera();
@@ -109,9 +116,9 @@ public class TokenScanningFragment extends Fragment {
         imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(activity), new QRCodeImageAnalyzer(new QRCodeFoundListener() {
             @Override
             public void onQRCodeFound(String decodedQrCode) {
-                if (!qrCodeProcessingInProgress) {
-                    if (mToast == null || !mToast.getView().isShown()) {
-                        qrCodeProcessingInProgress = true;
+                if (progressBarHolder.getVisibility() == View.GONE) {
+                    if (!toastMessageShown) {
+                        progressBarHolder.setVisibility(View.VISIBLE);
                         String tokenId = decodedQrCode.substring(decodedQrCode.lastIndexOf('/') + 1);
                         new RequestService(getContext()).retrieveOfferDetails(tokenId,
                                 new Consumer<JSONObject>() {
@@ -119,21 +126,18 @@ public class TokenScanningFragment extends Fragment {
                                     public void accept(JSONObject jsonObject) {
                                         if (jsonObject == null) {
                                             showAToast(R.string.token_no_longer_exists);
-                                            qrCodeProcessingInProgress = false;
                                         } else {
                                             try {
                                                 boolean alreadyUsed = jsonObject.getBoolean("iskoristen");
                                                 String tokenId = jsonObject.getString("id");
                                                 if (alreadyUsed) {
                                                     showAToast(R.string.token_already_redeemed);
-                                                    qrCodeProcessingInProgress = false;
                                                 } else {
                                                     int barIdOfToken = jsonObject.getJSONObject("ponuda").getInt("objektId");
                                                     String offerTitle = jsonObject.getJSONObject("ponuda").getString("naslov");
                                                     String offerDescription = jsonObject.getJSONObject("ponuda").getString("opis");
                                                     if (barIdOfToken != activity.getWorkingBarId()) {
                                                         showAToast(R.string.token_not_applicable_here);
-                                                        qrCodeProcessingInProgress = false;
                                                     } else {
                                                         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                                                             @Override
@@ -145,40 +149,42 @@ public class TokenScanningFragment extends Fragment {
                                                                                     @Override
                                                                                     public void accept(JSONObject jsonObject) {
                                                                                         showAToast(R.string.token_successfully_activated);
-                                                                                        qrCodeProcessingInProgress = false;
                                                                                     }
                                                                                 }, new Consumer<VolleyError>() {
                                                                                     @Override
                                                                                     public void accept(VolleyError volleyError) {
                                                                                         showAToast(R.string.token_activation_failed);
-                                                                                        qrCodeProcessingInProgress = false;
                                                                                     }
                                                                                 });
                                                                         break;
                                                                     case DialogInterface.BUTTON_NEGATIVE:
-                                                                        qrCodeProcessingInProgress = false;
+                                                                        progressBarHolder.setVisibility(View.GONE);
                                                                         break;
-
                                                                 }
                                                             }
                                                         };
 
                                                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                                        builder.setMessage(MessageFormat.format(getString(R.string.redeem_token_confirmation_message), offerTitle, offerDescription))
+                                                        final String messageContent;
+                                                        if (offerDescription.isEmpty()) {
+                                                            messageContent = MessageFormat.format(getString(R.string.redeem_token_confirmation_message_without_description), offerTitle);
+                                                        } else {
+                                                            messageContent = MessageFormat.format(getString(R.string.redeem_token_confirmation_message), offerTitle, offerDescription);
+                                                        }
+                                                        builder.setMessage(messageContent)
                                                                 .setPositiveButton(R.string.redeem_option, dialogClickListener)
                                                                 .setNegativeButton(R.string.reject_option, dialogClickListener)
                                                                 .setOnCancelListener(new DialogInterface.OnCancelListener() {
                                                                     @Override
                                                                     public void onCancel(DialogInterface dialog) {
-                                                                        qrCodeProcessingInProgress = false;
+                                                                        progressBarHolder.setVisibility(View.GONE);
                                                                     }
                                                                 })
                                                                 .show();
                                                     }
                                                 }
                                             } catch (JSONException e) {
-                                                e.printStackTrace();
-                                                qrCodeProcessingInProgress = false;
+                                                showAToast(R.string.token_info_retrieval_failed);
                                             }
                                         }
                                     }
@@ -186,11 +192,8 @@ public class TokenScanningFragment extends Fragment {
                                     @Override
                                     public void accept(VolleyError volleyError) {
                                         showAToast(R.string.token_info_retrieval_failed);
-                                        qrCodeProcessingInProgress = false;
                                     }
                                 });
-                    } else {
-                        return;
                     }
                 }
             }
@@ -199,15 +202,20 @@ public class TokenScanningFragment extends Fragment {
         cameraProvider.bindToLifecycle(this, cameraSelector, imageAnalysis, preview);
     }
 
-    // reference: https://stackoverflow.com/a/11441738/7519721
     private void showAToast(int textCode) {
-        String st = getString(textCode);
-        try{
-            mToast.getView().isShown();     // true if visible
-            mToast.setText(st);
-        } catch (Exception e) {         // invisible if exception
-            mToast = Toast.makeText(getContext(), st, Toast.LENGTH_LONG);
-        }
-        mToast.show();  //finally display it
+        toastMessageShown = true;
+        progressBarHolder.setVisibility(View.GONE);
+        Toast.makeText(getContext(), textCode, Toast.LENGTH_LONG).show();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                toastMessageShown = false;
+            }
+        }, 5000);
     }
 }
