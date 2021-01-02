@@ -248,4 +248,29 @@ public class RequestService {
 
         queue.add(requestPonude);
     }
+
+    public void obrisiToken(String id, Consumer<JSONObject> successObjectConsumer, Consumer<VolleyError> errorConsumer) {
+        String urlPonude = appContext.getString(R.string.delete_token_url) + id;
+
+        RequestQueue queue = Volley.newRequestQueue(appContext);
+
+        JsonArrayRequest requestDeleteToken = new JsonArrayRequest(Request.Method.DELETE, urlPonude, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                try {
+                    successObjectConsumer.accept(response.getJSONObject(0));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                errorConsumer.accept(error);
+            }
+        });
+
+        queue.add(requestDeleteToken);
+    }
 }

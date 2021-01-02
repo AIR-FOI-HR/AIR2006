@@ -32,6 +32,7 @@
 <string name="login_url">https://air2006.azurewebsites.net/api/korisnik/login</string>
 <string name="forgot_pass_url">https://air2006.azurewebsites.net/api/korisnik/reset-password-mail</string>
 <string name="offers_url">https://air2006.azurewebsites.net/api/ponuda/</string>
+    <string name="delete_token_url">https://air2006.azurewebsites.net/api/token/delete/</string>
 <string name="caffes_url">https://air2006.azurewebsites.net/api/objekt/</string>
 <string name="offer_categories_url">https://air2006.azurewebsites.net/api/vrsta-ponude/</string>
 <string name="navigation">Navigacija</string>

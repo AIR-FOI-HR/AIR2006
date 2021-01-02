@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,10 +22,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.drinkup.R;
+import com.example.drinkup.login.ForgotPasswordActivity;
 import com.example.drinkup.login.LoginActivity;
 import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
 import com.example.drinkup.models.Token;
+import com.example.drinkup.offers.OfferListActivity;
+import com.example.drinkup.services.RequestService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TokenListActivity extends AppCompatActivity {
     private Integer currentUserId;
@@ -101,6 +106,28 @@ public class TokenListActivity extends AppCompatActivity {
         }
 
         dohvatiTokene();
+    }
+
+    private void obrisiTokene(String id){
+
+        RequestService rs = new RequestService(getApplicationContext());
+        rs.obrisiToken(id,
+                new Consumer<JSONObject>() {
+                    @Override
+                    public void accept(JSONObject response) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                }, new Consumer<VolleyError>() {
+                    @Override
+                    public void accept(VolleyError volleyError) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+
+
+
     }
 
     private void dohvatiTokene() {
@@ -212,19 +239,40 @@ public class TokenListActivity extends AppCompatActivity {
 
                 long istekVremena = ((istekTokena.getTime() - System.currentTimeMillis()) / (1000 * 60)) % 60;
 
-                if (istekVremena < 0){
+                if (istekVremena > 0){
                     istekVremena = 0;
+
+                    TextView textView = new TextView(this);
+                    textView.setLayoutParams(params);
+                    textView.setPadding(30, 30, 30, 30);
+                    textView.setBackground(getDrawable(R.drawable.data_containter_token));
+                    textView.setTextSize(22);
+                    textView.setTextColor(Color.WHITE);
+                    textView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+                    textView.append(istekVremena + " m " + opis + " - " + String.valueOf(cijena) + "kn\n");
+                    linearLayout.addView(textView);
+
+
+
+                    Button button = new Button(this);
+                    button.setText("Obriši!");
+                    button.setLayoutParams(params);
+                    button.setPadding(30, 30, 30, 30);
+
+
+                    final int index = i;
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            obrisiTokene(listaTokena.get(index).id);
+                        }
+                    });
+                    linearLayout.addView(button);
+
                 }
 
-                TextView textView = new TextView(this);
-                textView.setLayoutParams(params);
-                textView.setPadding(30, 30, 30, 30);
-                textView.setBackground(getDrawable(R.drawable.data_containter_token));
-                textView.setTextSize(22);
-                textView.setTextColor(Color.WHITE);
-                textView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-                textView.append(istekVremena + " m " + opis + " - " + String.valueOf(cijena) + "kn\n");
-                linearLayout.addView(textView);
+
             }
 
         }
