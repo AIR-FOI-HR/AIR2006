@@ -40,7 +40,7 @@ namespace DrinkUp.WebAPI.Controllers
         [HttpGet]
         public async Task<ICollection<UlogaREST>> GetAsync(string filterColumn = "",
             string filterValue = "", int filterOption = 3, string sortBy = "",
-            int sortOrder = 1, int pageSize = 10, int page = 1)
+            int sortOrder = 1, int pageSize = 1000, int page = 1)
         {
             GetParams<UlogaModel> getParams = new GetParams<UlogaModel>()
             {
