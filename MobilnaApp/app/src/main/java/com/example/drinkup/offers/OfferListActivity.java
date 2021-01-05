@@ -198,7 +198,7 @@ public class OfferListActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                prikaziPonude();
+                prikaziPonude(listaPonuda, listaObjekata);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -210,7 +210,7 @@ public class OfferListActivity extends AppCompatActivity {
         mQueue.add(requestPonude);
     }
 
-    private void prikaziPonude() {
+    private void prikaziPonude(List<Ponuda> listaPonuda, List<Objekt> listaObjekata) {
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1050, 350);
         params.setMargins(0, 10, 0,0);
