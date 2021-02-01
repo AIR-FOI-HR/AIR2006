@@ -10,6 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".registration.RegistrationActivity"
+    android:background="@drawable/background_login_registration"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,9 +20,9 @@
         <EditText
             android:id="@+id/naslov"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:autofillHints="@string/oib"
             android:hint="@string/oib"
@@ -30,61 +31,86 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:drawableStart="@drawable/ic_oib"
+            android:drawablePadding="12dp"
+            android:background="@drawable/custom_input"
             />
 
         <EditText
             android:id="@+id/firstName"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:autofillHints="@string/firstName"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_oib"
+            android:drawablePadding="12dp"
             android:hint="@string/firstName"
             android:inputType="text"
+
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/naslov"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/naslov" />
 
         <EditText
             android:id="@+id/lastName"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:autofillHints="@string/lastName"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_oib"
+            android:drawablePadding="12dp"
             android:hint="@string/lastName"
             android:inputType="text"
+
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/firstName"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/firstName" />
 
         <EditText
             android:id="@+id/email"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:autofillHints="@string/prompt_email"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_email"
+            android:drawablePadding="12dp"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.187"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lastName"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/lastName" />
 
         <EditText
             android:id="@+id/password"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:autofillHints="@string/password"
             android:hint="@string/password"
@@ -93,12 +119,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email"
+
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="12dp"
+            android:background="@drawable/custom_input"
+
             />
 
         <EditText
             android:id="@+id/passwordRepeat"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:autofillHints="@string/passwordRepeat"
@@ -108,21 +142,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
+
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="12dp"
+            android:background="@drawable/custom_input"
             />
 
         <TextView
             android:id="@+id/genderOptionsLabel"
-            android:text="@string/genderOptionsLabelCaption"
-            android:textSize="18sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
+            android:text="@string/genderOptionsLabelCaption"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordRepeat"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/passwordRepeat" />
 
         <RadioGroup
             android:id="@+id/genderOptions"
@@ -141,19 +181,21 @@
             <RadioButton
                 android:id="@+id/radioOptionMale"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:checked="true"
                 android:text="@string/male"
-                />
+                android:layout_marginTop="8dp"
+                android:textColor="#ffffff" />
 
             <RadioButton
                 android:id="@+id/radioOptionFemale"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/female"
-                />
+                android:textColor="#ffffff" />
 
         </RadioGroup>
 
@@ -165,11 +207,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:text="@string/roleLabelCaption"
+            android:textColor="#ffffff"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/genderOptions"
-            />
+            app:layout_constraintTop_toBottomOf="@id/genderOptions" />
 
         <LinearLayout
             android:id="@+id/roleOptions"
@@ -198,17 +240,19 @@
                     android:id="@+id/roleOptionRadioButton1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:checked="true"
+                    android:textColor="#ffffff"
                     tools:layout_editor_absoluteX="250dp"
                     />
                 <RadioButton
                     android:id="@+id/roleOptionRadioButton2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
+                    android:textColor="#ffffff"
                     tools:layout_editor_absoluteX="250dp"
                     />
             </RadioGroup>
@@ -216,7 +260,7 @@
             <Spinner
                 android:id="@+id/roleOptionsV2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
@@ -224,6 +268,7 @@
                 android:drawSelectorOnTop="true"
                 android:spinnerMode="dropdown"
                 android:visibility="gone"
+                android:backgroundTint="#ffffff"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/offerTypeLabel"
@@ -231,11 +276,12 @@
         </LinearLayout>
 
         <Spinner
+
             android:id="@+id/barOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:background="@android:drawable/btn_dropdown"
             android:drawSelectorOnTop="true"
@@ -247,6 +293,7 @@
             />
 
         <Button
+            android:layout_marginTop="50dp"
             android:id="@+id/createOffer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -254,14 +301,16 @@
             android:layout_marginStart="48dp"
             android:layout_marginEnd="48dp"
             android:layout_marginBottom="44dp"
+            android:backgroundTint="#ffffff"
             android:enabled="true"
             android:text="@string/registration_button_caption"
+            android:textColor="#333333"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/barOptions"
-            app:layout_constraintHorizontal_bias="0.514"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/barOptions"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
