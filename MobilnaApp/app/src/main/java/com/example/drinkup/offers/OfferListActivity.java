@@ -25,6 +25,18 @@ import com.example.drinkup.login.ForgotPasswordActivity;
 import com.example.drinkup.login.LoginActivity;
 import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
+import com.example.drinkup.tokens.TokenListActivity;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.example.drinkup.models.VrstaPonude;
 
 import org.json.JSONArray;
@@ -38,6 +50,7 @@ public class OfferListActivity extends AppCompatActivity {
     private Integer currentUserId;
     private Integer currentRoleId;
     LinearLayout linearLayout;
+    private Button MyToken;
     private RequestQueue mQueue;
     private List<Ponuda> listaPonuda = new ArrayList<>();
     private List<Objekt> listaObjekata = new ArrayList<>();
@@ -70,6 +83,7 @@ public class OfferListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_offer_list);
 
+        MyToken =(Button)findViewById(R.id.tokenButton);
         currentUserId = (int) getIntent().getSerializableExtra("userId");
 
         linearLayout = findViewById(R.id.linear_layout);
@@ -82,7 +96,7 @@ public class OfferListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatTextView) findViewById(R.id.actionBarTitle)).setText(R.string.offer_list_activity_title);
 
-        /*if (savedInstanceState == null) {
+        if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -97,7 +111,17 @@ public class OfferListActivity extends AppCompatActivity {
         else {
             currentUserId = savedInstanceState.getInt("userId");
             currentRoleId = savedInstanceState.getInt("roleId");
-        }*/
+        }
+
+        MyToken.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intentSucces = new Intent(OfferListActivity.this, TokenListActivity.class);
+                intentSucces.putExtra("userId", currentUserId);
+                intentSucces.putExtra("roleId", currentRoleId);
+                startActivity(intentSucces);
+            }
+        });
 
         dohvatiObjekte();
         dohvatiPonude();
@@ -187,7 +211,7 @@ public class OfferListActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                prikaziPonude();
+                prikaziPonude(listaPonuda, listaObjekata);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -199,7 +223,7 @@ public class OfferListActivity extends AppCompatActivity {
         mQueue.add(requestPonude);
     }
 
-    private void prikaziPonude() {
+    private void prikaziPonude(List<Ponuda> listaPonuda, List<Objekt> listaObjekata) {
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1050, 350);
         params.setMargins(0, 10, 0,0);
@@ -225,7 +249,7 @@ public class OfferListActivity extends AppCompatActivity {
             TextView textView = new TextView(this);
             textView.setLayoutParams(params);
             textView.setPadding(30, 30, 30, 30);
-            textView.setBackground(getDrawable(R.drawable.data_containter));
+            textView.setBackground(getDrawable(R.drawable.data_containter_offer));
             textView.setTextSize(22);
             textView.setTextColor(Color.WHITE);
             textView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);

@@ -18,6 +18,19 @@
         <activity android:name=".login.ForgotPasswordActivity" />
         <activity android:name=".offers.OfferListActivity" />
         <activity android:name=".login.LoginActivity" >
+        <activity android:name=".tokens.TokenListActivity" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:label="DrinkUp">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".registration.RegistrationActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
