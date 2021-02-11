@@ -238,9 +238,7 @@ public class TokenListActivity extends AppCompatActivity {
 
                 long istekVremena = ((istekTokena.getTime() - System.currentTimeMillis()) / (1000 * 60)) % 60;
 
-                if (istekVremena > 0){
-                    istekVremena = 0;
-
+                if (istekVremena > 0) {
                     TextView textView = new TextView(this);
                     textView.setLayoutParams(params);
                     textView.setPadding(30, 30, 30, 30);
@@ -250,8 +248,6 @@ public class TokenListActivity extends AppCompatActivity {
                     textView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
                     textView.append(istekVremena + " m " + opis + " - " + String.valueOf(cijena) + "kn\n");
                     linearLayout.addView(textView);
-
-
 
                     Button button = new Button(this);
                     button.setText("Obriši!");
@@ -268,12 +264,8 @@ public class TokenListActivity extends AppCompatActivity {
                         }
                     });
                     linearLayout.addView(button);
-
                 }
-
-
             }
-
         }
     }
 }
