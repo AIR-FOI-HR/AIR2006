@@ -172,7 +172,7 @@ public class TokenListActivity extends AppCompatActivity {
                         boolean aktivan = objekt.getBoolean("aktivan");
 
                         Objekt objektTokena = new Objekt();
-                        objektTokena.Id = idObjekta;
+                        objektTokena.id = idObjekta;
                         objektTokena.naziv = naziv;
                         objektTokena.grad = grad;
                         objektTokena.ulica = ulica;
@@ -184,14 +184,13 @@ public class TokenListActivity extends AppCompatActivity {
                         objektTokena.aktivan = aktivan;
 
                         Ponuda ponudaTokena = new Ponuda();
-                        ponudaTokena.Id = id;
-                        ponudaTokena.naslov = naslov;
-                        ponudaTokena.opis = opis;
-                        ponudaTokena.cijena = cijena;
-                        ponudaTokena.brojTokena = brojTokena;
-                        ponudaTokena.vrstaPonudeId = vrstaPonudeId;
-                        ponudaTokena.objektId = objektId;
-                        ponudaTokena.objekt = objektTokena;
+                        ponudaTokena.setId(id);
+                        ponudaTokena.setNaslov(naslov);
+                        ponudaTokena.setOpis(opis);
+                        ponudaTokena.setCijena(cijena);
+                        ponudaTokena.setBrojTokena(brojTokena);
+                        ponudaTokena.setVrstaPonude(vrstaPonudeId);
+                        ponudaTokena.setObjektId(objektId);
 
                         Token noviToken = new Token();
                         noviToken.id = idTokena;
@@ -228,8 +227,8 @@ public class TokenListActivity extends AppCompatActivity {
 
         for (int i = 0; i < listaTokena.size(); i++) {
             if (listaTokena.get(i).korisnikId == currentUserId) {
-                String opis = listaTokena.get(i).ponuda.opis;
-                Float cijena = listaTokena.get(i).ponuda.cijena;
+                String opis = listaTokena.get(i).ponuda.getOpis();
+                Float cijena = listaTokena.get(i).ponuda.getCijena();
                 Date datumKreiranja = listaTokena.get(i).datumKreiranja;
 
                 Calendar calendar = Calendar.getInstance();
