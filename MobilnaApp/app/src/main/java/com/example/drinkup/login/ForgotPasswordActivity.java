@@ -1,6 +1,8 @@
 package com.example.drinkup.login;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.android.volley.VolleyError;
 import com.example.drinkup.R;
@@ -35,6 +37,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar);
+        ((AppCompatTextView) findViewById(R.id.actionBarTitle)).setText(R.string.forgot_password_activity_title);
+
         ForgotPasswordEmail = (TextView)findViewById(R.id.editTextTextPersonName);
         ForgotPasswordButton =(Button)findViewById(R.id.buttonForgotPassword);
 

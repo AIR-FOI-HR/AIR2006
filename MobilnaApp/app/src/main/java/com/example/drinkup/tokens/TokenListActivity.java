@@ -1,5 +1,6 @@
 package com.example.drinkup.tokens;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,28 +51,6 @@ public class TokenListActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     private RequestQueue mQueue;
     private List<Token> listaTokena = new ArrayList<>();
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.offer_list_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    private void handleMenuItemSelection(SubMenu menu, MenuItem selectedItem) {
-        for (int i=0; i<menu.size(); i++) {
-            MenuItem eachOption = menu.getItem(i);
-            if (eachOption == selectedItem) {
-                if (selectedItem.isChecked()) {
-                    selectedItem.setChecked(false);
-                }
-                else {
-                    selectedItem.setChecked(true);
-                }
-            } else {
-                eachOption.setChecked(false);
-            }
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +129,7 @@ public class TokenListActivity extends AppCompatActivity {
                         int korisnikId = token.getInt("korisnikId");
                         String qr = token.getString("qr");
 
-                        Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(datumKreiranja);
+                        @SuppressLint("SimpleDateFormat") Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(datumKreiranja);
 
                         int id = ponuda.getInt("id");
                         String naslov = ponuda.getString("naslov");
@@ -224,6 +204,7 @@ public class TokenListActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1050, 250);
         params.setMargins(0, 10, 0,0);
         params.gravity = 1;
+        Integer izborPozadine = 0;
 
         for (int i = 0; i < listaTokena.size(); i++) {
             if (listaTokena.get(i).korisnikId == currentUserId) {
@@ -234,26 +215,61 @@ public class TokenListActivity extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(datumKreiranja);
                 calendar.add(Calendar.MINUTE, 30);
+
                 Date istekTokena = calendar.getTime();
 
                 long istekVremena = ((istekTokena.getTime() - System.currentTimeMillis()) / (1000 * 60)) % 60;
 
                 if (istekVremena > 0) {
+
                     TextView textView = new TextView(this);
                     textView.setLayoutParams(params);
                     textView.setPadding(30, 30, 30, 30);
-                    textView.setBackground(getDrawable(R.drawable.data_containter_token));
+
+                    switch(izborPozadine){
+                        case 0:
+                            textView.setBackground(getDrawable(R.drawable.background_token_blue));
+                            izborPozadine++;
+                            break;
+                        case 1:
+                            textView.setBackground(getDrawable(R.drawable.background_token_orange));
+                            izborPozadine++;
+                            break;
+                        case 2:
+                            textView.setBackground(getDrawable(R.drawable.background_token_pink));
+                            izborPozadine++;
+                            break;
+                        case 3:
+                            textView.setBackground(getDrawable(R.drawable.background_token_purple));
+                            izborPozadine++;
+                            break;
+                        case 4:
+                            textView.setBackground(getDrawable(R.drawable.background_token_green));
+                            izborPozadine++;
+                            break;
+                    }
+
+                    if(izborPozadine > 4){
+                        izborPozadine = 0;
+                    }
+
                     textView.setTextSize(22);
                     textView.setTextColor(Color.WHITE);
                     textView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
                     textView.append(istekVremena + " m " + opis + " - " + String.valueOf(cijena) + "kn\n");
                     linearLayout.addView(textView);
 
-                    Button button = new Button(this);
-                    button.setText("Obriši!");
-                    button.setLayoutParams(params);
-                    button.setPadding(30, 30, 30, 30);
 
+
+                    Button button = new Button(this);
+                    LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(10, 10);
+                    buttonParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    buttonParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    buttonParams.gravity = 1;
+                    button.setText("Obriši!");
+                    button.setBackgroundColor(Color.WHITE);
+                    button.setTextColor(Color.rgb(51,51,51));
+                    button.setLayoutParams(buttonParams);
 
                     final int index = i;
                     button.setOnClickListener(new View.OnClickListener() {

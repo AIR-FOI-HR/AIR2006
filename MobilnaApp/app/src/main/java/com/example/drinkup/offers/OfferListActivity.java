@@ -1,5 +1,6 @@
 package com.example.drinkup.offers;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -223,11 +224,13 @@ public class OfferListActivity extends AppCompatActivity {
         mQueue.add(requestPonude);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void prikaziPonude(List<Ponuda> listaPonuda, List<Objekt> listaObjekata) {
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1050, 350);
         params.setMargins(0, 10, 0,0);
         params.gravity = 1;
+        Integer izborPozadine = 0;
 
         for (int i = 0; i < listaPonuda.size(); i++) {
             String opis = listaPonuda.get(i).getOpis();
@@ -249,7 +252,34 @@ public class OfferListActivity extends AppCompatActivity {
             TextView textView = new TextView(this);
             textView.setLayoutParams(params);
             textView.setPadding(30, 30, 30, 30);
-            textView.setBackground(getDrawable(R.drawable.data_containter_offer));
+
+            switch(izborPozadine){
+                case 0:
+                    textView.setBackground(getDrawable(R.drawable.background_token_blue));
+                    izborPozadine++;
+                    break;
+                case 1:
+                    textView.setBackground(getDrawable(R.drawable.background_token_orange));
+                    izborPozadine++;
+                    break;
+                case 2:
+                    textView.setBackground(getDrawable(R.drawable.background_token_pink));
+                    izborPozadine++;
+                    break;
+                case 3:
+                    textView.setBackground(getDrawable(R.drawable.background_token_purple));
+                    izborPozadine++;
+                    break;
+                case 4:
+                    textView.setBackground(getDrawable(R.drawable.background_token_green));
+                    izborPozadine++;
+                    break;
+            }
+
+            if(izborPozadine > 4){
+                izborPozadine = 0;
+            }
+
             textView.setTextSize(22);
             textView.setTextColor(Color.WHITE);
             textView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);

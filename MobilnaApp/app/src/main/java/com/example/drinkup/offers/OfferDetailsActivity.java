@@ -1,6 +1,8 @@
 package com.example.drinkup.offers;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.android.volley.VolleyError;
 import com.example.drinkup.R;
@@ -28,6 +30,12 @@ public class OfferDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ponuda_detalji);
+
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.navigation_icon);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatTextView) findViewById(R.id.actionBarTitle)).setText(R.string.offer_details_activity_title);
 
         service = new RequestService(getApplicationContext());
 

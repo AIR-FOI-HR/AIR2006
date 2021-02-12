@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="#FFFFFF"
+        android:background="@color/blue"
         android:textAllCaps="true"
         />
 </LinearLayout>
