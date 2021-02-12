@@ -3,7 +3,10 @@ package com.example.drinkup.offers;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.icu.lang.UCharacter;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -22,23 +25,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.drinkup.R;
-import com.example.drinkup.login.ForgotPasswordActivity;
 import com.example.drinkup.login.LoginActivity;
 import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
 import com.example.drinkup.tokens.TokenListActivity;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
-import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import com.example.drinkup.models.VrstaPonude;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -227,8 +219,9 @@ public class OfferListActivity extends AppCompatActivity {
     @SuppressLint("UseCompatLoadingForDrawables")
     private void prikaziPonude(List<Ponuda> listaPonuda, List<Objekt> listaObjekata) {
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1050, 350);
-        params.setMargins(0, 10, 0,0);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1025, 350);
+        params.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        params.setMargins(10, 20, 10,20);
         params.gravity = 1;
         Integer izborPozadine = 0;
 
@@ -249,51 +242,70 @@ public class OfferListActivity extends AppCompatActivity {
 
             final String objekt = nazivObjekta;
 
-            TextView textView = new TextView(this);
-            textView.setLayoutParams(params);
-            textView.setPadding(30, 30, 30, 30);
+            if(brojTokena > 0){
+                LinearLayout containerLayout = new LinearLayout(this);
+                containerLayout.setLayoutParams(params);
+                containerLayout.setOrientation(LinearLayout.VERTICAL);
 
-            switch(izborPozadine){
-                case 0:
-                    textView.setBackground(getDrawable(R.drawable.background_token_blue));
-                    izborPozadine++;
-                    break;
-                case 1:
-                    textView.setBackground(getDrawable(R.drawable.background_token_orange));
-                    izborPozadine++;
-                    break;
-                case 2:
-                    textView.setBackground(getDrawable(R.drawable.background_token_pink));
-                    izborPozadine++;
-                    break;
-                case 3:
-                    textView.setBackground(getDrawable(R.drawable.background_token_purple));
-                    izborPozadine++;
-                    break;
-                case 4:
-                    textView.setBackground(getDrawable(R.drawable.background_token_green));
-                    izborPozadine++;
-                    break;
-            }
+                TextView textViewPreostalo = new TextView(this);
+                textViewPreostalo.setText("PREOSTALO\n" + String.valueOf(brojTokena));
+                textViewPreostalo.setTextColor(Color.WHITE);
+                textViewPreostalo.setTextSize(25);
+                textViewPreostalo.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+                textViewPreostalo.setPadding(30, 30, 30, 30);
+                textViewPreostalo.setGravity(Gravity.RIGHT);
+                containerLayout.addView(textViewPreostalo);
 
-            if(izborPozadine > 4){
-                izborPozadine = 0;
-            }
+                TextView textViewObjekt = new TextView(this);
+                textViewObjekt.setText(nazivObjekta);
+                textViewObjekt.setTextColor(Color.WHITE);
+                textViewObjekt.setTextSize(18);
+                textViewObjekt.setPadding(40,0,0,0);
+                containerLayout.addView(textViewObjekt);
 
-            textView.setTextSize(22);
-            textView.setTextColor(Color.WHITE);
-            textView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            textView.append(opis + " - " + String.valueOf(cijena) + "kn\n");
-            textView.append("PREOSTALO " + String.valueOf(brojTokena) + "\n\n");
-            textView.append(nazivObjekta);
-            linearLayout.addView(textView);
-            System.out.println(objekt);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    offerDetails(ponuda, objekt);
+                TextView textViewOpisCijena = new TextView(this);
+                textViewOpisCijena.setText(opis + " - " + String.valueOf(cijena) + "kn");
+                textViewOpisCijena.setTextColor(Color.WHITE);
+                textViewOpisCijena.setTextSize(24);
+                textViewOpisCijena.setPadding(40,0,0,0);
+                containerLayout.addView(textViewOpisCijena);
+
+                switch(izborPozadine){
+                    case 0:
+                        containerLayout.setBackground(getDrawable(R.drawable.background_offer_blue));
+                        izborPozadine++;
+                        break;
+                    case 1:
+                        containerLayout.setBackground(getDrawable(R.drawable.background_offer_orange));
+                        izborPozadine++;
+                        break;
+                    case 2:
+                        containerLayout.setBackground(getDrawable(R.drawable.background_offer_pink));
+                        izborPozadine++;
+                        break;
+                    case 3:
+                        containerLayout.setBackground(getDrawable(R.drawable.background_offer_purple));
+                        izborPozadine++;
+                        break;
+                    case 4:
+                        containerLayout.setBackground(getDrawable(R.drawable.background_offer_green));
+                        izborPozadine++;
+                        break;
                 }
-            });
+
+                if(izborPozadine > 4){
+                    izborPozadine = 0;
+                }
+
+                linearLayout.addView(containerLayout);
+                System.out.println(objekt);
+                containerLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        offerDetails(ponuda, objekt);
+                    }
+                });
+            }
         }
     }
     private void offerDetails(Ponuda ponuda , String objekt){

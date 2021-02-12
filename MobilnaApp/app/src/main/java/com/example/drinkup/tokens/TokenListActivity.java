@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -202,7 +203,6 @@ public class TokenListActivity extends AppCompatActivity {
     private void prikaziTokene() {
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1050, 250);
-        params.setMargins(0, 10, 0,0);
         params.gravity = 1;
         Integer izborPozadine = 0;
 
@@ -214,7 +214,7 @@ public class TokenListActivity extends AppCompatActivity {
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(datumKreiranja);
-                calendar.add(Calendar.MINUTE, 30);
+                calendar.add(Calendar.MINUTE, 150);
 
                 Date istekTokena = calendar.getTime();
 
@@ -224,7 +224,6 @@ public class TokenListActivity extends AppCompatActivity {
 
                     TextView textView = new TextView(this);
                     textView.setLayoutParams(params);
-                    textView.setPadding(30, 30, 30, 30);
 
                     switch(izborPozadine){
                         case 0:
@@ -253,23 +252,25 @@ public class TokenListActivity extends AppCompatActivity {
                         izborPozadine = 0;
                     }
 
-                    textView.setTextSize(22);
+                    textView.setTextSize(25);
+                    textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clock, 0, 0, 0);
+                    textView.setPadding(50,40,0,40);
+                    textView.setCompoundDrawablePadding(5);
                     textView.setTextColor(Color.WHITE);
-                    textView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+                    textView.setGravity(Gravity.CENTER);
                     textView.append(istekVremena + " m " + opis + " - " + String.valueOf(cijena) + "kn\n");
                     linearLayout.addView(textView);
-
-
 
                     Button button = new Button(this);
                     LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(10, 10);
                     buttonParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
                     buttonParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
                     buttonParams.gravity = 1;
+                    buttonParams.setMargins(0,20,0,20);
                     button.setText("Obriši!");
-                    button.setBackgroundColor(Color.WHITE);
                     button.setTextColor(Color.rgb(51,51,51));
                     button.setLayoutParams(buttonParams);
+                    button.setBackgroundColor(Color.WHITE);
 
                     final int index = i;
                     button.setOnClickListener(new View.OnClickListener() {
