@@ -1,6 +1,8 @@
 package com.example.drinkup.models;
 
-public class Objekt
+import java.io.Serializable;
+
+public class Objekt implements Serializable
 {
     public int id;
     public String naziv;
