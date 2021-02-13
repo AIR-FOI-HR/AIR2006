@@ -37,7 +37,7 @@ public class RequestService {
         appContext =  context;
     }
 
-    public void fetchAvailableRoles(Consumer<Uloga[]> successObjectConsumer, Consumer<VolleyError> failErrorConsumer) {
+    public void fetchAvailableRoles(final Consumer<Uloga[]> successObjectConsumer, final Consumer<VolleyError> failErrorConsumer) {
         RequestQueue queue = Volley.newRequestQueue(appContext);
         String url = appContext.getString(R.string.get_all_roles_url);
 
@@ -58,7 +58,7 @@ public class RequestService {
         queue.add(stringRequest);
     }
 
-    public void SendRegistrationRequest(Korisnik data, Consumer<String> successObjectConsumer, Consumer<VolleyError> failErrorConsumer){
+    public void SendRegistrationRequest(Korisnik data, final Consumer<String> successObjectConsumer, final Consumer<VolleyError> failErrorConsumer){
         String url = appContext.getString(R.string.registration_url);
 
         RequestQueue queue = Volley.newRequestQueue(appContext);
@@ -93,7 +93,7 @@ public class RequestService {
         queue.add(jsonObjectRequest);
     }
 
-    public void SendLoginRequest(LoginModel login, Consumer<JSONObject> successObjectConsumer, Consumer<VolleyError> failErrorConsumer){
+    public void SendLoginRequest(LoginModel login, final Consumer<JSONObject> successObjectConsumer, final Consumer<VolleyError> failErrorConsumer){
         String url = appContext.getString(R.string.login_url);
 
         RequestQueue queue = Volley.newRequestQueue(appContext);
@@ -123,7 +123,7 @@ public class RequestService {
         queue.add(jsonObjectRequest);
     }
 
-    public void SendResetPasswordRequest(String email, Consumer<JSONObject> successObjectConsumer, Consumer<VolleyError> failErrorConsumer){
+    public void SendResetPasswordRequest(String email, final Consumer<JSONObject> successObjectConsumer, final Consumer<VolleyError> failErrorConsumer){
         String url = appContext.getString(R.string.forgot_pass_url);
 
         RequestQueue queue = Volley.newRequestQueue(appContext);
@@ -152,7 +152,7 @@ public class RequestService {
         queue.add(jsonObjectRequest);
     }
 
-    public void fetchAllOfferTypes(Consumer<List<VrstaPonude>> responseConsumer, Consumer<VolleyError> errorConsumer) {
+    public void fetchAllOfferTypes(final Consumer<List<VrstaPonude>> responseConsumer, final Consumer<VolleyError> errorConsumer) {
         String url = appContext.getString(R.string.offer_categories_url);
         RequestQueue queue = Volley.newRequestQueue(appContext);
 
@@ -186,7 +186,7 @@ public class RequestService {
         queue.add(jsonArrayRequest);
     }
 
-    public void fetchBars(Consumer<Objekt[]> successObjectConsumer, Consumer<VolleyError> failErrorConsumer) {
+    public void fetchBars(final Consumer<Objekt[]> successObjectConsumer, final Consumer<VolleyError> failErrorConsumer) {
         RequestQueue queue = Volley.newRequestQueue(appContext);
         String url = appContext.getString(R.string.get_all_bars_url);
 
@@ -225,7 +225,7 @@ public class RequestService {
         queue.add(jsonObjectRequest);
     }
 
-    public void createOffer(Ponuda ponuda, Integer barId, Consumer<JSONObject> successObjectConsumer, Consumer<VolleyError> failErrorConsumer) {
+    public void createOffer(Ponuda ponuda, Integer barId, final Consumer<JSONObject> successObjectConsumer, final Consumer<VolleyError> failErrorConsumer) {
         String url = appContext.getString(R.string.create_offer_url);
         RequestQueue queue = Volley.newRequestQueue(appContext);
 
@@ -260,7 +260,7 @@ public class RequestService {
         queue.add(jsonObjectRequest);
     }
 
-    public void fetchWorkplaceOfUser(int userId, Consumer<Integer> responseConsumer, Runnable noBarsFoundHandler) {
+    public void fetchWorkplaceOfUser(int userId, final Consumer<Integer> responseConsumer, final Runnable noBarsFoundHandler) {
         String url = MessageFormat.format(appContext.getString(R.string.bar_of_employee_url), userId);
 
         RequestQueue queue = Volley.newRequestQueue(appContext);
@@ -300,7 +300,7 @@ public class RequestService {
         queue.add(jsonObjectRequest);
     }
 
-    public void retrieveOfferDetails(String tokenId, Consumer<JSONObject> jsonObjectConsumer, Consumer<VolleyError> errorConsumer) {
+    public void retrieveOfferDetails(String tokenId, final Consumer<JSONObject> jsonObjectConsumer, final Consumer<VolleyError> errorConsumer) {
         String urlTokenDetails = MessageFormat.format(appContext.getString(R.string.token_details_url), tokenId);
         RequestQueue queue = Volley.newRequestQueue(appContext);
 
@@ -329,7 +329,7 @@ public class RequestService {
         queue.add(jsonArrayRequest);
     }
 
-    public void redeemToken(String tokenId, Consumer<JSONObject> jsonObjectConsumer, Consumer<VolleyError> errorConsumer) {
+    public void redeemToken(String tokenId, final Consumer<JSONObject> jsonObjectConsumer, final Consumer<VolleyError> errorConsumer) {
         String urlTokenDetails = MessageFormat.format(appContext.getString(R.string.token_activation_url), tokenId);
         RequestQueue queue = Volley.newRequestQueue(appContext);
 
@@ -348,7 +348,7 @@ public class RequestService {
         queue.add(jsonObjectRequest);
     }
 
-    public void obrisiToken(String id, Consumer<JSONObject> successObjectConsumer, Consumer<VolleyError> errorConsumer) {
+    public void obrisiToken(String id, final Consumer<JSONObject> successObjectConsumer, final Consumer<VolleyError> errorConsumer) {
         String urlPonude = appContext.getString(R.string.delete_token_url) + id;
 
         RequestQueue queue = Volley.newRequestQueue(appContext);

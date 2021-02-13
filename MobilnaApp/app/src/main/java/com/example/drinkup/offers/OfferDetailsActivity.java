@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.android.volley.VolleyError;
 import com.example.drinkup.R;
+import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
 import com.example.drinkup.models.VrstaPonude;
 import com.example.drinkup.services.RequestService;
@@ -20,11 +21,16 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.function.Consumer;
 
+import hr.foi.air.core.GenerousJudge;
+import hr.foi.air.core.TokenJudge;
+import hr.foi.air.location.LocationJudge;
+
 public class OfferDetailsActivity extends AppCompatActivity {
 
     RequestService service;
     int currentUserId;
     Ponuda ponuda;
+    TokenJudge tokenJudge = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +62,21 @@ public class OfferDetailsActivity extends AppCompatActivity {
 
         TextView textViewObjekt = (TextView) findViewById(R.id.textViewObjekt);
         textViewObjekt.setText(objekt);
+
+
+        Objekt objektPonude = ponuda.getObjekt();
+        tokenJudge = new LocationJudge(this, objektPonude.getLatituda(), objektPonude.getLongituda());
     }
 
     public void onButtonClick(View view) {
-        service.addTokenToUser(currentUserId, ponuda.getId());
+        if (tokenJudge != null){
+            if (tokenJudge.canGetToken()){
+                service.addTokenToUser(currentUserId, ponuda.getId());
+                Toast.makeText(this, "Token uspješno preuzet.", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(this, tokenJudge.getDenialMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

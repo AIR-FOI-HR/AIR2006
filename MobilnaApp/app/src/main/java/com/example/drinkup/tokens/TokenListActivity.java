@@ -172,6 +172,7 @@ public class TokenListActivity extends AppCompatActivity {
                         ponudaTokena.setBrojTokena(brojTokena);
                         ponudaTokena.setVrstaPonude(vrstaPonudeId);
                         ponudaTokena.setObjektId(objektId);
+                        ponudaTokena.setObjekt(objektTokena);
 
                         Token noviToken = new Token();
                         noviToken.id = idTokena;
@@ -210,7 +211,8 @@ public class TokenListActivity extends AppCompatActivity {
             if (listaTokena.get(i).korisnikId == currentUserId) {
                 String opis = listaTokena.get(i).ponuda.getOpis();
                 Float cijena = listaTokena.get(i).ponuda.getCijena();
-                Date datumKreiranja = listaTokena.get(i).datumKreiranja;
+                Date datumKreiranja = listaTokena.get(i).getDatumKreiranja();
+                String nazivObjekta = listaTokena.get(i).getPonuda().getObjekt().getNaziv();
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(datumKreiranja);
@@ -267,7 +269,7 @@ public class TokenListActivity extends AppCompatActivity {
                     buttonParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
                     buttonParams.gravity = 1;
                     buttonParams.setMargins(0,20,0,20);
-                    button.setText("Obriši!");
+                    button.setText("Obriši");
                     button.setTextColor(Color.rgb(51,51,51));
                     button.setLayoutParams(buttonParams);
                     button.setBackgroundColor(Color.WHITE);

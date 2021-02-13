@@ -232,10 +232,11 @@ public class OfferListActivity extends AppCompatActivity {
             int objektId = listaPonuda.get(i).getObjektId();
 
             String nazivObjekta = "";
-            Ponuda ponuda = listaPonuda.get(i);
+            final Ponuda ponuda = listaPonuda.get(i);
             for (Objekt o: listaObjekata) {
                 if(o.getId() == objektId) {
                     nazivObjekta = o.naziv;
+                    listaPonuda.get(i).setObjekt(o);
                     break;
                 }
             }
@@ -298,7 +299,6 @@ public class OfferListActivity extends AppCompatActivity {
                 }
 
                 linearLayout.addView(containerLayout);
-                System.out.println(objekt);
                 containerLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
