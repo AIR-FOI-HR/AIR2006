@@ -10,6 +10,7 @@ public class Ponuda implements Serializable {
     private int brojTokena;
     private int vrstaPonude;
     private int objektId;
+    private Objekt objekt;
 
     public Ponuda() {}
 
@@ -67,5 +68,13 @@ public class Ponuda implements Serializable {
 
     public void setObjektId(int objektId) {
         this.objektId = objektId;
+    }
+
+    public Objekt getObjekt() {
+        return objekt;
+    }
+
+    public void setObjekt(Objekt objekt) {
+        this.objekt = objekt;
     }
 }
