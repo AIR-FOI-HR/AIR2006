@@ -31,11 +31,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -85,7 +87,7 @@ public class TokenListFragment extends Fragment {
     }
 
     private void dohvatiTokene() {
-        String urlTokeni = "https://air2006.azurewebsites.net/api/token?pageSize=100";
+        String urlTokeni = MessageFormat.format("https://air2006.azurewebsites.net/api/token?filterColumn=korisnikId&filterValue={0}&filterOption=11", activity.getCurrentUserId());
 
         JsonArrayRequest requestTokeni = new JsonArrayRequest(Request.Method.GET, urlTokeni, null, new Response.Listener<JSONArray>() {
             @Override
@@ -181,71 +183,69 @@ public class TokenListFragment extends Fragment {
         Integer izborPozadine = 0;
 
         for (int i = 0; i < listaTokena.size(); i++) {
-            if (listaTokena.get(i).korisnikId == currentUserId) {
-                String opis = listaTokena.get(i).ponuda.getOpis();
-                Float cijena = listaTokena.get(i).ponuda.getCijena();
-                Date datumKreiranja = listaTokena.get(i).getDatumKreiranja();
-                String nazivObjekta = listaTokena.get(i).getPonuda().getObjekt().getNaziv();
+            String opis = listaTokena.get(i).ponuda.getOpis();
+            Float cijena = listaTokena.get(i).ponuda.getCijena();
+            Date datumKreiranja = listaTokena.get(i).getDatumKreiranja();
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(datumKreiranja);
-                calendar.add(Calendar.MINUTE, 150);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(datumKreiranja);
+            calendar.add(Calendar.MINUTE, 150);
 
-                Date istekTokena = calendar.getTime();
+            Date istekTokena = calendar.getTime();
 
-                long istekVremena = ((istekTokena.getTime() - System.currentTimeMillis()) / (1000 * 60)) % 60;
+            long istekVremena = ((istekTokena.getTime() - System.currentTimeMillis()) / (1000 * 60)) % 60;
 
-                if (istekVremena > 0) {
+            if (istekVremena > 0) {
 
-                    TextView textView = new TextView(activity);
-                    textView.setLayoutParams(params);
+                TextView textView = new TextView(activity);
+                textView.setLayoutParams(params);
 
-                    switch(izborPozadine){
-                        case 0:
-                            textView.setBackground(getContext().getDrawable(R.drawable.background_token_blue));
-                            izborPozadine++;
-                            break;
-                        case 1:
-                            textView.setBackground(getContext().getDrawable(R.drawable.background_token_orange));
-                            izborPozadine++;
-                            break;
-                        case 2:
-                            textView.setBackground(getContext().getDrawable(R.drawable.background_token_pink));
-                            izborPozadine++;
-                            break;
-                        case 3:
-                            textView.setBackground(getContext().getDrawable(R.drawable.background_token_purple));
-                            izborPozadine++;
-                            break;
-                        case 4:
-                            textView.setBackground(getContext().getDrawable(R.drawable.background_token_green));
-                            izborPozadine++;
-                            break;
-                    }
+                switch(izborPozadine){
+                    case 0:
+                        textView.setBackground(getContext().getDrawable(R.drawable.background_token_blue));
+                        izborPozadine++;
+                        break;
+                    case 1:
+                        textView.setBackground(getContext().getDrawable(R.drawable.background_token_orange));
+                        izborPozadine++;
+                        break;
+                    case 2:
+                        textView.setBackground(getContext().getDrawable(R.drawable.background_token_pink));
+                        izborPozadine++;
+                        break;
+                    case 3:
+                        textView.setBackground(getContext().getDrawable(R.drawable.background_token_purple));
+                        izborPozadine++;
+                        break;
+                    case 4:
+                        textView.setBackground(getContext().getDrawable(R.drawable.background_token_green));
+                        izborPozadine++;
+                        break;
+                }
 
-                    if(izborPozadine > 4){
-                        izborPozadine = 0;
-                    }
+                if(izborPozadine > 4){
+                    izborPozadine = 0;
+                }
 
-                    textView.setTextSize(25);
-                    textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clock, 0, 0, 0);
-                    textView.setPadding(50,40,0,40);
-                    textView.setCompoundDrawablePadding(5);
-                    textView.setTextColor(Color.WHITE);
-                    textView.setGravity(Gravity.CENTER);
-                    textView.append(istekVremena + " m " + opis + " - " + String.format("%.2f", cijena) + "kn\n");
-                    linearLayout.addView(textView);
+                textView.setTextSize(25);
+                textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clock, 0, 0, 0);
+                textView.setPadding(50,40,0,40);
+                textView.setCompoundDrawablePadding(5);
+                textView.setTextColor(Color.WHITE);
+                textView.setGravity(Gravity.CENTER);
+                textView.append(istekVremena + " m " + opis + " - " + String.format("%.2f", cijena) + "kn\n");
+                linearLayout.addView(textView);
 
-                    Button button = new Button(activity);
-                    LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(10, 10);
-                    buttonParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                    buttonParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                    buttonParams.gravity = 1;
-                    buttonParams.setMargins(0,20,0,20);
-                    button.setText("Obriši");
-                    button.setTextColor(Color.rgb(51,51,51));
-                    button.setLayoutParams(buttonParams);
-                    button.setBackgroundColor(Color.WHITE);
+                Button button = new Button(activity);
+                LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(10, 10);
+                buttonParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                buttonParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                buttonParams.gravity = 1;
+                buttonParams.setMargins(0,20,0,20);
+                button.setText("Obriši");
+                button.setTextColor(Color.rgb(51,51,51));
+                button.setLayoutParams(buttonParams);
+                button.setBackgroundColor(Color.WHITE);
 
                     final int index = i;
                     button.setOnClickListener(new View.OnClickListener() {
