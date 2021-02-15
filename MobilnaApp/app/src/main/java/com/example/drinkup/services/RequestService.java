@@ -353,15 +353,11 @@ public class RequestService {
 
         RequestQueue queue = Volley.newRequestQueue(appContext);
 
-        JsonArrayRequest requestDeleteToken = new JsonArrayRequest(Request.Method.DELETE, urlPonude, null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest requestDeleteToken = new JsonObjectRequest(Request.Method.DELETE, urlPonude, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(JSONObject response) {
 
-                try {
-                    successObjectConsumer.accept(response.getJSONObject(0));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                successObjectConsumer.accept(response);
             }
         }, new Response.ErrorListener() {
             @Override

@@ -71,19 +71,24 @@ public class TokenListFragment extends Fragment {
                 new Consumer<JSONObject>() {
                     @Override
                     public void accept(JSONObject response) {
-                        finish();
-                        startActivity(getIntent());
+                        Iterator<Token> iterator = listaTokena.iterator();
+                        int counter = 0;
+                        while (iterator.hasNext()) {
+                            Token token = iterator.next();
+                            if (token.id.equals(id)) {
+                                iterator.remove();
+                                linearLayout.removeViewAt(2 * counter + 1);
+                                linearLayout.removeViewAt(2 * counter);
+                                break;
+                            }
+                            counter++;
+                        }
                     }
                 }, new Consumer<VolleyError>() {
                     @Override
                     public void accept(VolleyError volleyError) {
-                        finish();
-                        startActivity(getIntent());
                     }
                 });
-
-
-
     }
 
     private void dohvatiTokene() {
@@ -247,16 +252,15 @@ public class TokenListFragment extends Fragment {
                 button.setLayoutParams(buttonParams);
                 button.setBackgroundColor(Color.WHITE);
 
-                    final int index = i;
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
+                final String tokenId = listaTokena.get(i).id;
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                            obrisiTokene(listaTokena.get(index).id);
-                        }
-                    });
-                    linearLayout.addView(button);
-                }
+                        obrisiTokene(tokenId);
+                    }
+                });
+                linearLayout.addView(button);
             }
         }
     }
