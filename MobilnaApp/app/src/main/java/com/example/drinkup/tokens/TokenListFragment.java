@@ -1,22 +1,18 @@
 package com.example.drinkup.tokens;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,12 +21,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.drinkup.R;
-import com.example.drinkup.login.ForgotPasswordActivity;
-import com.example.drinkup.login.LoginActivity;
+import com.example.drinkup.guest.GuestMainActivity;
 import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
 import com.example.drinkup.models.Token;
-import com.example.drinkup.offers.OfferListActivity;
 import com.example.drinkup.services.RequestService;
 
 import org.json.JSONArray;
@@ -39,59 +33,38 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class TokenListActivity extends AppCompatActivity {
-    private Integer currentUserId;
-    private Integer currentRoleId;
-    LinearLayout linearLayout;
+public class TokenListFragment extends Fragment {
+    private LinearLayout linearLayout;
     private RequestQueue mQueue;
     private List<Token> listaTokena = new ArrayList<>();
 
+    private GuestMainActivity activity;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_token_list, container, false);
+        activity = (GuestMainActivity) getActivity();
+        activity.customizeActionBar(getString(R.string.token_list_fragment_title));
 
-        setContentView(R.layout.activity_token_list);
+        linearLayout = root.findViewById(R.id.token_linear_layout);
 
-        linearLayout = findViewById(R.id.linear_layout);
-
-        mQueue = Volley.newRequestQueue(this);
-
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.navigation_icon);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.action_bar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatTextView) findViewById(R.id.actionBarTitle)).setText(R.string.token_list_activity_title);
-
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-            else {
-                currentUserId = extras.getInt("userId");
-                currentRoleId = extras.getInt("roleId");
-            }
-        }
-        else {
-            currentUserId = savedInstanceState.getInt("userId");
-            currentRoleId = savedInstanceState.getInt("roleId");
-        }
+        mQueue = Volley.newRequestQueue(getContext());
 
         dohvatiTokene();
+
+        return root;
     }
 
     private void obrisiTokene(String id){
 
-        RequestService rs = new RequestService(getApplicationContext());
+        RequestService rs = new RequestService(getContext());
         rs.obrisiToken(id,
                 new Consumer<JSONObject>() {
                     @Override
@@ -224,28 +197,28 @@ public class TokenListActivity extends AppCompatActivity {
 
                 if (istekVremena > 0) {
 
-                    TextView textView = new TextView(this);
+                    TextView textView = new TextView(activity);
                     textView.setLayoutParams(params);
 
                     switch(izborPozadine){
                         case 0:
-                            textView.setBackground(getDrawable(R.drawable.background_token_blue));
+                            textView.setBackground(getContext().getDrawable(R.drawable.background_token_blue));
                             izborPozadine++;
                             break;
                         case 1:
-                            textView.setBackground(getDrawable(R.drawable.background_token_orange));
+                            textView.setBackground(getContext().getDrawable(R.drawable.background_token_orange));
                             izborPozadine++;
                             break;
                         case 2:
-                            textView.setBackground(getDrawable(R.drawable.background_token_pink));
+                            textView.setBackground(getContext().getDrawable(R.drawable.background_token_pink));
                             izborPozadine++;
                             break;
                         case 3:
-                            textView.setBackground(getDrawable(R.drawable.background_token_purple));
+                            textView.setBackground(getContext().getDrawable(R.drawable.background_token_purple));
                             izborPozadine++;
                             break;
                         case 4:
-                            textView.setBackground(getDrawable(R.drawable.background_token_green));
+                            textView.setBackground(getContext().getDrawable(R.drawable.background_token_green));
                             izborPozadine++;
                             break;
                     }
@@ -260,10 +233,10 @@ public class TokenListActivity extends AppCompatActivity {
                     textView.setCompoundDrawablePadding(5);
                     textView.setTextColor(Color.WHITE);
                     textView.setGravity(Gravity.CENTER);
-                    textView.append(istekVremena + " m " + opis + " - " + String.valueOf(cijena) + "kn\n");
+                    textView.append(istekVremena + " m " + opis + " - " + String.format("%.2f", cijena) + "kn\n");
                     linearLayout.addView(textView);
 
-                    Button button = new Button(this);
+                    Button button = new Button(activity);
                     LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(10, 10);
                     buttonParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
                     buttonParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;

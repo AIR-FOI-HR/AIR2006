@@ -1,4 +1,4 @@
-package com.example.drinkup.employee;
+package com.example.drinkup.guest;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import com.example.drinkup.R;
 import com.example.drinkup.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
-public class EmployeeMainActivity extends AppCompatActivity {
+public class GuestMainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -24,21 +24,19 @@ public class EmployeeMainActivity extends AppCompatActivity {
 
     private Integer currentRoleId;
 
-    private Integer workingBarId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.employee_main_activity);
-        DrawerLayout drawer = findViewById(R.id.employee_drawer_layout);
-        NavigationView navigationView = findViewById(R.id.employee_nav_view);
+        setContentView(R.layout.guest_main_activity);
+        DrawerLayout drawer = findViewById(R.id.guest_drawer_layout);
+        NavigationView navigationView = findViewById(R.id.guest_nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_offer_creation,
-                R.id.nav_token_scanning
+                R.id.nav_offer_list,
+                R.id.nav_token_list
         ).setOpenableLayout(drawer).build();
-        NavController navController = Navigation.findNavController(this, R.id.employee_nav_host_fragment);
+        NavController navController = Navigation.findNavController(this, R.id.guest_nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         loadState(savedInstanceState);
@@ -46,7 +44,7 @@ public class EmployeeMainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.employee_nav_host_fragment);
+        NavController navController = Navigation.findNavController(this, R.id.guest_nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
 
@@ -61,13 +59,11 @@ public class EmployeeMainActivity extends AppCompatActivity {
             else {
                 currentUserId = extras.getInt("userId");
                 currentRoleId = extras.getInt("roleId");
-                workingBarId = extras.getInt("barId");
             }
         }
         else {
             currentUserId = savedInstanceState.getInt("userId");
             currentRoleId = savedInstanceState.getInt("roleId");
-            workingBarId = savedInstanceState.getInt("barId");
         }
     }
 
@@ -77,10 +73,6 @@ public class EmployeeMainActivity extends AppCompatActivity {
 
     public Integer getCurrentRoleId() {
         return currentRoleId;
-    }
-
-    public Integer getWorkingBarId() {
-        return workingBarId;
     }
 
     public void customizeActionBar(String actionBarTitle)

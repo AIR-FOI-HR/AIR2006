@@ -46,8 +46,8 @@
     <string name="customize_offer_list">Upravljaj prikazom ponuda</string>
     <string name="offer_order">Redoslijed ponuda</string>
     <string name="offer_filter">Filtriraj ponude</string>
-    <string name="token_list_activity_title">Moji tokeni</string>
-    <string name="offer_list_activity_title">Ponude</string>
+    <string name="token_list_fragment_title">Moji tokeni</string>
+    <string name="offer_list_fragment_title">Ponude</string>
     <string name="login_activity_title">Prijava</string>
     <string name="forgot_password_activity_title">Zaboravljena lozinka</string>
     <string name="offer_details_activity_title">Detaljni pregled</string>
@@ -76,5 +76,5 @@
     <string name="redeem_option">Prihvati</string>
     <string name="reject_option">Odbij</string>
     <string name="camera_permission_required">Potrebno je dozvoliti korištenje kamere od strane aplikacije za skeniranje tokena!</string>
-    <string name="error_loading_camera">\"Dogodio se sljedeći neuspjeh kod pokretanja kamere: \"</string>
+    <string name="error_loading_camera">Dogodio se sljedeći neuspjeh kod pokretanja kamere:</string>
 </resources>

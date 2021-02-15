@@ -20,8 +20,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.android.volley.VolleyError;
 import com.example.drinkup.R;
 import com.example.drinkup.employee.EmployeeMainActivity;
+import com.example.drinkup.guest.GuestMainActivity;
 import com.example.drinkup.models.LoginModel;
-import com.example.drinkup.offers.OfferListActivity;
 import com.example.drinkup.registration.RegistrationActivity;
 import com.example.drinkup.services.RequestService;
 
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                                     int userId = response.getInt("id");
                                     int roleId = response.getInt("ulogaId");
                                     if (roleId == 0) {
-                                        Intent intentSuccess = new Intent(LoginActivity.this, OfferListActivity.class);
+                                        Intent intentSuccess = new Intent(LoginActivity.this, GuestMainActivity.class);
                                         intentSuccess.putExtra("userId", userId);
                                         intentSuccess.putExtra("roleId", roleId);
                                         startActivity(intentSuccess);

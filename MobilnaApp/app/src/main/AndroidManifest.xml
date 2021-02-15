@@ -16,8 +16,7 @@
         <activity android:name=".employee.EmployeeMainActivity" />
         <activity android:name=".offers.OfferDetailsActivity" />
         <activity android:name=".login.ForgotPasswordActivity" />
-        <activity android:name=".offers.OfferListActivity" />
-        <activity android:name=".tokens.TokenListActivity" />
+        <activity android:name=".guest.GuestMainActivity" />
         <activity
             android:name=".login.LoginActivity"
             android:label="DrinkUp">
