@@ -1,9 +1,9 @@
 package com.example.drinkup.models;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Token {
+public class Token implements Serializable {
     public String id;
     public int ponudaId;
     public Ponuda ponuda;

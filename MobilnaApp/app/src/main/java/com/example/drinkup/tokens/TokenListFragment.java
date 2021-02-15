@@ -1,6 +1,7 @@
 package com.example.drinkup.tokens;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -188,9 +189,10 @@ public class TokenListFragment extends Fragment {
         Integer izborPozadine = 0;
 
         for (int i = 0; i < listaTokena.size(); i++) {
-            String opis = listaTokena.get(i).ponuda.getOpis();
-            Float cijena = listaTokena.get(i).ponuda.getCijena();
-            Date datumKreiranja = listaTokena.get(i).getDatumKreiranja();
+            Token token = listaTokena.get(i);
+            String opis = token.ponuda.getOpis();
+            Float cijena = token.ponuda.getCijena();
+            Date datumKreiranja = token.getDatumKreiranja();
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(datumKreiranja);
@@ -241,6 +243,13 @@ public class TokenListFragment extends Fragment {
                 textView.append(istekVremena + " m " + opis + " - " + String.format("%.2f", cijena) + "kn\n");
                 linearLayout.addView(textView);
 
+                linearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        tokenDetails(token);
+                    }
+                });
+
                 Button button = new Button(activity);
                 LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(10, 10);
                 buttonParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -252,11 +261,10 @@ public class TokenListFragment extends Fragment {
                 button.setLayoutParams(buttonParams);
                 button.setBackgroundColor(Color.WHITE);
 
-                final String tokenId = listaTokena.get(i).id;
+                final String tokenId = token.id;
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         obrisiTokene(tokenId);
                     }
                 });
@@ -264,4 +272,11 @@ public class TokenListFragment extends Fragment {
             }
         }
     }
+
+    private void tokenDetails(Token token) {
+        Intent intentTokenDetails = new Intent(activity, TokenDetailsActivity.class);
+        intentTokenDetails.putExtra("token", token);
+        intentTokenDetails.putExtra("userId", activity.getCurrentUserId());
+        startActivity(intentTokenDetails);
+        }
 }

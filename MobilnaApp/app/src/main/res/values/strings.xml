@@ -56,6 +56,7 @@
     <string name="registration_activity_title">Registracija</string>
     <string name="offer_categories_retrieval_error">Dogodila se pogreška kod dohvaćanja kategorija ponuda. Zbog toga filtriranje podataka nije moguće</string>
     <string name="offer_creation_fragment_title">Kreiranje ponude</string>
+    <string name="token_details_activity_title">Detalji tokena ponude</string>
     <string name="offer_title">Naslov ponude</string>
     <string name="offer_description">Opis ponude</string>
     <string name="offer_price">Cijena</string>
@@ -80,4 +81,5 @@
     <string name="account_logout">Odjava</string>
     <string name="camera_permission_required">Potrebno je dozvoliti korištenje kamere od strane aplikacije za skeniranje tokena!</string>
     <string name="error_loading_camera">Dogodio se sljedeći neuspjeh kod pokretanja kamere:</string>
+    <string name="qr_code_image_description">QR kod tokena</string>
 </resources>
