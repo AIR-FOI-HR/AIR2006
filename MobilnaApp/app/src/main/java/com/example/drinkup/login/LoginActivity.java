@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.blank_activity);
 
         permissions.add(ACCESS_FINE_LOCATION);
         permissions.add(ACCESS_COARSE_LOCATION);
@@ -61,6 +62,16 @@ public class LoginActivity extends AppCompatActivity {
             if (permissionsToRequest.size() > 0)
                 requestPermissions((String[]) permissionsToRequest.toArray(new String[permissionsToRequest.size()]), ALL_PERMISSIONS_RESULT);
         }
+
+        SharedPreferences sp1=this.getSharedPreferences("Login", MODE_PRIVATE);
+        String unm=sp1.getString("Unm", null);
+        String pass = sp1.getString("Psw", null);
+        if (unm != null && pass != null){
+            loginUser(unm, pass);
+        }
+
+        setContentView(R.layout.activity_login);
+
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar);
@@ -72,8 +83,8 @@ public class LoginActivity extends AppCompatActivity {
         ForgotPassword =(TextView)findViewById(R.id.loginForgotPassword);
         LoginRegister=(TextView)findViewById(R.id.loginRegister);
 
-        Name.setText("lidijapitic@gmail.com");
-        Password.setText("123456789m");
+        //Name.setText("lidijapitic@gmail.com");
+        //Password.setText("123456789m");
 
         ForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,58 +102,70 @@ public class LoginActivity extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                RequestService rs = new RequestService(getApplicationContext());
-                LoginModel korisnik = new LoginModel();
-                korisnik.setEmail(Name.getText().toString());
-                korisnik.setLozinka(Password.getText().toString());
-
-                rs.SendLoginRequest(korisnik,
-                        new Consumer<JSONObject>() {
-                            @Override
-                            public void accept(JSONObject response) {
-                                try {
-                                    int userId = response.getInt("id");
-                                    int roleId = response.getInt("ulogaId");
-                                    if (roleId == 0) {
-                                        Intent intentSuccess = new Intent(LoginActivity.this, GuestMainActivity.class);
-                                        intentSuccess.putExtra("userId", userId);
-                                        intentSuccess.putExtra("roleId", roleId);
-                                        startActivity(intentSuccess);
-                                        finish();
-                                    }
-                                    else {
-                                        rs.fetchWorkplaceOfUser(userId,
-                                                new Consumer<Integer>() {
-                                                    @Override
-                                                    public void accept(Integer barId) {
-                                                        Intent intentSuccess = new Intent(LoginActivity.this, EmployeeMainActivity.class);
-                                                        intentSuccess.putExtra("userId", userId);
-                                                        intentSuccess.putExtra("roleId", roleId);
-                                                        intentSuccess.putExtra("barId", barId);
-                                                        startActivity(intentSuccess);
-                                                        finish();
-                                                    }
-                                                }, new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        Toast.makeText(getApplicationContext(), getString(R.string.no_bars_for_user_found), Toast.LENGTH_LONG).show();
-                                                    }
-                                                });
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Consumer<VolleyError>() {
-                            @Override
-                            public void accept(VolleyError volleyError) {
-                                Error=(TextView)findViewById(R.id.loginError);
-                                Error.setText(R.string.login_failed);
-                            }
-                        });
+                loginUser(Name.getText().toString(), Password.getText().toString());
             }
         });
+
     }
+
+    private void loginUser(String email, String pass) {
+        RequestService rs = new RequestService(getApplicationContext());
+        LoginModel korisnik = new LoginModel();
+        korisnik.setEmail(email);
+        korisnik.setLozinka(pass);
+
+        rs.SendLoginRequest(korisnik,
+                new Consumer<JSONObject>() {
+                    @Override
+                    public void accept(JSONObject response) {
+                        try {
+                            SharedPreferences sp=getSharedPreferences("Login", MODE_PRIVATE);
+                            SharedPreferences.Editor Ed=sp.edit();
+                            Ed.putString("Unm", korisnik.getEmail());
+                            Ed.putString("Psw", korisnik.getLozinka());
+                            Ed.commit();
+
+                            int userId = response.getInt("id");
+                            int roleId = response.getInt("ulogaId");
+                            if (roleId == 0) {
+                                Intent intentSuccess = new Intent(LoginActivity.this, GuestMainActivity.class);
+                                intentSuccess.putExtra("userId", userId);
+                                intentSuccess.putExtra("roleId", roleId);
+                                startActivity(intentSuccess);
+                                finish();
+                            }
+                            else {
+                                rs.fetchWorkplaceOfUser(userId,
+                                        new Consumer<Integer>() {
+                                            @Override
+                                            public void accept(Integer barId) {
+                                                Intent intentSuccess = new Intent(LoginActivity.this, EmployeeMainActivity.class);
+                                                intentSuccess.putExtra("userId", userId);
+                                                intentSuccess.putExtra("roleId", roleId);
+                                                intentSuccess.putExtra("barId", barId);
+                                                startActivity(intentSuccess);
+                                                finish();
+                                            }
+                                        }, new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(getApplicationContext(), getString(R.string.no_bars_for_user_found), Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Consumer<VolleyError>() {
+                    @Override
+                    public void accept(VolleyError volleyError) {
+                        Error=(TextView)findViewById(R.id.loginError);
+                        Error.setText(R.string.login_failed);
+                    }
+                });
+    }
+
     private void forgotPassword(){
         Intent intentForgotPassword= new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         startActivity(intentForgotPassword);
