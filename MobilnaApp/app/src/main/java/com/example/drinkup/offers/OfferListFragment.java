@@ -92,6 +92,7 @@ public class OfferListFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 linearLayout.removeAllViews();
+                novaLista.clear();
                 for(int i=0; i<listaPonuda.size(); i++)
                     if(listaPonuda.get(i).getVrstaPonude() == 0)
                         novaLista.add(listaPonuda.get(i));
@@ -103,6 +104,7 @@ public class OfferListFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 linearLayout.removeAllViews();
+                novaLista.clear();
                 for(int i=0; i<listaPonuda.size(); i++)
                     if(listaPonuda.get(i).getVrstaPonude() == 1)
                         novaLista.add(listaPonuda.get(i));
@@ -114,6 +116,7 @@ public class OfferListFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 linearLayout.removeAllViews();
+                novaLista.clear();
                 for(int i=0; i<listaPonuda.size(); i++)
                     if(listaPonuda.get(i).getVrstaPonude() == 2)
                         novaLista.add(listaPonuda.get(i));
@@ -125,6 +128,7 @@ public class OfferListFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 linearLayout.removeAllViews();
+                novaLista.clear();
                 for(int i=0; i<listaPonuda.size(); i++)
                     if(listaPonuda.get(i).getVrstaPonude() == 3)
                         novaLista.add(listaPonuda.get(i));
