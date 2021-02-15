@@ -29,10 +29,37 @@
             </item>
             <item android:id="@+id/filterOffers"
                 android:title="@string/offer_filter"
-                app:showAsAction="ifRoom|collapseActionView"
+                app:showAsAction="never"
                 app:actionViewClass="android.widget.PopupMenu"
                 >
                 <menu>
+
+                        <item
+                            android:id="@+id/typeKombinacija"
+                            android:title="Kombinacije"
+                            app:showAsAction="ifRoom|collapseActionView"
+                            app:actionViewClass="android.widget.PopupMenu"></item>
+                        <item
+                            android:id="@+id/typeAkcija"
+                            android:title="Akcije"
+                            app:showAsAction="ifRoom|collapseActionView"
+                            app:actionViewClass="android.widget.PopupMenu"></item>
+                        <item
+                            android:id="@+id/typeGratis"
+                            android:title="1+1 Gratis"
+                            app:showAsAction="ifRoom|collapseActionView"
+                            app:actionViewClass="android.widget.PopupMenu"></item>
+                        <item
+                            android:id="@+id/typeKolac"
+                            android:title="Kolaci"
+                            app:showAsAction="ifRoom|collapseActionView"
+                            app:actionViewClass="android.widget.PopupMenu"></item>
+                        <item
+                        android:id="@+id/typeSve"
+                        android:title="Prikazi sve"
+                        app:showAsAction="ifRoom|collapseActionView"
+                        app:actionViewClass="android.widget.PopupMenu"></item>
+
                 </menu>
             </item>
         </menu>

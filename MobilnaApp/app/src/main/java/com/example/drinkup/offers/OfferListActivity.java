@@ -49,7 +49,7 @@ public class OfferListActivity extends AppCompatActivity {
     private RequestQueue mQueue;
     private List<Ponuda> listaPonuda = new ArrayList<>();
     private List<Objekt> listaObjekata = new ArrayList<>();
-    private List<Objekt> listaObjekata2 = new ArrayList<>();
+    private List<Ponuda> novaLista = new ArrayList<>();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,6 +70,58 @@ public class OfferListActivity extends AppCompatActivity {
                 linearLayout.removeAllViews();
                 Collections.sort(listaPonuda, (ponuda, p2) -> ponuda.getCijena().compareTo(p2.getCijena()));
                 Collections.reverse(listaPonuda);
+                prikaziPonude(listaPonuda,listaObjekata);
+                return true;
+            }
+        });
+        menu.findItem(R.id.typeKombinacija).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                linearLayout.removeAllViews();
+                for(int i=0; i<listaPonuda.size(); i++)
+                    if(listaPonuda.get(i).getVrstaPonude() == 0)
+                        novaLista.add(listaPonuda.get(i));
+                prikaziPonude(novaLista,listaObjekata);
+                return true;
+            }
+        });
+        menu.findItem(R.id.typeAkcija).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                linearLayout.removeAllViews();
+                for(int i=0; i<listaPonuda.size(); i++)
+                    if(listaPonuda.get(i).getVrstaPonude() == 1)
+                        novaLista.add(listaPonuda.get(i));
+                prikaziPonude(novaLista,listaObjekata);
+                return true;
+            }
+        });
+        menu.findItem(R.id.typeGratis).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                linearLayout.removeAllViews();
+                for(int i=0; i<listaPonuda.size(); i++)
+                    if(listaPonuda.get(i).getVrstaPonude() == 2)
+                        novaLista.add(listaPonuda.get(i));
+                prikaziPonude(novaLista,listaObjekata);
+                return true;
+            }
+        });
+        menu.findItem(R.id.typeKolac).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                linearLayout.removeAllViews();
+                for(int i=0; i<listaPonuda.size(); i++)
+                    if(listaPonuda.get(i).getVrstaPonude() == 3)
+                        novaLista.add(listaPonuda.get(i));
+                prikaziPonude(novaLista,listaObjekata);
+                return true;
+            }
+        });
+        menu.findItem(R.id.typeSve).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                linearLayout.removeAllViews();
                 prikaziPonude(listaPonuda,listaObjekata);
                 return true;
             }
