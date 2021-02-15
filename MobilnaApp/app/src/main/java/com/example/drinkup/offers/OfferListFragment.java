@@ -273,10 +273,10 @@ public class OfferListFragment extends Fragment {
             }
         }
     }
-    private void offerDetails(Ponuda ponuda , String objekt){
+    private void offerDetails(Ponuda ponuda, String nazivObjekta) {
         Intent intentOfferDetails= new Intent(activity, OfferDetailsActivity.class);
-        intentOfferDetails.putExtra("ponuda",ponuda);
-        intentOfferDetails.putExtra("objekt",objekt);
+        intentOfferDetails.putExtra("ponuda", ponuda);
+        intentOfferDetails.putExtra("nazivObjekta", nazivObjekta);
         intentOfferDetails.putExtra("userId", activity.getCurrentUserId());
         startActivity(intentOfferDetails);
     }

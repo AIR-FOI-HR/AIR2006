@@ -50,8 +50,8 @@
     <string name="offer_list_fragment_title">Ponude</string>
     <string name="login_activity_title">Prijava</string>
     <string name="forgot_password_activity_title">Zaboravljena lozinka</string>
-    <string name="offer_details_activity_title">Detaljni pregled</string>
-    <string name="registration_activity_title">Detaljni pregled</string>
+    <string name="offer_details_activity_title">Detaljni pregled ponude</string>
+    <string name="registration_activity_title">Registracija</string>
     <string name="offer_categories_retrieval_error">Dogodila se pogreška kod dohvaćanja kategorija ponuda. Zbog toga filtriranje podataka nije moguće</string>
     <string name="offer_creation_fragment_title">Kreiranje ponude</string>
     <string name="offer_title">Naslov ponude</string>
