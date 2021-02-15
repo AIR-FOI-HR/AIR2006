@@ -49,6 +49,7 @@ public class OfferListActivity extends AppCompatActivity {
     private RequestQueue mQueue;
     private List<Ponuda> listaPonuda = new ArrayList<>();
     private List<Objekt> listaObjekata = new ArrayList<>();
+    private List<Objekt> listaObjekata2 = new ArrayList<>();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
