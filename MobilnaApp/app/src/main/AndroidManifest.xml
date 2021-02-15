@@ -14,10 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DrinkUp">
         <activity android:name=".employee.EmployeeMainActivity" />
-        <activity android:name=".offers.OfferDetailsActivity" />
+        <activity
+            android:name=".offers.OfferDetailsActivity"
+            android:label="@string/offer_details_activity_title"
+            android:parentActivityName=".guest.GuestMainActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.drinkup.guest.GuestMainActivity"/>
+        </activity>
         <activity android:name=".login.ForgotPasswordActivity" />
-        <activity android:name=".offers.OfferListActivity" />
-        <activity android:name=".tokens.TokenListActivity" />
+        <activity android:name=".guest.GuestMainActivity" android:launchMode="singleTop" />
         <activity
             android:name=".login.LoginActivity"
             android:label="DrinkUp">
