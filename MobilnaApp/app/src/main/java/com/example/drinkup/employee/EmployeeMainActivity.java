@@ -1,6 +1,7 @@
 package com.example.drinkup.employee;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -42,6 +43,18 @@ public class EmployeeMainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         loadState(savedInstanceState);
+
+        findViewById(R.id.nav_user_logout).setOnClickListener(item -> {
+            SharedPreferences sp=getSharedPreferences("Login", MODE_PRIVATE);
+            SharedPreferences.Editor Ed=sp.edit();
+            Ed.putString("Unm", null);
+            Ed.putString("Psw", null);
+            Ed.commit();
+
+            Intent login = new Intent(EmployeeMainActivity.this, LoginActivity.class);
+            startActivity(login);
+            finish();
+        });
     }
 
     @Override
