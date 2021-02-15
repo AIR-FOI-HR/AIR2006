@@ -4,22 +4,14 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.android.volley.VolleyError;
 import com.example.drinkup.R;
 import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
-import com.example.drinkup.models.VrstaPonude;
 import com.example.drinkup.services.RequestService;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.List;
-import java.util.function.Consumer;
 
 import hr.foi.air.core.GenerousJudge;
 import hr.foi.air.core.TokenJudge;
