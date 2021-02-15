@@ -15,6 +15,16 @@
                 app:actionViewClass="android.widget.PopupMenu"
                 >
                 <menu>
+                    <item android:id="@+id/sortAscending"
+                        android:title="@string/offer_ascending"
+                        app:showAsAction="ifRoom|collapseActionView"
+                        app:actionViewClass="android.widget.PopupMenu"
+                        ></item>
+                    <item android:id="@+id/sortDescending"
+                        android:title="@string/offer_descending"
+                        app:showAsAction="ifRoom|collapseActionView"
+                        app:actionViewClass="android.widget.PopupMenu"></item>
+
                 </menu>
             </item>
             <item android:id="@+id/filterOffers"

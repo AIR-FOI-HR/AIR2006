@@ -45,6 +45,8 @@
     <string name="navigation">Navigacija</string>
     <string name="customize_offer_list">Upravljaj prikazom ponuda</string>
     <string name="offer_order">Redoslijed ponuda</string>
+    <string name="offer_descending">Cijena veća - manja</string>
+    <string name="offer_ascending">Cijena manja - veća</string>
     <string name="offer_filter">Filtriraj ponude</string>
     <string name="token_list_activity_title">Moji tokeni</string>
     <string name="offer_list_activity_title">Ponude</string>

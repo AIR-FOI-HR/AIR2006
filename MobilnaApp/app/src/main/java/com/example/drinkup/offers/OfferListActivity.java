@@ -37,6 +37,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class OfferListActivity extends AppCompatActivity {
@@ -51,6 +53,26 @@ public class OfferListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.offer_list_menu, menu);
+
+        menu.findItem(R.id.sortAscending).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                linearLayout.removeAllViews();
+                Collections.sort(listaPonuda, (ponuda, p2) -> ponuda.getCijena().compareTo(p2.getCijena()));
+                prikaziPonude(listaPonuda,listaObjekata);
+                return true;
+            }
+        });
+        menu.findItem(R.id.sortDescending).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                linearLayout.removeAllViews();
+                Collections.sort(listaPonuda, (ponuda, p2) -> ponuda.getCijena().compareTo(p2.getCijena()));
+                Collections.reverse(listaPonuda);
+                prikaziPonude(listaPonuda,listaObjekata);
+                return true;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
