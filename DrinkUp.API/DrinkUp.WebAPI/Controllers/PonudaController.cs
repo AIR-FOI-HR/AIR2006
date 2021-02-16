@@ -70,7 +70,7 @@ namespace DrinkUp.WebAPI.Controllers
             getParams.Filter = Filter;
             getParams.Sort = Sort;
             getParams.Page = PagedResult;
-            getParams.Include = "Objekt";
+            getParams.Include = "Objekt,VrstaPonude";
 
             return Mapper.Map<List<PonudaREST>>(await Service.GetAsync(Mapper.Map<GetParams<IPonudaModel>>(getParams)));
         }

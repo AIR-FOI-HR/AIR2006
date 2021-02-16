@@ -39,7 +39,7 @@ namespace DrinkUp.WebAPI.Controllers
 
         [HttpGet]
         public async Task<ICollection<VrstaPonudeREST>> GetAsync(string filterColumn = "",
-            string filterValue = "", int filterOption = 3, string sortBy = "",
+            string filterValue = "", int filterOption = 3, string sortBy = "Id",
             int sortOrder = 1, int pageSize = 1000, int page = 1)
         {
             GetParams<VrstaPonudeModel> getParams = new GetParams<VrstaPonudeModel>()

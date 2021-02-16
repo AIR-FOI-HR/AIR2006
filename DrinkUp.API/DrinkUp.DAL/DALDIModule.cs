@@ -10,7 +10,7 @@ namespace DrinkUp.DAL
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DrinkUpContext>().As<IDrinkContext>();
+            builder.RegisterType<DrinkUpContext>().As<IDrinkContext>().InstancePerLifetimeScope();
         }
     }
 }
