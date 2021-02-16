@@ -16,27 +16,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-        android:background="#3496F7"
-        android:backgroundTint="#ffffff"
-        android:bottomLeftRadius="10dp"
-        android:bottomRightRadius="10dp"
-        android:onClick="onButtonClick"
-        android:text="Preuzmite token"
-        android:textColor="#fff"
-        android:topLeftRadius="10dp"
-        android:topRightRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626" />
-
     <FrameLayout
         android:id="@+id/frameLayout2"
         android:layout_width="375dp"
@@ -119,27 +98,50 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="375dp"
         android:layout_height="207dp"
         android:background="#2c3846"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.452">
+        app:layout_constraintVertical_bias="0.538">
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginRight="30dp"
             android:text="Token traje 30 minuta nakon preuzimanja. Pokažite ga osobi koja vas poslužije kako bi ga skenirala!"
             android:textAlignment="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="44dp"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
+
     </FrameLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:background="#3496F7"
+        android:backgroundTint="#ffffff"
+        android:bottomLeftRadius="10dp"
+        android:bottomRightRadius="10dp"
+        android:onClick="onButtonClick"
+        android:text="Preuzmite token"
+        android:textColor="#fff"
+        android:topLeftRadius="10dp"
+        android:topRightRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.689" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

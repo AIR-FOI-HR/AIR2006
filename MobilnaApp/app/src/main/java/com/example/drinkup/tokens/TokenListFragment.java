@@ -189,7 +189,8 @@ public class TokenListFragment extends Fragment {
 
     private void prikaziTokene() {
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1050, 250);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1050, 400);
+        params.setMargins(10, 40, 10,40);
         params.gravity = 1;
         Integer izborPozadine = 0;
         linearLayout.removeAllViews();
@@ -197,9 +198,9 @@ public class TokenListFragment extends Fragment {
         for (int i = 0; i < listaTokena.size(); i++) {
             Token token = listaTokena.get(i);
             String opis = token.ponuda.getOpis();
-            Float cijena = token.ponuda.getCijena();
-            Date datumKreiranja = token.getDatumKreiranja();
 
+            Date datumKreiranja = token.getDatumKreiranja();
+            String naziv = token.ponuda.getObjekt().getNaziv();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(datumKreiranja);
             calendar.add(Calendar.MINUTE, 150);
@@ -245,8 +246,9 @@ public class TokenListFragment extends Fragment {
                 textView.setPadding(50,40,0,40);
                 textView.setCompoundDrawablePadding(5);
                 textView.setTextColor(Color.WHITE);
-                textView.setGravity(Gravity.CENTER);
-                textView.append(istekVremena + " m " + opis + " - " + String.format("%.2f", cijena) + "kn\n");
+               // textView.setGravity(Gravity.CENTER);
+                textView.append(istekVremena + " m " + opis+"\n"  +naziv);
+
                 linearLayout.addView(textView);
 
                 linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -261,11 +263,13 @@ public class TokenListFragment extends Fragment {
                 buttonParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
                 buttonParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 buttonParams.gravity = 1;
-                buttonParams.setMargins(0,20,0,20);
+                buttonParams.setMargins(270,-199,0,20);
                 button.setText("Obriši");
-                button.setTextColor(Color.rgb(51,51,51));
+                button.setTextColor(Color.WHITE);
                 button.setLayoutParams(buttonParams);
-                button.setBackgroundColor(Color.WHITE);
+                button.setBackgroundColor(Color.parseColor("#dc3545"));
+
+
 
                 final String tokenId = token.id;
                 button.setOnClickListener(new View.OnClickListener() {
