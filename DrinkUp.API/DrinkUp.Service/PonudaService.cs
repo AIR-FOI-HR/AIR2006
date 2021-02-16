@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DrinkUp.Common;
+using DrinkUp.DAL.Context;
 using DrinkUp.DAL.Entities;
 using DrinkUp.Models.Common;
 using DrinkUp.Repository;
@@ -48,8 +49,15 @@ namespace DrinkUp.Service
 
         public async Task UpdateAsync(IPonudaModel entity)
         {
-            Repository.Update(Mapper.Map<Ponuda>(entity));
-            await unitOfWork.SaveAsync();
+            //Repository.Update(Mapper.Map<Ponuda>(entity));
+            //await unitOfWork.SaveAsync();
+            using (var context = new DrinkUpContext())
+            {
+                var model = Mapper.Map<Ponuda>(entity);
+                context.Ponuda.Attach(model);
+                context.Ponuda.Update(model);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

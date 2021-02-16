@@ -53,13 +53,19 @@ namespace DrinkUp.WebAPI.Controllers
                 FilterValue = filterValue,
                 FilterOption = (FilterOptions)filterOption
             };
+            FilterParams activeParam = new FilterParams()
+            {
+                ColumnName = "BrojTokena",
+                FilterValue = "0",
+                FilterOption = FilterOptions.IsGreaterThan
+            };
             SortingParams sortingParams = new SortingParams()
             {
                 ColumnName = sortBy,
                 SortOrder = (SortOrders)sortOrder
             };
 
-            getParams.FilterParam = new[] { filterParams };
+            getParams.FilterParam = new[] { filterParams, activeParam };
             getParams.SortingParam = new[] { sortingParams };
             getParams.Filter = Filter;
             getParams.Sort = Sort;

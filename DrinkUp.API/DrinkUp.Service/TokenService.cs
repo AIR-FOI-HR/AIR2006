@@ -23,14 +23,17 @@ namespace DrinkUp.Service
         protected GenericRepository<Token> Repository { get; private set; }
         protected GenericRepository<Ponuda> PonudaRepository { get; private set; }
         protected IMapper Mapper { get; private set; }
+        public IPonudaService PonudaService { get; }
+
         private readonly UnitOfWork unitOfWork;
 
-        public TokenService(IMapper mapper)
+        public TokenService(IMapper mapper, IPonudaService ponudaService)
         {
             unitOfWork = new UnitOfWork();
             Repository = unitOfWork.TokenRepository;
             PonudaRepository = unitOfWork.PonudaRepository;
             Mapper = mapper;
+            PonudaService = ponudaService;
         }
 
         public async Task DeleteAsync(string id)
@@ -127,23 +130,7 @@ namespace DrinkUp.Service
             }
             Ponuda ponudaModel = tokenModel.Ponuda;
 
-            FilterParams ponudaFilterParam = new FilterParams()
-            {
-                ColumnName = "ponudaId",
-                FilterOption = FilterOptions.IsEqualTo,
-                FilterValue = tokenModel.PonudaId.ToString()
-            };
-            FilterParams iskoristenFilterParam = new FilterParams()
-            {
-                ColumnName = "iskoristen",
-                FilterOption = FilterOptions.IsEqualTo,
-                FilterValue = "1"
-            };
-            getParams.FilterParam = new[] { ponudaFilterParam, iskoristenFilterParam };
-            int usedTokens = (await GetAsync(getParams)).Count();
-
-
-            if (usedTokens >= ponudaModel.BrojTokena || tokenModel.Iskoristen == 1)
+            if (ponudaModel.BrojTokena <= 0 || tokenModel.Iskoristen == 1)
             {
                 throw new InvalidOperationException();
             }
@@ -152,6 +139,10 @@ namespace DrinkUp.Service
             tokenModel.Ponuda = null;
             Repository.Update(tokenModel);
             await unitOfWork.SaveAsync();
+
+            ponudaModel.BrojTokena -= 1;
+            await PonudaService.UpdateAsync(Mapper.Map<IPonudaModel>(ponudaModel));
+
         }
     }
 }
