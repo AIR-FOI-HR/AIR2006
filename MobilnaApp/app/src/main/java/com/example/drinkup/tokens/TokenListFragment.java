@@ -45,7 +45,7 @@ import java.util.function.Consumer;
 public class TokenListFragment extends Fragment {
     private LinearLayout linearLayout;
     private RequestQueue mQueue;
-    private List<Token> listaTokena = new ArrayList<>();
+    private List<Token> listaTokena;
 
     private GuestMainActivity activity;
 
@@ -60,9 +60,13 @@ public class TokenListFragment extends Fragment {
 
         mQueue = Volley.newRequestQueue(getContext());
 
-        dohvatiTokene();
-
         return root;
+    }
+
+    @Override
+    public void onResume(){
+        dohvatiTokene();
+        super.onResume();
     }
 
     private void obrisiTokene(String id){
@@ -99,6 +103,7 @@ public class TokenListFragment extends Fragment {
             @Override
             public void onResponse(JSONArray response) {
                 try {
+                    listaTokena = new ArrayList<>();
                     for (int i = 0; i < response.length(); i++) {
 
                         JSONObject token = response.getJSONObject(i);
@@ -187,6 +192,7 @@ public class TokenListFragment extends Fragment {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1050, 250);
         params.gravity = 1;
         Integer izborPozadine = 0;
+        linearLayout.removeAllViews();
 
         for (int i = 0; i < listaTokena.size(); i++) {
             Token token = listaTokena.get(i);
