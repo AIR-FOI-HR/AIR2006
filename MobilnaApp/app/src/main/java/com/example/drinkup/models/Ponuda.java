@@ -8,9 +8,10 @@ public class Ponuda implements Serializable {
     private String opis;
     private Float cijena;
     private int brojTokena;
-    private int vrstaPonude;
+    private int vrstaPonudeId;
     private int objektId;
     private Objekt objekt;
+    private VrstaPonude vrstaPonude;
 
     public Ponuda() {}
 
@@ -54,12 +55,12 @@ public class Ponuda implements Serializable {
         this.brojTokena = brojTokena;
     }
 
-    public int getVrstaPonude() {
-        return vrstaPonude;
+    public int getVrstaPonudeId() {
+        return vrstaPonudeId;
     }
 
-    public void setVrstaPonude(int vrstaPonude) {
-        this.vrstaPonude = vrstaPonude;
+    public void setVrstaPonudeId(int vrstaPonudeId) {
+        this.vrstaPonudeId = vrstaPonudeId;
     }
 
     public int getObjektId() {
@@ -76,5 +77,13 @@ public class Ponuda implements Serializable {
 
     public void setObjekt(Objekt objekt) {
         this.objekt = objekt;
+    }
+
+    public VrstaPonude getVrstaPonude() {
+        return vrstaPonude;
+    }
+
+    public void setVrstaPonude(VrstaPonude vrstaPonude) {
+        this.vrstaPonude = vrstaPonude;
     }
 }

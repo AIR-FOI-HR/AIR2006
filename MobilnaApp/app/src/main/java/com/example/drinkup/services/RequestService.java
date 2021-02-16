@@ -235,7 +235,7 @@ public class RequestService {
             MyData.put("opis", ponuda.getOpis());
             MyData.put("cijena", ponuda.getCijena());
             MyData.put("brojTokena", ponuda.getBrojTokena());
-            MyData.put("vrstaPonudeId", ponuda.getVrstaPonude());
+            MyData.put("vrstaPonudeId", ponuda.getVrstaPonudeId());
             MyData.put("objektId", barId);
 
         } catch (JSONException e) {
@@ -367,5 +367,63 @@ public class RequestService {
         });
 
         queue.add(requestDeleteToken);
+    }
+
+    public void editOffer(Ponuda ponuda, Consumer<JSONObject> jsonObjectConsumer, Consumer<VolleyError> volleyErrorConsumer) {
+        String url = appContext.getString(R.string.edit_offer_url);
+        RequestQueue queue = Volley.newRequestQueue(appContext);
+
+        JSONObject MyData = new JSONObject();
+        try {
+            MyData.put("id", ponuda.getId());
+            MyData.put("naslov", ponuda.getNaslov());
+            MyData.put("opis", ponuda.getOpis());
+            MyData.put("cijena", ponuda.getCijena());
+            MyData.put("brojTokena", ponuda.getBrojTokena());
+            MyData.put("vrstaPonudeId", ponuda.getVrstaPonudeId());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, MyData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        jsonObjectConsumer.accept(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        volleyErrorConsumer.accept(error);
+                    }
+                }
+        );
+
+        queue.add(jsonObjectRequest);
+    }
+
+    public void deleteOffer(String id, Consumer<JSONObject> successObjectConsumer, Consumer<VolleyError> errorConsumer) {
+        String url = appContext.getString(R.string.delete_offer_url) + id;
+        RequestQueue queue = Volley.newRequestQueue(appContext);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    successObjectConsumer.accept(response);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                errorConsumer.accept(error);
+            }
+        });
+
+        queue.add(jsonObjectRequest);
     }
 }

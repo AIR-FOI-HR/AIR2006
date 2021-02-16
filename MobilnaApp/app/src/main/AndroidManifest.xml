@@ -24,6 +24,15 @@
                 android:value="com.example.drinkup.guest.GuestMainActivity"/>
         </activity>
         <activity
+            android:name=".employee.ui.list.OfferEditActivity"
+            android:label="@string/offer_edit_title"
+            android:parentActivityName=".employee.EmployeeMainActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.drinkup.employee.EmployeeMainActivity"/>
+        </activity>
+        <activity
             android:name=".tokens.TokenDetailsActivity"
             android:label="@string/token_details_activity_title"
             android:parentActivityName=".guest.GuestMainActivity"

@@ -156,7 +156,7 @@ public class TokenListFragment extends Fragment {
                         ponudaTokena.setOpis(opis);
                         ponudaTokena.setCijena(cijena);
                         ponudaTokena.setBrojTokena(brojTokena);
-                        ponudaTokena.setVrstaPonude(vrstaPonudeId);
+                        ponudaTokena.setVrstaPonudeId(vrstaPonudeId);
                         ponudaTokena.setObjektId(objektId);
                         ponudaTokena.setObjekt(objektTokena);
 

@@ -73,7 +73,7 @@ public class OfferCreationFragment extends Fragment {
                     ponuda.setOpis(description.getText().toString());
                     ponuda.setCijena(Float.parseFloat(price.getText().toString()));
                     ponuda.setBrojTokena(Integer.parseInt(numberOfTokens.getText().toString()));
-                    ponuda.setVrstaPonude(selectedOfferTypeId);
+                    ponuda.setVrstaPonudeId(selectedOfferTypeId);
                     new RequestService(root.getContext()).createOffer(ponuda, activity.getWorkingBarId(),
                             new Consumer<JSONObject>() {
                                 @Override

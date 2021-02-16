@@ -82,4 +82,15 @@
     <string name="camera_permission_required">Potrebno je dozvoliti korištenje kamere od strane aplikacije za skeniranje tokena!</string>
     <string name="error_loading_camera">Dogodio se sljedeći neuspjeh kod pokretanja kamere:</string>
     <string name="qr_code_image_description">QR kod tokena</string>
+
+    <string name="offer_edit_title">Uređivanje ponude</string>
+    <string name="edit_offer_button_caption">Spremi</string>
+    <string name="cancel_offer_button_caption">Odustani</string>
+    <string name="delete_offer_button_caption">Obriši</string>
+    <string name="edit_offer_url">https://air2006.azurewebsites.net/api/ponuda/update</string>
+    <string name="delete_offer_url">https://air2006.azurewebsites.net/api/ponuda/delete/</string>
+    <string name="offer_update_successful">Ponuda je uspješno ažurirana</string>
+    <string name="offer_update_failed">Ažuriranje ponude nije uspjelo! Molimo pokušajte kasnije</string>
+    <string name="offer_delete_successful">Ponuda je uspješno obrisana</string>
+    <string name="offer_delete_failed">Brisanje ponude nije uspjelo! Molimo pokušajte kasnije</string>
 </resources>

@@ -34,7 +34,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -94,7 +93,7 @@ public class OfferListFragment extends Fragment {
                 linearLayout.removeAllViews();
                 novaLista.clear();
                 for(int i=0; i<listaPonuda.size(); i++)
-                    if(listaPonuda.get(i).getVrstaPonude() == 0)
+                    if(listaPonuda.get(i).getVrstaPonudeId() == 0)
                         novaLista.add(listaPonuda.get(i));
                 prikaziPonude(novaLista,listaObjekata);
                 return true;
@@ -106,7 +105,7 @@ public class OfferListFragment extends Fragment {
                 linearLayout.removeAllViews();
                 novaLista.clear();
                 for(int i=0; i<listaPonuda.size(); i++)
-                    if(listaPonuda.get(i).getVrstaPonude() == 1)
+                    if(listaPonuda.get(i).getVrstaPonudeId() == 1)
                         novaLista.add(listaPonuda.get(i));
                 prikaziPonude(novaLista,listaObjekata);
                 return true;
@@ -118,7 +117,7 @@ public class OfferListFragment extends Fragment {
                 linearLayout.removeAllViews();
                 novaLista.clear();
                 for(int i=0; i<listaPonuda.size(); i++)
-                    if(listaPonuda.get(i).getVrstaPonude() == 2)
+                    if(listaPonuda.get(i).getVrstaPonudeId() == 2)
                         novaLista.add(listaPonuda.get(i));
                 prikaziPonude(novaLista,listaObjekata);
                 return true;
@@ -130,7 +129,7 @@ public class OfferListFragment extends Fragment {
                 linearLayout.removeAllViews();
                 novaLista.clear();
                 for(int i=0; i<listaPonuda.size(); i++)
-                    if(listaPonuda.get(i).getVrstaPonude() == 3)
+                    if(listaPonuda.get(i).getVrstaPonudeId() == 3)
                         novaLista.add(listaPonuda.get(i));
                 prikaziPonude(novaLista,listaObjekata);
                 return true;
@@ -238,7 +237,7 @@ public class OfferListFragment extends Fragment {
                         novaPonuda.setOpis(opis);
                         novaPonuda.setCijena(cijena);
                         novaPonuda.setBrojTokena(brojTokena);
-                        novaPonuda.setVrstaPonude(vrstaPonudeId);
+                        novaPonuda.setVrstaPonudeId(vrstaPonudeId);
                         novaPonuda.setObjektId(objektId);
 
                         listaPonuda.add(novaPonuda);
