@@ -13,7 +13,7 @@
         android:roundIcon="@drawable/second_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.DrinkUp">
-        <activity android:name=".employee.EmployeeMainActivity" />
+        <activity android:name=".employee.EmployeeMainActivity" android:launchMode="singleTop"/>
         <activity
             android:name=".offers.OfferDetailsActivity"
             android:label="@string/offer_details_activity_title"

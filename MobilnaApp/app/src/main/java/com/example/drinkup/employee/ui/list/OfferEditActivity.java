@@ -11,7 +11,9 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.android.volley.VolleyError;
 import com.example.drinkup.R;
@@ -37,6 +39,10 @@ public class OfferEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_edit);
 
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatTextView) findViewById(R.id.actionBarTitle)).setText(R.string.offer_edit_title);
         ponuda = (Ponuda) getIntent().getSerializableExtra("ponuda");
 
         new RequestService(this).fetchAllOfferTypes(

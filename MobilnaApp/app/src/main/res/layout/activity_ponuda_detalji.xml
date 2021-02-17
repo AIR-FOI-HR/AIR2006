@@ -116,7 +116,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="44dp"
             android:layout_marginRight="30dp"
-            android:text="Token traje 30 minuta nakon preuzimanja. Pokažite ga osobi koja vas poslužije kako bi ga skenirala!"
+            android:text="Token traje 30 minuta nakon preuzimanja. Pokažite ga osobi koja vas poslužuje kako bi ga skenirala!"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
