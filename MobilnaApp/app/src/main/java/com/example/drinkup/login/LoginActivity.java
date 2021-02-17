@@ -1,5 +1,7 @@
 package com.example.drinkup.login;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -44,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button Login;
     private TextView ForgotPassword;
     private TextView LoginRegister;
+    private View progressOverlay;
 
     private ArrayList permissionsToRequest;
     private ArrayList permissionsRejected = new ArrayList();
@@ -53,7 +56,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.blank_activity);
+        setContentView(R.layout.activity_login);
+        progressOverlay = findViewById(R.id.progress_overlay);
+        animateView(progressOverlay, View.VISIBLE, 0.5f, 200);
 
         permissions.add(ACCESS_FINE_LOCATION);
         permissions.add(ACCESS_COARSE_LOCATION);
@@ -70,7 +75,9 @@ public class LoginActivity extends AppCompatActivity {
         if (unm != null && pass != null){
             loginUser(unm, pass);
         }
-        setContentView(R.layout.activity_login);
+        else {
+            animateView(progressOverlay, View.GONE, 0, 200);
+        }
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar);
@@ -234,5 +241,22 @@ public class LoginActivity extends AppCompatActivity {
                 .setNegativeButton("Cancel", null)
                 .create()
                 .show();
+    }
+
+    public void animateView(final View view, final int toVisibility, float toAlpha, int duration) {
+        boolean show = toVisibility == View.VISIBLE;
+        if (show) {
+            view.setAlpha(0);
+        }
+        view.setVisibility(View.VISIBLE);
+        view.animate()
+                .setDuration(duration)
+                .alpha(show ? toAlpha : 0)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        view.setVisibility(toVisibility);
+                    }
+                });
     }
 }
