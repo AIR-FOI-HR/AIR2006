@@ -28,6 +28,8 @@ import com.example.drinkup.R;
 import com.example.drinkup.guest.GuestMainActivity;
 import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
+import com.example.drinkup.models.VrstaPonude;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +43,6 @@ public class OfferListFragment extends Fragment {
     private LinearLayout linearLayout;
     private RequestQueue mQueue;
     private List<Ponuda> listaPonuda = new ArrayList<>();
-    private List<Objekt> listaObjekata = new ArrayList<>();
     private List<Ponuda> novaLista = new ArrayList<>();
 
     private GuestMainActivity activity;
@@ -59,7 +60,6 @@ public class OfferListFragment extends Fragment {
 
         mQueue = Volley.newRequestQueue(getContext());
 
-        dohvatiObjekte();
         dohvatiPonude();
 
         return root;
@@ -73,7 +73,7 @@ public class OfferListFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 linearLayout.removeAllViews();
                 Collections.sort(listaPonuda, (ponuda, p2) -> ponuda.getCijena().compareTo(p2.getCijena()));
-                prikaziPonude(listaPonuda,listaObjekata);
+                prikaziPonude(listaPonuda);
                 return true;
             }
         });
@@ -83,7 +83,7 @@ public class OfferListFragment extends Fragment {
                 linearLayout.removeAllViews();
                 Collections.sort(listaPonuda, (ponuda, p2) -> ponuda.getCijena().compareTo(p2.getCijena()));
                 Collections.reverse(listaPonuda);
-                prikaziPonude(listaPonuda,listaObjekata);
+                prikaziPonude(listaPonuda);
                 return true;
             }
         });
@@ -95,7 +95,7 @@ public class OfferListFragment extends Fragment {
                 for(int i=0; i<listaPonuda.size(); i++)
                     if(listaPonuda.get(i).getVrstaPonudeId() == 0)
                         novaLista.add(listaPonuda.get(i));
-                prikaziPonude(novaLista,listaObjekata);
+                prikaziPonude(novaLista);
                 return true;
             }
         });
@@ -107,7 +107,7 @@ public class OfferListFragment extends Fragment {
                 for(int i=0; i<listaPonuda.size(); i++)
                     if(listaPonuda.get(i).getVrstaPonudeId() == 1)
                         novaLista.add(listaPonuda.get(i));
-                prikaziPonude(novaLista,listaObjekata);
+                prikaziPonude(novaLista);
                 return true;
             }
         });
@@ -119,7 +119,7 @@ public class OfferListFragment extends Fragment {
                 for(int i=0; i<listaPonuda.size(); i++)
                     if(listaPonuda.get(i).getVrstaPonudeId() == 2)
                         novaLista.add(listaPonuda.get(i));
-                prikaziPonude(novaLista,listaObjekata);
+                prikaziPonude(novaLista);
                 return true;
             }
         });
@@ -131,7 +131,7 @@ public class OfferListFragment extends Fragment {
                 for(int i=0; i<listaPonuda.size(); i++)
                     if(listaPonuda.get(i).getVrstaPonudeId() == 3)
                         novaLista.add(listaPonuda.get(i));
-                prikaziPonude(novaLista,listaObjekata);
+                prikaziPonude(novaLista);
                 return true;
             }
         });
@@ -139,7 +139,7 @@ public class OfferListFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 linearLayout.removeAllViews();
-                prikaziPonude(listaPonuda,listaObjekata);
+                prikaziPonude(listaPonuda);
                 return true;
             }
         });
@@ -162,56 +162,6 @@ public class OfferListFragment extends Fragment {
         }
     }
 
-    private void dohvatiObjekte() {
-        String urlObjekti = "https://air2006.azurewebsites.net/api/objekt?pageSize=100";
-
-        JsonArrayRequest requestObjekti = new JsonArrayRequest(Request.Method.GET, urlObjekti, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    for (int i = 0; i < response.length(); i++) {
-
-                        JSONObject objekt = response.getJSONObject(i);
-
-                        int idObjekta = objekt.getInt("id");
-                        String naziv = objekt.getString("naziv");
-                        String grad = objekt.getString("grad");
-                        String ulica = objekt.getString("ulica");
-                        String adresa = objekt.getString("adresa");
-                        String radnoVrijeme = objekt.getString("radnoVrijeme");
-                        String kontakt = objekt.getString("kontakt");
-                        Float longituda = (float)objekt.getDouble("longituda");
-                        Float latituda = (float)objekt.getDouble("latituda");
-                        boolean aktivan = objekt.getBoolean("aktivan");
-
-                        Objekt noviObjekt = new Objekt();
-                        noviObjekt.setId(idObjekta);
-                        noviObjekt.setNaziv(naziv);
-                        noviObjekt.setGrad(grad);
-                        noviObjekt.setUlica(ulica);
-                        noviObjekt.setAdresa(adresa);
-                        noviObjekt.setRadnoVrijeme(radnoVrijeme);
-                        noviObjekt.setKontakt(kontakt);
-                        noviObjekt.setLongituda(longituda);
-                        noviObjekt.setLatituda(latituda);
-                        noviObjekt.setAktivan(aktivan);
-
-                        listaObjekata.add(noviObjekt);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        mQueue.add(requestObjekti);
-    }
-
     private void dohvatiPonude() {
         String urlPonude = getString(R.string.offers_url);
 
@@ -222,6 +172,7 @@ public class OfferListFragment extends Fragment {
                     for (int i = 0; i < response.length(); i++) {
 
                         JSONObject ponuda = response.getJSONObject(i);
+                        Gson gson = new Gson();
 
                         int id = ponuda.getInt("id");
                         String naslov = ponuda.getString("naslov");
@@ -230,6 +181,8 @@ public class OfferListFragment extends Fragment {
                         int brojTokena = ponuda.getInt("brojTokena");
                         int vrstaPonudeId = ponuda.getInt("vrstaPonudeId");
                         int objektId = ponuda.getInt("objektId");
+                        Objekt objekt = gson.fromJson(ponuda.getString("objekt"), Objekt.class);
+                        VrstaPonude vrstaPonude = gson.fromJson(ponuda.getString("vrstaPonude"), VrstaPonude.class);
 
                         Ponuda novaPonuda = new Ponuda();
                         novaPonuda.setId(id);
@@ -239,6 +192,8 @@ public class OfferListFragment extends Fragment {
                         novaPonuda.setBrojTokena(brojTokena);
                         novaPonuda.setVrstaPonudeId(vrstaPonudeId);
                         novaPonuda.setObjektId(objektId);
+                        novaPonuda.setObjekt(objekt);
+                        novaPonuda.setVrstaPonude(vrstaPonude);
 
                         listaPonuda.add(novaPonuda);
                     }
@@ -246,7 +201,7 @@ public class OfferListFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                prikaziPonude(listaPonuda, listaObjekata);
+                prikaziPonude(listaPonuda);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -259,7 +214,7 @@ public class OfferListFragment extends Fragment {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void prikaziPonude(List<Ponuda> listaPonuda, List<Objekt> listaObjekata) {
+    private void prikaziPonude(List<Ponuda> listaPonuda) {
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1025, 350);
         params.height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -272,18 +227,8 @@ public class OfferListFragment extends Fragment {
             Float cijena = listaPonuda.get(i).getCijena();
             int brojTokena = listaPonuda.get(i).getBrojTokena();
             int objektId = listaPonuda.get(i).getObjektId();
-
-            String nazivObjekta = "";
+            String nazivObjekta = listaPonuda.get(i).getObjekt().getNaziv();
             final Ponuda ponuda = listaPonuda.get(i);
-            for (Objekt o: listaObjekata) {
-                if(o.getId() == objektId) {
-                    nazivObjekta = o.naziv;
-                    listaPonuda.get(i).setObjekt(o);
-                    break;
-                }
-            }
-
-            final String objekt = nazivObjekta;
 
             if(brojTokena > 0){
                 LinearLayout containerLayout = new LinearLayout(activity);
@@ -344,7 +289,7 @@ public class OfferListFragment extends Fragment {
                 containerLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        offerDetails(ponuda, objekt);
+                        offerDetails(ponuda, nazivObjekta);
                     }
                 });
             }

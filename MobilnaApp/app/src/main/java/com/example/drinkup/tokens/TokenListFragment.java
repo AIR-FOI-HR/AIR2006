@@ -1,6 +1,8 @@
 package com.example.drinkup.tokens;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -22,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.drinkup.R;
+import com.example.drinkup.employee.ui.list.OfferEditActivity;
 import com.example.drinkup.guest.GuestMainActivity;
 import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
@@ -67,33 +71,6 @@ public class TokenListFragment extends Fragment {
     public void onResume(){
         dohvatiTokene();
         super.onResume();
-    }
-
-    private void obrisiTokene(String id){
-
-        RequestService rs = new RequestService(getContext());
-        rs.obrisiToken(id,
-                new Consumer<JSONObject>() {
-                    @Override
-                    public void accept(JSONObject response) {
-                        Iterator<Token> iterator = listaTokena.iterator();
-                        int counter = 0;
-                        while (iterator.hasNext()) {
-                            Token token = iterator.next();
-                            if (token.id.equals(id)) {
-                                iterator.remove();
-                                linearLayout.removeViewAt(2 * counter + 1);
-                                linearLayout.removeViewAt(2 * counter);
-                                break;
-                            }
-                            counter++;
-                        }
-                    }
-                }, new Consumer<VolleyError>() {
-                    @Override
-                    public void accept(VolleyError volleyError) {
-                    }
-                });
     }
 
     private void dohvatiTokene() {
@@ -189,28 +166,30 @@ public class TokenListFragment extends Fragment {
 
     private void prikaziTokene() {
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1050, 400);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1050, 260);
         params.setMargins(10, 40, 10,40);
         params.gravity = 1;
+        int brojTokena = 0;
         Integer izborPozadine = 0;
         linearLayout.removeAllViews();
 
         for (int i = 0; i < listaTokena.size(); i++) {
             Token token = listaTokena.get(i);
             String opis = token.ponuda.getOpis();
+            float cijena = token.ponuda.getCijena();
 
             Date datumKreiranja = token.getDatumKreiranja();
             String naziv = token.ponuda.getObjekt().getNaziv();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(datumKreiranja);
-            calendar.add(Calendar.MINUTE, 150);
+            calendar.add(Calendar.MINUTE, 90);
 
             Date istekTokena = calendar.getTime();
 
-            long istekVremena = ((istekTokena.getTime() - System.currentTimeMillis()) / (1000 * 60)) % 60;
+            long istekVremena = ((istekTokena.getTime() - System.currentTimeMillis()) / (1000 * 60));
 
             if (istekVremena > 0) {
-
+                brojTokena++;
                 TextView textView = new TextView(activity);
                 textView.setLayoutParams(params);
 
@@ -241,15 +220,26 @@ public class TokenListFragment extends Fragment {
                     izborPozadine = 0;
                 }
 
-                textView.setTextSize(25);
-                textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_clock, 0, 0, 0);
+                textView.setTextSize(22);
+                textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_time, 0, 0, 0);
+                textView.setCompoundDrawablePadding(40);
                 textView.setPadding(50,40,0,40);
-                textView.setCompoundDrawablePadding(5);
                 textView.setTextColor(Color.WHITE);
-               // textView.setGravity(Gravity.CENTER);
-                textView.append(istekVremena + " m " + opis+"\n"  +naziv);
+                textView.append(opis + " - " + cijena + "kn" + "\n" + naziv);
 
                 linearLayout.addView(textView);
+
+                TextView leftTimeTextView = new TextView(activity);
+                LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(10, 10);
+                textViewParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                textViewParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                textViewParams.gravity = Gravity.LEFT;
+                textViewParams.setMargins(86,-110,0,4);
+                leftTimeTextView.setText(istekVremena + " m");
+                leftTimeTextView.setTextColor(Color.WHITE);
+                leftTimeTextView.setLayoutParams(textViewParams);
+
+                linearLayout.addView(leftTimeTextView);
 
                 linearLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -258,28 +248,17 @@ public class TokenListFragment extends Fragment {
                     }
                 });
 
-                Button button = new Button(activity);
-                LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(10, 10);
-                buttonParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                buttonParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                buttonParams.gravity = 1;
-                buttonParams.setMargins(270,-199,0,20);
-                button.setText("Obriši");
-                button.setTextColor(Color.WHITE);
-                button.setLayoutParams(buttonParams);
-                button.setBackgroundColor(Color.parseColor("#dc3545"));
-
-
-
-                final String tokenId = token.id;
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        obrisiTokene(tokenId);
-                    }
-                });
-                linearLayout.addView(button);
             }
+        }
+
+        if (brojTokena == 0){
+            TextView emptyTextView = new TextView(activity);
+            emptyTextView.setLayoutParams(params);
+            emptyTextView.setGravity(Gravity.CENTER);
+            emptyTextView.setText("Nema aktivnih tokena");
+            emptyTextView.setTextSize(22);
+            emptyTextView.setTextColor(Color.WHITE);
+            linearLayout.addView(emptyTextView);
         }
     }
 

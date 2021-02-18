@@ -1,26 +1,36 @@
 package com.example.drinkup.tokens;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.android.volley.VolleyError;
 import com.example.drinkup.R;
+import com.example.drinkup.employee.ui.list.OfferEditActivity;
 import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
 import com.example.drinkup.models.Token;
 import com.example.drinkup.services.RequestService;
 
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.function.Consumer;
 
 public class TokenDetailsActivity extends AppCompatActivity {
 
@@ -68,6 +78,39 @@ public class TokenDetailsActivity extends AppCompatActivity {
 
         TextView textViewCijenaPonude = findViewById(R.id.textViewPonudaCijena);
         textViewCijenaPonude.setText(String.format("%.2f kn", ponuda.getCijena()));
+
+        Button deleteTokenButton = findViewById(R.id.deleteToken);
+        deleteTokenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(TokenDetailsActivity.this)
+                        .setTitle("Obriši token")
+                        .setMessage("Sigurno želite obrisati token?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                obrisiToken();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+    }
+
+    private void obrisiToken(){
+        RequestService rs = new RequestService(this);
+        rs.obrisiToken(token.getId(),
+                new Consumer<JSONObject>() {
+                    @Override
+                    public void accept(JSONObject response) {
+                        onBackPressed();
+                    }
+                }, new Consumer<VolleyError>() {
+                    @Override
+                    public void accept(VolleyError volleyError) {
+                    }
+                });
     }
 
     private String getExpirationDate(Date datumKreiranjaTokena) {
