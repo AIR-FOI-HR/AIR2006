@@ -108,6 +108,9 @@ public class LoginActivity extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                animateView(progressOverlay, View.VISIBLE, 0.5f, 200);
+                Error=(TextView)findViewById(R.id.loginError);
+                Error.setText("");
                 loginUser(Name.getText().toString(), Password.getText().toString());
             }
         });
@@ -168,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void accept(VolleyError volleyError) {
                         Error=(TextView)findViewById(R.id.loginError);
                         Error.setText(R.string.login_failed);
+                        animateView(progressOverlay, View.GONE, 0, 200);
                     }
                 });
     }
