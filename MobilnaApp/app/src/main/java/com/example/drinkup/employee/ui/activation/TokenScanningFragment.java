@@ -57,7 +57,6 @@ public class TokenScanningFragment extends Fragment {
         activity.customizeActionBar(getString(R.string.token_scanning_fragment_title));
         cameraView = root.findViewById(R.id.cameraView);
         progressBarHolder = root.findViewById(R.id.loading);
-        activity.runOnUiThread(() -> progressBarHolder.setVisibility(View.GONE));
         toastMessageShown = false;
 
         cameraProviderFuture = ProcessCameraProvider.getInstance(getContext());
@@ -209,11 +208,6 @@ public class TokenScanningFragment extends Fragment {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 toastMessageShown = false;
             }
         }, 5000);

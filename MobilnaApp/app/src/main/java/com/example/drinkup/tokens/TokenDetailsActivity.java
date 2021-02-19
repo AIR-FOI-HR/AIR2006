@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,6 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.android.volley.VolleyError;
 import com.example.drinkup.R;
-import com.example.drinkup.employee.ui.list.OfferEditActivity;
 import com.example.drinkup.models.Objekt;
 import com.example.drinkup.models.Ponuda;
 import com.example.drinkup.models.Token;
@@ -34,9 +32,7 @@ import java.util.function.Consumer;
 
 public class TokenDetailsActivity extends AppCompatActivity {
 
-    RequestService service;
-    int currentUserId;
-    Token token;
+    private Token token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +44,15 @@ public class TokenDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatTextView) findViewById(R.id.actionBarTitle)).setText(R.string.token_details_activity_title);
 
-        service = new RequestService(getApplicationContext());
-
         token = (Token) getIntent().getSerializableExtra("token");
 
-        currentUserId = (int) getIntent().getSerializableExtra("userId");
+        int currentUserId = (int) getIntent().getSerializableExtra("userId");
 
         Ponuda ponuda = token.getPonuda();
         Objekt objektPonude = ponuda.getObjekt();
 
         TextView textViewNaslovPonude = findViewById(R.id.textViewPonudaNaslov);
         textViewNaslovPonude.setText(ponuda.getNaslov());
-
-        Bitmap bitmapaQrKodSlike = getBitmapFromBase64String(token.getQr());
-        ImageView imageViewQrKodTokena = findViewById(R.id.slikaQrKoda);
-        imageViewQrKodTokena.setImageBitmap(bitmapaQrKodSlike);
 
         TextView textViewOpisPonude = findViewById(R.id.textViewPonudaOpis);
         textViewOpisPonude.setText(ponuda.getOpis());
@@ -78,6 +68,10 @@ public class TokenDetailsActivity extends AppCompatActivity {
 
         TextView textViewCijenaPonude = findViewById(R.id.textViewPonudaCijena);
         textViewCijenaPonude.setText(String.format("%.2f kn", ponuda.getCijena()));
+
+        Bitmap bitmapaQrKodSlike = getBitmapFromBase64String(token.getQr());
+        ImageView imageViewQrKodTokena = findViewById(R.id.slikaQrKoda);
+        imageViewQrKodTokena.setImageBitmap(bitmapaQrKodSlike);
 
         Button deleteTokenButton = findViewById(R.id.deleteToken);
         deleteTokenButton.setOnClickListener(new View.OnClickListener() {

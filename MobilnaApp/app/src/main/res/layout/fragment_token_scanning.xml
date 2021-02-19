@@ -18,6 +18,7 @@
         android:alpha="0.4"
         android:animateLayoutChanges="true"
         android:background="#000000"
+        android:visibility="gone"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp"
         >
